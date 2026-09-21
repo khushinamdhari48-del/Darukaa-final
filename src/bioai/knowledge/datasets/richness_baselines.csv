@@ -1,0 +1,23 @@
+land_use,climate_zone,taxon,expected_min,expected_max,unit,notes,source
+cropland,semi_arid,vascular_plants,8,25,species per 100 m2,"Monoculture with herbicide use sits at the low end; diversified rainfed systems at the high end.",PREDICTS-derived land-use gradient (Newbold et al. 2015)
+cropland,dry_subhumid,vascular_plants,12,35,species per 100 m2,"Arable weed flora richness; strongly herbicide-sensitive.",Newbold et al. 2015
+cropland,humid,vascular_plants,15,45,species per 100 m2,"Higher regional pool; faster colonisation of margins.",Newbold et al. 2015
+agroforestry,semi_arid,vascular_plants,20,50,species per 100 m2,"Understorey plus woody layer; parkland systems support a distinct herbaceous assemblage.",Kuyah et al. 2019
+agroforestry,humid,vascular_plants,35,90,species per 100 m2,"Shade-tolerant understorey adds substantially to the crop-layer flora.",Kuyah et al. 2019
+grassland,semi_arid,vascular_plants,15,40,species per 100 m2,"Grazing history determines whether moderate grazing raises or lowers richness.",Milchunas & Lauenroth 1993
+grassland,dry_subhumid,vascular_plants,20,55,species per 100 m2,"Species-rich semi-natural grassland reaches the top of this band only under low nutrient input.",Bobbink et al. 2010
+forest,humid,vascular_plants,60,250,species per 100 m2,"Tropical moist forest; wide variation with elevation and disturbance history.",Newbold et al. 2015
+forest,montane,vascular_plants,40,150,species per 100 m2,"High endemism; richness lower than lowland but turnover higher.",Newbold et al. 2015
+degraded_barren,arid,vascular_plants,2,10,species per 100 m2,"Crusted or eroded surfaces; recruitment limited by infiltration rather than by seed supply.",Vohland & Barry 2009
+cropland,semi_arid,wild_bees,5,20,species per site season,"Isolation from semi-natural habitat is the dominant predictor within this band.",Ricketts et al. 2008
+cropland,dry_subhumid,wild_bees,8,30,species per site season,"Flower-strip and hedgerow presence shifts sites toward the upper bound.",Albrecht et al. 2020
+agroforestry,semi_arid,wild_bees,15,45,species per site season,"Woody flowering layer extends the floral resource window.",Albrecht et al. 2020
+orchard,dry_subhumid,wild_bees,10,40,species per site season,"Mass-flowering crop supports a seasonal pulse only; nesting habitat is usually limiting.",Garibaldi et al. 2013
+cropland,semi_arid,birds,10,30,breeding species per 10 ha,"Ground-nesting species depend on undisturbed margins during the breeding window.",Geiger et al. 2010
+cropland,dry_subhumid,birds,15,45,breeding species per 10 ha,"Hedgerow density is the strongest single on-farm predictor.",Bengtsson et al. 2005
+agroforestry,semi_arid,birds,20,55,breeding species per 10 ha,"Vertical structure adds foraging and nesting guilds absent from open cropland.",Kuyah et al. 2019
+forest,humid,birds,60,180,breeding species per 10 ha,"Includes interior specialists lost from fragments below a few hundred hectares.",Haddad et al. 2015
+grassland,semi_arid,birds,8,25,breeding species per 10 ha,"Structural heterogeneity within the sward matters more than mean sward height.",Filazzola et al. 2020
+cropland,semi_arid,earthworms,0,40,individuals per m2,"Conventional tillage with residue removal frequently reduces populations to near zero.",Bardgett & van der Putten 2014
+cropland,dry_subhumid,earthworms,20,120,individuals per m2,"Reduced tillage with residue retention moves sites to the upper bound within 3-5 years.",Poeplau & Don 2015
+grassland,dry_subhumid,earthworms,100,400,individuals per m2,"Permanent cover with moderate grazing supports the highest populations.",Bardgett & van der Putten 2014

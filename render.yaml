@@ -1,0 +1,18 @@
+# Render.com blueprint. Deploys with no secrets: the engine is fully functional
+# without an API key. Add ANTHROPIC_API_KEY in the dashboard to enable the
+# natural-language parsing and narration layer.
+services:
+  - type: web
+    name: bioai-biodiversity-engine
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: BIOAI_EMBEDDER
+        value: hashed_tfidf
+      - key: BIOAI_VECTOR_BACKEND
+        value: numpy
+      - key: ANTHROPIC_API_KEY
+        sync: false

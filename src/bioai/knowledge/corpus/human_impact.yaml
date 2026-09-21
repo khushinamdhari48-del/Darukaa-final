@@ -1,0 +1,501 @@
+# Human impact: pesticides, nutrient loading, grazing pressure, invasive species,
+# and deforestation. These cards drive the pressure-side diagnoses.
+
+- id: ev-pesticides-regional-biodiversity
+  claim: >
+    Pesticide concentrations at levels accepted by current regulatory thresholds are
+    associated with regional losses of 27-42% of invertebrate family richness in
+    streams draining agricultural land.
+  mechanism: >
+    Regulatory thresholds are derived from single-species laboratory tests on
+    tolerant model organisms and do not capture sensitive taxa, sublethal effects on
+    reproduction and drift behaviour, or repeated pulse exposure. Sensitive families
+    such as stoneflies and mayflies are lost first, which removes functional groups
+    from the detrital processing chain, so richness loss translates into altered
+    ecosystem function, not only a shorter species list.
+  domain: human_impact
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [20, 40]
+      time_to_effect_years: [1.0, 5.0]
+      measurement_context: "recovery achievable where pesticide loading to water bodies is substantially reduced"
+  applies_when:
+    - field: pesticide_applications_per_season
+      min: 1
+  caveats:
+    - "Evidence is from stream invertebrate communities in Europe and Australia; terrestrial thresholds differ."
+    - "Buffer strips reduce drift and runoff but not systemic uptake or groundwater pathways."
+  citation:
+    authors: "Beketov, M. A., Kefford, B. J., Schafer, R. B. & Liess, M."
+    year: 2013
+    title: "Pesticides reduce regional biodiversity of stream invertebrates"
+    venue: "Proceedings of the National Academy of Sciences 110:11039-11043"
+    doi: "10.1073/pnas.1305618110"
+    type: field_study
+  interventions: [ipm_pesticide_reduction, riparian_buffer, field_margin_setaside, neonicotinoid_phaseout]
+  tags: [pesticides, stream invertebrates, regulatory thresholds, family richness, buffer strips, sublethal]
+  text: >
+    Field studies in Germany, France and Australia found that pesticide contamination
+    caused statistically significant reductions in regional invertebrate family
+    richness, including at concentrations considered environmentally protective under
+    current regulation, indicating that existing thresholds underprotect freshwater
+    biodiversity.
+
+- id: ev-pesticides-farmland-biological-control
+  claim: >
+    Pesticide use has persistent negative effects on farmland biodiversity and on
+    the potential for biological pest control, and among the components of
+    agricultural intensification, insecticide and fungicide use has the most
+    consistently negative effect on wild plant, carabid and bird populations.
+  mechanism: >
+    Insecticides remove natural enemies as well as pests, and natural enemy
+    populations recover more slowly because they are at higher trophic levels with
+    lower reproductive rates. The result is a reinforcing dependency: each
+    application degrades the biological control that would otherwise reduce the need
+    for the next one, which is why pesticide reduction has to be staged with
+    habitat provision rather than done abruptly.
+  domain: human_impact
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [15, 40]
+      time_to_effect_years: [2.0, 6.0]
+    - metric: bird_species_count
+      direction: increase
+      relative_change_pct: [10, 35]
+      time_to_effect_years: [3.0, 8.0]
+  applies_when:
+    - field: pesticide_applications_per_season
+      min: 2
+  caveats:
+    - "Abrupt withdrawal without established natural enemy populations or resistant varieties risks pest outbreaks."
+    - "Herbicide reduction raises weed competition and needs a mechanical or cover-crop substitute."
+  citation:
+    authors: "Geiger, F., Bengtsson, J., Berendse, F., Weisser, W. W., Emmerson, M., Morales, M. B., Ceryngier, P., Liira, J., Tscharntke, T., Winqvist, C. et al."
+    year: 2010
+    title: "Persistent negative effects of pesticides on biodiversity and biological control potential on European farmland"
+    venue: "Basic and Applied Ecology 11:97-105"
+    doi: "10.1016/j.baae.2009.12.001"
+    type: field_study
+  interventions: [ipm_pesticide_reduction, beetle_banks, flower_strips, hedgerow_establishment]
+  tags: [pesticides, biological control, carabids, birds, intensification, trophic lag, staged reduction]
+  text: >
+    A study across 153 agricultural fields in eight European regions found that among
+    13 components of agricultural intensification, insecticide and fungicide use had
+    the most consistent negative effects on wild plant, carabid and ground-nesting
+    bird populations and on the potential for biological pest control.
+
+- id: ev-neonicotinoid-wild-bees
+  claim: >
+    Neonicotinoid seed treatments are associated with reduced reproductive success in
+    wild bees and reduced overwintering survival in honey bee colonies, with effects
+    varying by country and by background stress.
+  mechanism: >
+    Systemic neonicotinoids translocate into pollen and nectar, so foragers receive
+    chronic sublethal doses that impair navigation, learning and brood production.
+    Because effects are sublethal and expressed at the colony or population level,
+    they are invisible to acute-toxicity testing and become detectable only in
+    multi-season landscape-scale studies.
+  domain: human_impact
+  effects:
+    - metric: pollinator_activity
+      direction: increase
+      relative_change_pct: [10, 40]
+      time_to_effect_years: [1.0, 4.0]
+      measurement_context: "recovery expected following withdrawal, contingent on floral resource availability"
+  applies_when:
+    - field: pesticide_applications_per_season
+      min: 1
+  caveats:
+    - "Results were country-dependent, with negative effects in two of three countries studied."
+    - "Withdrawal must be paired with alternative pest management or the pest pressure simply shifts."
+  citation:
+    authors: "Woodcock, B. A., Bullock, J. M., Shore, R. F., Heard, M. S., Pereira, M. G., Redhead, J., Ridding, L., Dean, H., Sleep, D., Henrys, P. et al."
+    year: 2017
+    title: "Country-specific effects of neonicotinoid pesticides on honey bees and wild bees"
+    venue: "Science 356:1393-1395"
+    doi: "10.1126/science.aaa1190"
+    type: field_study
+  interventions: [neonicotinoid_phaseout, ipm_pesticide_reduction, flower_strips]
+  tags: [neonicotinoids, wild bees, honey bees, sublethal, seed treatment, overwintering, landscape experiment]
+  text: >
+    A large-scale field experiment across the UK, Germany and Hungary found
+    country-specific but largely negative effects of neonicotinoid-treated oilseed
+    rape on honey bee colony outcomes and on wild bee reproduction, with the direction
+    of effect associated with background environmental conditions.
+
+- id: ev-nitrogen-deposition-plant-diversity
+  claim: >
+    Chronic nitrogen addition or deposition reduces plant species richness in
+    nutrient-poor ecosystems, with significant losses detectable at deposition rates
+    of 5-20 kg N/ha/yr and richness declines of 10-25% at moderate loads.
+  mechanism: >
+    Nitrogen enrichment shifts competition from belowground nutrient capture to
+    aboveground light capture. A few fast-growing nitrophilous species overtop the
+    canopy and shade out the low-stature, slow-growing specialists that characterise
+    nutrient-poor communities. Because the mechanism is competitive exclusion via
+    light, not toxicity, the loss is progressive and only slowly reversible even
+    after deposition stops.
+  domain: human_impact
+  effects:
+    - metric: species_richness_observed
+      direction: decrease
+      relative_change_pct: [10, 25]
+      time_to_effect_years: [3.0, 15.0]
+      measurement_context: "plant richness in nutrient-poor grassland and heath under chronic N loading"
+  applies_when:
+    - field: land_use
+      allowed: [grassland, pasture, wetland, forest]
+  caveats:
+    - "Does not apply to already nutrient-rich systems, where richness is not N-limited."
+    - "Recovery after cessation is slow and may require biomass removal to export accumulated nitrogen."
+  citation:
+    authors: "Bobbink, R., Hicks, K., Galloway, J., Spranger, T., Alkemade, R., Ashmore, M., Bustamante, M., Cinderby, S., Davidson, E., Dentener, F. et al."
+    year: 2010
+    title: "Global assessment of nitrogen deposition effects on terrestrial plant diversity: a synthesis"
+    venue: "Ecological Applications 20:30-59"
+    doi: "10.1890/08-1140.1"
+    type: systematic_review
+  interventions: [nitrogen_rate_optimization, grazing_rotational_management, native_grass_reseeding]
+  tags: [nitrogen deposition, plant diversity, critical load, competitive exclusion, light competition, nutrient-poor]
+  text: >
+    A global synthesis of nitrogen addition experiments and deposition gradients
+    established empirical critical loads for a wide range of ecosystem types, most
+    falling between 5 and 20 kg N/ha/yr, above which characteristic plant species
+    composition changes measurably.
+
+- id: ev-nitrogen-low-level-chronic
+  claim: >
+    Even low-level chronic nitrogen addition (10 kg N/ha/yr) caused a loss of over
+    17% of plant species in prairie grassland over 23 years, with losses continuing
+    throughout the experiment.
+  mechanism: >
+    Species loss is cumulative because each year of enrichment further favours the
+    same dominant competitors and depletes the seedbank of displaced species. The
+    long lag means short experiments systematically underestimate the effect, and it
+    means a site can be accumulating committed species loss with no currently visible
+    change.
+  domain: human_impact
+  effects:
+    - metric: species_richness_observed
+      direction: decrease
+      relative_change_pct: [15, 30]
+      time_to_effect_years: [10.0, 25.0]
+  applies_when:
+    - field: land_use
+      allowed: [grassland, pasture]
+  caveats:
+    - "Single-site long-term experiment in North American prairie; the magnitude should not be transferred directly to other biomes."
+  citation:
+    authors: "Clark, C. M. & Tilman, D."
+    year: 2008
+    title: "Loss of plant species after chronic low-level nitrogen deposition to prairie grasslands"
+    venue: "Nature 451:712-715"
+    doi: "10.1038/nature06503"
+    type: long_term_experiment
+  interventions: [nitrogen_rate_optimization, native_grass_reseeding, grazing_rotational_management]
+  tags: [nitrogen, chronic low level, prairie, species loss, lag, long-term experiment, seedbank]
+  text: >
+    A 23-year nitrogen-addition experiment in Minnesota grasslands found that the
+    lowest addition rate tested, comparable to atmospheric deposition in industrialised
+    regions, reduced plant species numbers by more than 17%, with continuing decline
+    and no evidence of a new equilibrium.
+
+- id: ev-nutrient-use-efficiency-4r
+  claim: >
+    Global nitrogen use efficiency in cropping is roughly 50%, so about half of
+    applied nitrogen is lost to air and water; matching rate, timing, placement and
+    form to crop demand can cut losses by 20-50% with no yield penalty.
+  mechanism: >
+    Losses occur when soluble nitrogen is present in the soil while crop uptake
+    demand is low, and are driven by nitrate leaching under drainage and
+    denitrification under saturation. Splitting applications to track the crop uptake
+    curve, placing fertiliser in the root zone, and using stabilised or slow-release
+    forms all shorten the window during which loss-vulnerable nitrogen is present.
+    The intervention is therefore about synchronisation, not simply lower rates.
+  domain: human_impact
+  effects:
+    - metric: fertilizer_n_kg_ha_yr
+      direction: decrease
+      relative_change_pct: [15, 40]
+      time_to_effect_years: [0.5, 3.0]
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [5, 20]
+      time_to_effect_years: [3.0, 10.0]
+      measurement_context: "downstream and field-margin plant and aquatic communities"
+  applies_when:
+    - field: fertilizer_n_kg_ha_yr
+      min: 60
+  caveats:
+    - "In nitrogen-deficient smallholder systems the correct recommendation is often to increase, not reduce, nitrogen supply."
+    - "Requires soil or tissue testing to implement responsibly; blind rate cuts risk yield and soil nitrogen mining."
+  citation:
+    authors: "Sutton, M. A., Bleeker, A., Howard, C. M., Bekunda, M., Grizzetti, B., de Vries, W., van Grinsven, H. J. M., Abrol, Y. P., Adhya, T. K., Billen, G. et al."
+    year: 2013
+    title: "Our Nutrient World: The challenge to produce more food and energy with less pollution"
+    venue: "Global Overview of Nutrient Management, Centre for Ecology and Hydrology on behalf of the Global Partnership on Nutrient Management and the International Nitrogen Initiative"
+    url: "https://www.unep.org/resources/report/our-nutrient-world-challenge-produce-more-food-and-energy-less-pollution"
+    type: global_assessment
+  interventions: [nitrogen_rate_optimization, legume_cover_crops, riparian_buffer, mycorrhiza_management]
+  tags: [nitrogen use efficiency, 4R, leaching, denitrification, synchronisation, nutrient pollution, deficiency]
+  text: >
+    The Our Nutrient World assessment reports global nitrogen use efficiency of
+    approximately 50% in crop production, quantifies the resulting air and water
+    pollution burden, and sets out improved nutrient management, including matching
+    supply to demand in rate, timing, placement and form, as the principal response.
+
+- id: ev-grazing-intensity-global
+  claim: >
+    Grazing effects on vegetation and soils depend on evolutionary grazing history
+    and precipitation; in systems without a long grazing history or in arid systems,
+    moderate to heavy grazing reduces plant cover and soil carbon, while in
+    long-grazed subhumid grasslands moderate grazing can maintain or increase
+    diversity.
+  mechanism: >
+    Where herbivory has been a long-standing selective pressure, plant communities
+    contain grazing-tolerant growth forms and moderate defoliation suppresses
+    competitive dominants, raising diversity. Where it has not, grazing acts as a
+    novel disturbance and removes the dominant native flora. Arid systems recover
+    slowly because regrowth is water-limited, so the same stocking rate produces very
+    different outcomes across sites. Stocking rate alone is therefore never a
+    sufficient description of grazing pressure.
+  domain: human_impact
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [10, 40]
+      time_to_effect_years: [3.0, 10.0]
+      measurement_context: "where destocking or rest is applied to an overgrazed arid or short-history system"
+    - metric: soil_organic_carbon_pct
+      direction: increase
+      relative_change_pct: [5, 25]
+      time_to_effect_years: [4.0, 12.0]
+  applies_when:
+    - field: land_use
+      allowed: [grassland, pasture, agroforestry]
+  caveats:
+    - "Complete grazing exclusion in long-grazed systems can reduce diversity by allowing competitive dominants to close the sward."
+    - "Recommendations must distinguish stocking rate from grazing distribution and timing."
+  citation:
+    authors: "Milchunas, D. G. & Lauenroth, W. K."
+    year: 1993
+    title: "Quantitative effects of grazing on vegetation and soils over a global range of environments"
+    venue: "Ecological Monographs 63:327-366"
+    doi: "10.2307/2937150"
+    type: meta_analysis
+  interventions: [grazing_rotational_management, grazing_exclosure_rest, native_grass_reseeding, silvopasture]
+  tags: [grazing, stocking rate, evolutionary history, aridity, plant cover, soil carbon, rest]
+  text: >
+    A global comparative analysis of 236 grazing studies found that vegetation and
+    soil responses to grazing were predicted by aboveground net primary production and
+    by evolutionary history of grazing, and that the direction of the diversity
+    response to grazing intensity differed systematically among these contexts.
+
+- id: ev-grazing-multitrophic
+  claim: >
+    Livestock grazing effects on biodiversity are multi-trophic and taxon-dependent:
+    grazing generally reduces plant biomass and invertebrate abundance, but effects
+    on richness vary in sign, with intermediate intensities often supporting the most
+    species.
+  mechanism: >
+    Grazing simultaneously removes biomass, which reduces habitat structure for
+    invertebrates, and reduces competitive exclusion among plants, which can increase
+    plant richness. The two effects act on different trophic levels, so an
+    intervention optimal for plants can be suboptimal for invertebrates and the birds
+    depending on them. Explicit choice of target taxa is therefore unavoidable in
+    grazing recommendations.
+  domain: human_impact
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [5, 30]
+      time_to_effect_years: [2.0, 8.0]
+      measurement_context: "moving from heavy continuous to intermediate rotational grazing"
+  applies_when:
+    - field: grazing_intensity_lsu_ha
+      min: 0.2
+  caveats:
+    - "Optimal intensity differs among taxa; a single stocking rate cannot maximise all groups."
+    - "Structural heterogeneity within the paddock often matters more than mean intensity."
+  citation:
+    authors: "Filazzola, A., Brown, C., Dettlaff, M. A., Batbaatar, A., Grenke, J., Bao, T., Heida, I. P. & Cahill, J. F."
+    year: 2020
+    title: "The effects of livestock grazing on biodiversity are multi-trophic: a meta-analysis"
+    venue: "Ecology Letters 23:1298-1309"
+    doi: "10.1111/ele.13527"
+    type: meta_analysis
+  interventions: [grazing_rotational_management, grazing_exclosure_rest, silvopasture]
+  tags: [grazing, multi-trophic, invertebrates, richness, intermediate disturbance, heterogeneity]
+  text: >
+    A meta-analysis of grazing effects across trophic levels found that grazing
+    reduced plant biomass and invertebrate abundance while producing variable
+    richness responses, and concluded that grazing management for biodiversity must
+    specify the target trophic group.
+
+- id: ev-rotational-grazing-soil-hydrology
+  claim: >
+    Adaptive multi-paddock and rotational grazing with adequate rest periods is
+    associated with higher soil organic carbon, higher fungal-to-bacterial ratios,
+    greater soil aggregate stability and higher infiltration than heavy continuous
+    grazing.
+  mechanism: >
+    Rest allows photosynthetic recovery and root regrowth, which restores the carbon
+    input that continuous grazing truncates. Reduced trampling during rest allows
+    aggregates and macropores to re-form, raising infiltration and reducing runoff. The
+    active variable is recovery time relative to regrowth rate, which is why the same
+    rotation schedule can succeed in a wet year and fail in a dry one.
+  domain: human_impact
+  effects:
+    - metric: soil_organic_carbon_pct
+      direction: increase
+      relative_change_pct: [10, 30]
+      time_to_effect_years: [4.0, 12.0]
+    - metric: soil_moisture_pct
+      direction: increase
+      relative_change_pct: [10, 30]
+      time_to_effect_years: [2.0, 6.0]
+    - metric: soil_bulk_density_g_cm3
+      direction: decrease
+      relative_change_pct: [3, 12]
+      time_to_effect_years: [3.0, 8.0]
+  applies_when:
+    - field: land_use
+      allowed: [grassland, pasture, agroforestry]
+    - field: grazing_intensity_lsu_ha
+      min: 0.3
+  caveats:
+    - "Benefits depend on matching rest period to regrowth rate; fixed rotations in variable-rainfall systems can perform worse than flexible continuous grazing."
+    - "Comparisons in the literature frequently confound rotation with a reduction in overall stocking rate."
+    - "Requires fencing or herding infrastructure and daily management attention."
+  citation:
+    authors: "Teague, W. R., Dowhower, S. L., Baker, S. A., Haile, N., DeLaune, P. B. & Conover, D. M."
+    year: 2011
+    title: "Grazing management impacts on vegetation, soil biota and soil chemical, physical and hydrological properties in tall grass prairie"
+    venue: "Agriculture, Ecosystems & Environment 141:310-322"
+    doi: "10.1016/j.agee.2011.03.009"
+    type: field_study
+  interventions: [grazing_rotational_management, grazing_exclosure_rest, native_grass_reseeding]
+  tags: [rotational grazing, rest period, soil carbon, fungal bacterial ratio, infiltration, bulk density, confounding]
+  text: >
+    Comparison of heavy continuous, light continuous and multi-paddock grazing on
+    tall grass prairie found higher soil organic matter, more favourable soil biotic
+    composition, better aggregate stability and higher infiltration under multi-paddock
+    management with planned rest, alongside greater cover of desirable perennial grasses.
+
+- id: ev-deforestation-biodiversity-carbon-loss
+  claim: >
+    Tropical deforestation and forest degradation drive immediate carbon emissions
+    and species loss, and forest fragmentation at the margins causes continued
+    biomass and biodiversity loss for decades after clearing stops.
+  mechanism: >
+    Edge creation alters microclimate up to hundreds of metres into the remaining
+    forest, causing elevated tree mortality and desiccation and favouring pioneer and
+    generalist species. This edge-driven degradation means the effective area of
+    habitat lost exceeds the area cleared, so a site-level recommendation must count
+    edge, not just cleared hectares.
+  domain: human_impact
+  effects:
+    - metric: deforestation_last_5yr_pct
+      direction: decrease
+      relative_change_pct: [50, 100]
+      time_to_effect_years: [0.5, 3.0]
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [20, 60]
+      time_to_effect_years: [5.0, 25.0]
+      measurement_context: "where clearing is halted and edges are buffered by regeneration"
+  applies_when:
+    - field: deforestation_last_5yr_pct
+      min: 1
+  caveats:
+    - "Halting clearing prevents further loss but does not recover the extinction debt already incurred."
+    - "Leakage: protecting one parcel can displace clearing elsewhere unless demand drivers are addressed."
+  citation:
+    authors: "IPBES"
+    year: 2019
+    title: "Global Assessment Report on Biodiversity and Ecosystem Services"
+    venue: "Intergovernmental Science-Policy Platform on Biodiversity and Ecosystem Services, Bonn"
+    doi: "10.5281/zenodo.6417333"
+    type: global_assessment
+  interventions: [assisted_natural_regeneration, habitat_corridor, riparian_buffer, invasive_species_control]
+  tags: [deforestation, degradation, edge effects, carbon emissions, extinction debt, leakage]
+  text: >
+    The IPBES Global Assessment documents continuing loss and degradation of forest
+    and other natural ecosystems as the leading driver of terrestrial biodiversity
+    loss, and identifies halting conversion together with restoration of degraded land
+    as the highest-leverage land-based responses.
+
+- id: ev-invasive-species-impact
+  claim: >
+    Invasive alien species are a major direct driver of biodiversity loss and can
+    arrest succession, alter fire and nutrient cycling regimes, and prevent
+    restoration from proceeding even where all other conditions are favourable.
+  mechanism: >
+    Aggressive exotic grasses and shrubs form dense monospecific swards that
+    intercept light and moisture at the seedling layer, blocking native recruitment,
+    and many increase fine-fuel loads, raising fire frequency to a level native woody
+    species cannot tolerate. This creates a self-reinforcing alternative stable state,
+    so invasive control is frequently a precondition for, not an alternative to, other
+    restoration measures.
+  domain: human_impact
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [15, 50]
+      time_to_effect_years: [2.0, 8.0]
+      measurement_context: "where invasive dominance is the limiting factor and native propagules are available"
+  applies_when:
+    - field: invasive_species_present
+      allowed: ["true"]
+  caveats:
+    - "Removal without replacement planting or a native seed source can produce reinvasion or bare-soil erosion."
+    - "Control is typically recurring, not one-off; budget for a multi-year follow-up regime."
+  citation:
+    authors: "IPBES"
+    year: 2019
+    title: "Global Assessment Report on Biodiversity and Ecosystem Services"
+    venue: "Intergovernmental Science-Policy Platform on Biodiversity and Ecosystem Services, Bonn"
+    doi: "10.5281/zenodo.6417333"
+    type: global_assessment
+  interventions: [invasive_species_control, assisted_natural_regeneration, native_grass_reseeding]
+  tags: [invasive species, arrested succession, fire regime, alternative stable state, precondition, reinvasion]
+  text: >
+    The IPBES Global Assessment ranks invasive alien species among the five direct
+    drivers of biodiversity loss, documents accelerating introduction rates, and notes
+    that invasive species interact with land-use change and climate change to amplify
+    impacts on native communities.
+
+- id: ev-land-degradation-neutrality
+  claim: >
+    Land degradation affects a large share of the terrestrial ice-free surface and
+    reduces productivity and biodiversity; degradation is best assessed through the
+    joint trajectory of land cover, land productivity and soil organic carbon rather
+    than any single indicator.
+  mechanism: >
+    Degradation manifests differently depending on which process dominates, so a
+    single indicator misses cases: productivity can hold up under irrigation while
+    soil carbon and biodiversity collapse, and land cover can appear stable while
+    productivity declines. Using three indicators jointly captures the common cases
+    and is the basis of the internationally adopted land degradation neutrality
+    framework.
+  domain: land_use
+  effects: []
+  applies_when: []
+  caveats:
+    - "Global degradation estimates vary widely by method and definition; use them for framing, not site diagnosis."
+  citation:
+    authors: "UNCCD"
+    year: 2017
+    title: "Global Land Outlook, First Edition"
+    venue: "United Nations Convention to Combat Desertification, Bonn"
+    url: "https://www.unccd.int/resources/global-land-outlook/overview"
+    type: global_assessment
+  interventions: [assisted_natural_regeneration, contour_bunding, organic_amendment, rainwater_harvesting_zai]
+  tags: [land degradation, LDN, indicators, land cover, productivity, soil organic carbon, UNCCD]
+  text: >
+    The Global Land Outlook sets out the land degradation neutrality framework,
+    adopting land cover, land productivity dynamics and soil organic carbon stock as
+    the three core indicators for monitoring degradation and restoration, and
+    documents the linked consequences for biodiversity, water and livelihoods.

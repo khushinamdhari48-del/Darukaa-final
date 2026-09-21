@@ -1,0 +1,19 @@
+{
+  "_comment": "Salt-affected flood-irrigated cotton over a shallow water table. Tests the drainage-before-amendment sequencing constraint, where getting the order wrong wastes the whole intervention.",
+  "land_use": "cropland",
+  "primary_crop": "cotton",
+  "cropping_system": "monoculture",
+  "irrigation": "flood",
+  "salinity_ec_ds_m": 9.0,
+  "soil_ph": 8.4,
+  "water_table_depth_m": 1.2,
+  "annual_rainfall_mm": 300,
+  "soil_organic_carbon_pct": 0.6,
+  "soil_bulk_density_g_cm3": 1.6,
+  "soil_texture": "clay",
+  "area_ha": 15,
+  "fertilizer_n_kg_ha_yr": 180,
+  "pesticide_applications_per_season": 6,
+  "objectives": ["maintain or raise production", "erosion control"],
+  "constraints": []
+}

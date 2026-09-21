@@ -1,0 +1,529 @@
+# Water availability and climate evidence cards, including the water-biodiversity
+# coupling that makes dryland recommendations different from humid-zone ones.
+
+- id: ev-intermediate-tree-cover-recharge
+  claim: >
+    In seasonally dry tropics, groundwater recharge is maximised at intermediate
+    tree cover (roughly 5-20% canopy, or about 30-60 trees per hectare) rather than
+    at zero or high cover.
+  mechanism: >
+    Trees exert two opposing hydrological effects. They increase transpiration, which
+    removes water, but their coarse roots, macrofauna activity and litter cover create
+    preferential flow paths that multiply infiltration and reduce runoff. At low cover
+    the infiltration gain dominates; beyond a threshold, transpiration losses dominate.
+    The optimum is therefore an interior maximum, which directly contradicts both
+    "clear the trees to save water" and "plant as many trees as possible".
+  domain: water
+  effects:
+    - metric: water_table_depth_m
+      direction: decrease
+      relative_change_pct: [5, 25]
+      time_to_effect_years: [4.0, 12.0]
+      measurement_context: "shallower water table = greater recharge, seasonally dry tropics"
+    - metric: soil_moisture_pct
+      direction: increase
+      relative_change_pct: [10, 30]
+      time_to_effect_years: [3.0, 8.0]
+  applies_when:
+    - field: annual_rainfall_mm
+      min: 400
+      max: 1200
+    - field: climate_zone
+      allowed: [semi_arid, dry_subhumid, subhumid]
+  caveats:
+    - "The optimum canopy fraction is site-specific and depends on species water use, soil depth and rainfall intensity."
+    - "Deep-rooted high-water-use species such as eucalypts can push a site past the optimum at low canopy cover."
+  citation:
+    authors: "Ilstedt, U., Bargues Tobella, A., Bazie, H. R., Bayala, J., Verbeeten, E., Nyberg, G., Sanou, J., Benegas, L., Murdiyarso, D., Laudon, H. et al."
+    year: 2016
+    title: "Intermediate tree cover can maximize groundwater recharge in the seasonally dry tropics"
+    venue: "Scientific Reports 6:21930"
+    doi: "10.1038/srep21930"
+    type: field_study
+  interventions: [fmnr_natural_regeneration, faidherbia_parkland, agroforestry_alley_cropping, windbreak_shelterbelt]
+  tags: [groundwater recharge, tree cover, optimum, infiltration, transpiration, seasonally dry tropics, non-linear]
+  text: >
+    Measurements in a semi-arid agroforestry parkland combined with a water-balance
+    model showed that groundwater recharge peaked at intermediate tree cover, because
+    improvements in soil hydraulic properties beneath tree canopies outweighed
+    additional transpiration up to a threshold canopy fraction. The finding reframes
+    tree planting in drylands as an optimisation rather than a maximisation problem.
+
+- id: ev-tree-preferential-flow
+  claim: >
+    Soil infiltrability beneath trees in semi-arid parklands is several-fold higher
+    than in open cropped areas, and the difference is driven by preferential flow
+    paths rather than by texture.
+  mechanism: >
+    Tree root channels, termite and earthworm galleries, and litter-protected surface
+    structure create continuous macropores that conduct water rapidly below the
+    evaporative zone. Litter cover also prevents raindrop-impact crusting, which is
+    the dominant infiltration barrier on bare dryland soils. The mechanism is
+    biological structure, so it is lost quickly if the tree is removed or the
+    understorey is heavily grazed.
+  domain: water
+  effects:
+    - metric: soil_moisture_pct
+      direction: increase
+      relative_change_pct: [15, 50]
+      time_to_effect_years: [2.0, 8.0]
+      measurement_context: "subsurface moisture below the evaporative zone, beneath canopy"
+  applies_when:
+    - field: climate_zone
+      allowed: [arid, semi_arid, dry_subhumid]
+  caveats:
+    - "Heavy grazing or litter removal beneath the canopy eliminates most of the infiltration advantage."
+  citation:
+    authors: "Bargues Tobella, A., Reese, H., Almaw, A., Bayala, J., Malmer, A., Laudon, H. & Ilstedt, U."
+    year: 2014
+    title: "The effect of trees on preferential flow and soil infiltrability in an agroforestry parkland in semiarid Burkina Faso"
+    venue: "Water Resources Research 50:3342-3354"
+    doi: "10.1002/2013WR015197"
+    type: field_study
+  interventions: [fmnr_natural_regeneration, faidherbia_parkland, mulching, agroforestry_alley_cropping]
+  tags: [infiltration, preferential flow, macropores, termites, litter, crusting, parkland, Sahel]
+  text: >
+    Dye-tracer and infiltration measurements in a Burkina Faso parkland found
+    markedly higher infiltrability and deeper preferential flow beneath tree canopies
+    than in open areas, attributing the effect to root channels and faunal galleries
+    maintained by litter inputs.
+
+- id: ev-infiltration-alternative-management
+  claim: >
+    Soils under cover cropping, perennial vegetation, no-till with residue, and
+    integrated crop-livestock management show infiltration rates roughly 40-60%
+    higher than under conventional management.
+  mechanism: >
+    Continuous living cover maintains root channels and protects the surface from
+    raindrop impact, preventing the seal that forms on bare tilled soil. Higher
+    organic matter also stabilises aggregates so that macropores survive wetting.
+    Because runoff and infiltration are complementary, the same change simultaneously
+    reduces erosion and increases stored plant-available water, which is why this is
+    one of the highest-leverage interventions in variable-rainfall systems.
+  domain: water
+  effects:
+    - metric: soil_moisture_pct
+      direction: increase
+      relative_change_pct: [10, 35]
+      time_to_effect_years: [1.0, 4.0]
+    - metric: erosion_class
+      direction: decrease
+      relative_change_pct: [20, 60]
+      time_to_effect_years: [1.0, 4.0]
+  applies_when:
+    - field: land_use
+      allowed: [cropland, pasture, grassland, orchard, agroforestry]
+  caveats:
+    - "Compaction from machinery or livestock traffic can override the benefit of surface cover."
+    - "Measured infiltration varies by an order of magnitude with method; use a consistent method for before-after comparison."
+  citation:
+    authors: "Basche, A. D. & DeLonge, M. S."
+    year: 2019
+    title: "Comparing infiltration rates in soils managed with conventional and alternative farming methods: A meta-analysis"
+    venue: "PLOS ONE 14:e0215702"
+    doi: "10.1371/journal.pone.0215702"
+    type: meta_analysis
+  interventions: [legume_cover_crops, no_till_residue_retention, mulching, silvopasture, native_grass_reseeding]
+  tags: [infiltration, cover crops, perennials, no-till, runoff, erosion, surface sealing]
+  text: >
+    A meta-analysis of 89 studies found that perennial vegetation and cover crops
+    increased infiltration rates by 59% and 35% respectively relative to conventional
+    management, while no-till alone showed inconsistent effects unless combined with
+    residue cover.
+
+- id: ev-rainwater-harvesting-drylands
+  claim: >
+    In-situ rainwater harvesting structures such as planting pits, contour bunds and
+    half-moons raise crop water availability substantially in drylands and commonly
+    double to quadruple yields on degraded crusted soils.
+  mechanism: >
+    On crusted dryland soils the binding constraint is not rainfall total but the
+    fraction of rainfall that infiltrates before running off. Micro-catchment
+    structures intercept sheet flow and concentrate it at the planting station,
+    raising local infiltration well above the field average. Combining the structure
+    with a localised organic amendment addresses water and nutrient limitation
+    together, which is why the combination outperforms either alone by a wide margin.
+  domain: water
+  effects:
+    - metric: soil_moisture_pct
+      direction: increase
+      relative_change_pct: [20, 60]
+      time_to_effect_years: [0.5, 2.0]
+      measurement_context: "in the planting station / micro-catchment, not the whole field"
+    - metric: soil_organic_carbon_pct
+      direction: increase
+      relative_change_pct: [10, 40]
+      time_to_effect_years: [2.0, 6.0]
+      measurement_context: "when pits are charged with manure or compost"
+  applies_when:
+    - field: annual_rainfall_mm
+      min: 200
+      max: 800
+    - field: slope_pct
+      max: 15
+  caveats:
+    - "Labour intensity is high; pit systems typically need 200-400 person-hours per hectare to establish."
+    - "Downstream water users can be affected if harvesting is scaled across a catchment, which is a basin-level equity question."
+    - "On slopes above roughly 15% structures require engineered spillways to avoid breach and gully initiation."
+  citation:
+    authors: "Vohland, K. & Barry, B."
+    year: 2009
+    title: "A review of in situ rainwater harvesting (RWH) practices modifying landscape functions in African drylands"
+    venue: "Agriculture, Ecosystems & Environment 131:119-127"
+    doi: "10.1016/j.agee.2009.01.010"
+    type: systematic_review
+  interventions: [rainwater_harvesting_zai, contour_bunding, swale_infiltration, organic_amendment]
+  tags: [rainwater harvesting, zai pits, contour bunds, drylands, runoff, crusting, micro-catchment, labour]
+  text: >
+    A review of in-situ rainwater harvesting in African drylands documents large
+    increases in soil water availability and yields, notes concurrent increases in
+    vegetation cover and soil fauna, and flags labour requirements and downstream
+    hydrological effects as the principal constraints on scaling.
+
+- id: ev-rainfed-paradigm-shift
+  claim: >
+    In semi-arid rainfed systems, 70-85% of rainfall is commonly lost to
+    non-productive evaporation, deep drainage and runoff, so water-productivity gains
+    come mainly from redirecting these losses rather than from additional rainfall.
+  mechanism: >
+    Dry-spell mitigation, not seasonal rainfall total, determines yield in most
+    semi-arid seasons. Measures that increase infiltration and reduce soil-surface
+    evaporation convert a larger fraction of the same rainfall into transpiration.
+    Because dry spells occur in most seasons while total-rainfall failure is rarer,
+    investment in water partitioning has a higher expected return than investment in
+    drought-tolerant varieties alone.
+  domain: water
+  effects:
+    - metric: soil_moisture_pct
+      direction: increase
+      relative_change_pct: [15, 40]
+      time_to_effect_years: [1.0, 3.0]
+  applies_when:
+    - field: climate_zone
+      allowed: [arid, semi_arid, dry_subhumid]
+    - field: irrigation
+      allowed: [none, rainfed_supplemental]
+  caveats:
+    - "Supplemental irrigation from harvested water needs storage sized to bridge typical dry-spell length, not to the season."
+  citation:
+    authors: "Rockstrom, J., Karlberg, L., Wani, S. P., Barron, J., Hatibu, N., Oweis, T., Bruggeman, A., Farahani, J. & Qiang, Z."
+    year: 2010
+    title: "Managing water in rainfed agriculture - The need for a paradigm shift"
+    venue: "Agricultural Water Management 97:543-550"
+    doi: "10.1016/j.agwat.2009.09.009"
+    type: systematic_review
+  interventions: [rainwater_harvesting_zai, mulching, contour_bunding, no_till_residue_retention, farm_pond_wetland]
+  tags: [rainfed agriculture, water productivity, dry spell, evaporation loss, water partitioning, semi-arid]
+  text: >
+    A synthesis of rainfed agricultural water management argues that the dominant
+    opportunity lies in vapour-shift and runoff-capture measures that convert
+    non-productive water losses into transpiration, and that dry-spell mitigation
+    through supplemental irrigation from small storage has disproportionate yield impact.
+
+- id: ev-vegetation-drought-timescale
+  claim: >
+    Vegetation response to drought is mediated by the timescale of water deficit,
+    and arid and semi-arid biomes respond to short accumulation periods (1-3 months)
+    while humid and forested biomes respond to longer ones.
+  mechanism: >
+    Rooting depth and stored soil water buffer plants against deficit; shallow-rooted
+    dryland vegetation exhausts its buffer within weeks, while deep-rooted forest
+    vegetation draws on months of stored water. The practical consequence is that
+    dryland biodiversity is sensitive to intra-seasonal rainfall distribution, so
+    monthly or even decadal rainfall distribution is a more informative input than
+    the annual total.
+  domain: climate
+  effects: []
+  applies_when: []
+  caveats:
+    - "Derived from remote-sensing vegetation indices, which saturate at high biomass."
+  citation:
+    authors: "Vicente-Serrano, S. M., Gouveia, C., Camarero, J. J., Begueria, S., Trigo, R., Lopez-Moreno, J. I., Azorin-Molina, C., Pasho, E., Lorenzo-Lacruz, J., Revuelto, J. et al."
+    year: 2013
+    title: "Response of vegetation to drought time-scales across global land biomes"
+    venue: "Proceedings of the National Academy of Sciences 110:52-57"
+    doi: "10.1073/pnas.1207068110"
+    type: field_study
+  interventions: [rainwater_harvesting_zai, mulching, native_grass_reseeding, agroforestry_alley_cropping]
+  tags: [drought timescale, SPEI, rooting depth, arid biomes, rainfall distribution, vegetation response]
+  text: >
+    A global analysis relating vegetation activity to multi-scalar drought indices
+    found that arid and semi-arid biomes respond to short-timescale water deficits
+    while humid and forest biomes respond to longer accumulation periods, implying
+    that intra-seasonal rainfall distribution is the operative climate variable in
+    drylands.
+
+- id: ev-water-availability-species-interactions
+  claim: >
+    Water availability restructures dryland food webs: altered water supply changes
+    consumer-resource interactions and can shift community composition even when
+    total productivity is unchanged.
+  mechanism: >
+    In water-limited systems many animals meet water demand through prey and plant
+    tissue water rather than free water, so plant water content becomes a trophic
+    currency. Changing soil water therefore alters herbivore performance and
+    predator-prey rates independently of biomass, which means a site can lose
+    characteristic fauna while its vegetation cover appears stable.
+  domain: cross_cutting
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [10, 40]
+      time_to_effect_years: [2.0, 8.0]
+      measurement_context: "where water availability is the limiting factor for fauna"
+  applies_when:
+    - field: climate_zone
+      allowed: [arid, semi_arid, dry_subhumid]
+  caveats:
+    - "Creating permanent water in drylands can concentrate grazing pressure and favour generalists over specialists if not paired with grazing management."
+  citation:
+    authors: "McCluney, K. E., Belnap, J., Collins, S. L., Gonzalez, A. L., Hagen, E. M., Holland, J. N., Kotler, B. P., Maestre, F. T., Smith, S. D. & Wolf, B. O."
+    year: 2012
+    title: "Shifting species interactions in terrestrial dryland ecosystems under altered water availability and climate change"
+    venue: "Biological Reviews 87:563-582"
+    doi: "10.1111/j.1469-185X.2011.00209.x"
+    type: systematic_review
+  interventions: [farm_pond_wetland, rainwater_harvesting_zai, grazing_rotational_management, riparian_buffer]
+  tags: [dryland, water availability, food web, species interactions, trophic, free water, grazing concentration]
+  text: >
+    A review of dryland ecology argues that water availability acts on species
+    interactions directly, not only through productivity, and that changes in water
+    supply can reorganise communities and trophic structure, making water management a
+    biodiversity intervention in its own right.
+
+- id: ev-deforestation-flood-risk
+  claim: >
+    Loss of natural forest cover is associated with substantially increased flood
+    frequency and severity at the country scale, and with increased flood-related
+    damage and displacement.
+  mechanism: >
+    Forest removal reduces canopy interception, root-mediated infiltration and
+    surface roughness, so a larger fraction of rainfall becomes fast surface runoff
+    with a sharper hydrograph peak. Downstream, the same loss reduces baseflow in the
+    dry season, so deforestation increases both flood and drought exposure, which is
+    the coupling that makes riparian and upper-catchment cover disproportionately
+    valuable.
+  domain: water
+  effects: []
+  applies_when: []
+  caveats:
+    - "Country-scale correlational analysis; attribution at the individual catchment scale requires local hydrological data."
+  citation:
+    authors: "Bradshaw, C. J. A., Sodhi, N. S., Peh, K. S.-H. & Brook, B. W."
+    year: 2007
+    title: "Global evidence that deforestation amplifies flood risk and severity in the developing world"
+    venue: "Global Change Biology 13:2379-2395"
+    doi: "10.1111/j.1365-2486.2007.01446.x"
+    type: model
+  interventions: [riparian_buffer, assisted_natural_regeneration, contour_bunding, windbreak_shelterbelt]
+  tags: [deforestation, flood risk, runoff, interception, baseflow, catchment, hydrograph]
+  text: >
+    A cross-country analysis found that flood frequency was negatively correlated with
+    remaining natural forest area and positively correlated with natural forest loss,
+    after controlling for rainfall, slope and degraded land area, supporting a causal
+    role for forest cover in flood regulation.
+
+- id: ev-ipcc-srccl-land-measures
+  claim: >
+    Sustainable land management, including agroforestry, improved cropland and
+    grazing management and restoration of degraded land, can deliver mitigation
+    alongside adaptation benefits, with agroforestry among the measures assessed as
+    having high co-benefit potential and low risk of adverse side effects.
+  mechanism: >
+    Land-based measures act on the carbon cycle and the water and energy balance at
+    once: added woody cover stores carbon, lowers surface temperature through shading
+    and transpiration, and increases infiltration. Because the same structural change
+    drives mitigation, adaptation and habitat provision, these measures avoid the
+    trade-offs typical of single-purpose interventions such as large-scale
+    bioenergy plantation.
+  domain: climate
+  effects:
+    - metric: soil_organic_carbon_pct
+      direction: increase
+      relative_change_pct: [10, 40]
+      time_to_effect_years: [5.0, 20.0]
+    - metric: mean_annual_temp_c
+      direction: decrease
+      absolute_change: "local canopy shading can reduce understorey daytime maxima by 2-5 C"
+      time_to_effect_years: [4.0, 10.0]
+  applies_when: []
+  caveats:
+    - "Large-scale afforestation of native grassland or converting food cropland to bioenergy carries significant biodiversity and food-security risks."
+    - "Permanence and monitoring requirements apply to all soil and biomass carbon claims."
+  citation:
+    authors: "IPCC"
+    year: 2019
+    title: "Climate Change and Land: an IPCC Special Report on climate change, desertification, land degradation, sustainable land management, food security, and greenhouse gas fluxes in terrestrial ecosystems"
+    venue: "Intergovernmental Panel on Climate Change"
+    url: "https://www.ipcc.ch/srccl/"
+    type: global_assessment
+  interventions: [agroforestry_alley_cropping, silvopasture, assisted_natural_regeneration, grazing_rotational_management, no_till_residue_retention]
+  tags: [IPCC, SRCCL, land management, mitigation, adaptation, agroforestry, co-benefits, desertification]
+  text: >
+    The IPCC Special Report on Climate Change and Land assesses response options
+    across mitigation, adaptation, desertification, land degradation and food security,
+    identifying increased soil organic carbon, agroforestry and restoration of degraded
+    land as options with co-benefits across all five and limited adverse side effects
+    at moderate deployment scale.
+
+- id: ev-ipcc-ar6-afolu-potential
+  claim: >
+    The agriculture, forestry and other land use sector offers 8-14 GtCO2-eq/yr of
+    economic mitigation potential to 2050, of which improved cropland and grassland
+    soil carbon management and agroforestry are components with high confidence of
+    biodiversity co-benefits.
+  mechanism: >
+    Land-sector mitigation is delivered through avoided conversion, carbon-stock
+    enhancement in biomass and soil, and reduced non-CO2 emissions. Measures that
+    enhance stocks through structural diversification also add habitat, while measures
+    based on single-species plantation deliver carbon without habitat value. The
+    distinction is central to avoiding maladaptive carbon projects.
+  domain: climate
+  effects: []
+  applies_when: []
+  caveats:
+    - "Economic potential estimates are scenario- and carbon-price-dependent and should not be read as site-level yields."
+  citation:
+    authors: "IPCC"
+    year: 2022
+    title: "Climate Change 2022: Mitigation of Climate Change. Working Group III Contribution to the Sixth Assessment Report, Chapter 7: Agriculture, Forestry and Other Land Uses (AFOLU)"
+    venue: "Intergovernmental Panel on Climate Change, Cambridge University Press"
+    doi: "10.1017/9781009157926.009"
+    type: global_assessment
+  interventions: [agroforestry_alley_cropping, assisted_natural_regeneration, silvopasture, organic_amendment, mangrove_restoration]
+  tags: [IPCC, AR6, AFOLU, mitigation potential, soil carbon, agroforestry, co-benefits, plantation risk]
+  text: >
+    The AR6 WGIII AFOLU chapter assesses mitigation potential across land-based
+    measures, reporting that protection and restoration of natural ecosystems and
+    improved soil carbon management in croplands and grasslands carry the strongest
+    co-benefit profiles, while large-scale monoculture-based options carry
+    biodiversity risks.
+
+- id: ev-drip-irrigation-tradeoff
+  claim: >
+    Converting from flood or furrow to drip irrigation raises water productivity per
+    unit applied and reduces salinisation and waterlogging risk, but basin-scale
+    water savings are frequently smaller than field-scale savings imply.
+  mechanism: >
+    Flood irrigation losses are partly recoverable: percolation recharges the aquifer
+    that downstream users abstract. Drip eliminates the non-beneficial evaporation
+    component, which is a real saving, but also eliminates the recharge component,
+    which is a transfer rather than a saving. Efficiency gains are also frequently
+    reinvested in expanded irrigated area, so total basin depletion can rise.
+  domain: water
+  effects:
+    - metric: salinity_ec_ds_m
+      direction: decrease
+      relative_change_pct: [10, 40]
+      time_to_effect_years: [2.0, 6.0]
+      measurement_context: "where waterlogging-driven secondary salinisation is the mechanism"
+    - metric: soil_moisture_pct
+      direction: increase
+      relative_change_pct: [5, 20]
+      time_to_effect_years: [0.5, 2.0]
+      measurement_context: "root-zone moisture stability, not total water stored"
+  applies_when:
+    - field: irrigation
+      allowed: [flood, furrow, sprinkler]
+  caveats:
+    - "Drip without periodic leaching can concentrate salts at the wetting-front margin in arid zones."
+    - "Capital and maintenance cost, plus filtration requirements on turbid water, are frequent failure points."
+    - "Do not claim basin-level water savings from field-level efficiency gains."
+  citation:
+    authors: "FAO"
+    year: 2021
+    title: "The State of the World's Land and Water Resources for Food and Agriculture: Systems at breaking point"
+    venue: "Food and Agriculture Organization of the United Nations, Rome"
+    url: "https://www.fao.org/documents/card/en/c/cb7654en"
+    type: global_assessment
+  interventions: [drip_irrigation_conversion, gypsum_sodic_reclamation, mulching]
+  tags: [drip irrigation, water productivity, efficiency paradox, salinisation, waterlogging, basin scale, FAO]
+  text: >
+    FAO's assessment of land and water resources reports rising water scarcity and
+    degradation of irrigated land, documents the productivity benefits of localised
+    irrigation, and warns that improvements in field-level irrigation efficiency do
+    not automatically translate into basin-level water savings because of return-flow
+    reuse and area expansion effects.
+
+- id: ev-mangrove-carbon-and-protection
+  claim: >
+    Mangroves store 800-1200 t C/ha, among the highest of any tropical forest, with
+    50-90% of it below ground, and provide coastal protection and nursery habitat
+    that few other systems substitute for.
+  mechanism: >
+    Waterlogged, saline, anoxic sediments suppress decomposition, so root carbon
+    accumulates over millennia in deep peat. This makes mangrove conversion an
+    exceptionally large and effectively irreversible emission on human timescales,
+    since the sediment carbon oxidises once drained. Restoration reinstates
+    accumulation but cannot recover the millennial stock quickly.
+  domain: climate
+  effects:
+    - metric: soil_organic_carbon_pct
+      direction: increase
+      relative_change_pct: [30, 150]
+      time_to_effect_years: [5.0, 25.0]
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [30, 100]
+      time_to_effect_years: [3.0, 15.0]
+  applies_when:
+    - field: land_use
+      allowed: [mangrove, wetland, degraded_barren]
+  caveats:
+    - "Restoration succeeds only where hydrology and tidal inundation regime are restored first; planting into unsuitable elevation is the dominant cause of failure."
+    - "Species selection must match the local inundation zonation rather than defaulting to the easiest nursery species."
+  citation:
+    authors: "Donato, D. C., Kauffman, J. B., Murdiyarso, D., Kurnianto, S., Stidham, M. & Kanninen, M."
+    year: 2011
+    title: "Mangroves among the most carbon-rich forests in the tropics"
+    venue: "Nature Geoscience 4:293-297"
+    doi: "10.1038/ngeo1123"
+    type: field_study
+  interventions: [mangrove_restoration, wetland_restoration]
+  tags: [mangrove, blue carbon, sediment carbon, coastal protection, hydrology, restoration failure, nursery habitat]
+  text: >
+    Measurement of whole-ecosystem carbon stocks across Indo-Pacific mangroves found
+    means of 1,023 t C/ha, with 49-98% in soils to depths beyond 3 m, and estimated
+    that mangrove conversion generates emissions of 0.02-0.12 Pg C/yr globally.
+
+- id: ev-wetland-services-restorability
+  claim: >
+    Wetlands deliver disproportionate biodiversity and water-regulation value per
+    unit area, but restoration outcomes depend on whether hydrology, not vegetation,
+    is restored, and some wetland types recover only partially over decades.
+  mechanism: >
+    Wetland community composition is controlled by hydroperiod: depth, duration and
+    timing of inundation. Planting without restoring hydroperiod produces a
+    vegetation assemblage that cannot self-maintain. Soil seed banks and
+    hydrologically driven nutrient processing also take decades to re-establish,
+    so partial recovery is the expected outcome and must be stated as such.
+  domain: water
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [25, 90]
+      time_to_effect_years: [3.0, 15.0]
+    - metric: permanent_water_present
+      direction: increase
+      absolute_change: "restores seasonal or permanent surface water where hydroperiod is re-established"
+      time_to_effect_years: [1.0, 5.0]
+  applies_when:
+    - field: land_use
+      allowed: [wetland, degraded_barren, cropland, grassland]
+  caveats:
+    - "Restoring wetland on drained organic soils can produce a methane pulse that offsets near-term CO2 benefits."
+    - "Nutrient-enriched inflow can drive restored wetlands to a species-poor eutrophic state."
+  citation:
+    authors: "Zedler, J. B. & Kercher, S."
+    year: 2005
+    title: "Wetland resources: status, trends, ecosystem services, and restorability"
+    venue: "Annual Review of Environment and Resources 30:39-74"
+    doi: "10.1146/annurev.energy.30.050504.144248"
+    type: systematic_review
+  interventions: [wetland_restoration, farm_pond_wetland, riparian_buffer]
+  tags: [wetland, hydroperiod, restorability, eutrophication, methane, seed bank, water regulation]
+  text: >
+    A review of global wetland status concludes that wetlands provide
+    disproportionately large ecosystem services relative to their area, that loss has
+    been extensive, and that restorability varies greatly among wetland types, with
+    hydrological restoration the primary determinant of success.

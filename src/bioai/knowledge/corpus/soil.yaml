@@ -1,0 +1,577 @@
+# Soil health evidence cards.
+# Effect sizes are ranges as reported or directly derived from the cited work.
+# See docs/KNOWLEDGE_SCHEMA.md for field semantics and scripts/verify_citations.py
+# for a network DOI resolver that checks every citation in this corpus.
+
+- id: ev-cover-crop-soc
+  claim: >
+    Cover crops raise topsoil organic carbon by roughly 0.20-0.60 t C/ha/yr
+    (about +8% to +25% relative SOC stock over 5-10 years), with legume mixes at
+    the upper end because they add nitrogen alongside carbon.
+  mechanism: >
+    Continuous living roots deliver labile carbon as rhizodeposits directly into
+    the aggregate-forming zone, where it is occluded in microaggregates rather
+    than respired. Legumes lift the N supply, which lowers the C:N ratio of the
+    residue and raises microbial carbon-use efficiency, so a larger fraction of
+    fixed carbon is stabilised as microbial necromass instead of being lost as CO2.
+  domain: soil
+  effects:
+    - metric: soil_organic_carbon_pct
+      direction: increase
+      absolute_change: "+0.20 to +0.60 t C/ha/yr in 0-30 cm; typically +0.1 to +0.3 percentage points SOC after 5 yr"
+      relative_change_pct: [8, 25]
+      time_to_effect_years: [2.0, 5.0]
+      measurement_context: "0-30 cm, global meta-analysis of 139 plot comparisons"
+    - metric: soil_nitrogen_pct
+      direction: increase
+      relative_change_pct: [5, 20]
+      time_to_effect_years: [1.0, 3.0]
+    - metric: earthworm_count_per_m2
+      direction: increase
+      relative_change_pct: [30, 120]
+      time_to_effect_years: [1.0, 3.0]
+  applies_when:
+    - field: land_use
+      allowed: [cropland, orchard, plantation, agroforestry]
+    - field: annual_rainfall_mm
+      min: 300
+      note: "below ~300 mm the cover crop competes for water with the cash crop"
+  caveats:
+    - "Gains saturate as the soil approaches its carbon-stabilisation capacity, which is set largely by clay and silt content."
+    - "Termination by tillage can re-mineralise a large share of the accumulated carbon."
+    - "In water-limited systems the cover crop must be terminated early enough to leave a soil-water recharge window."
+  citation:
+    authors: "Poeplau, C. & Don, A."
+    year: 2015
+    title: "Carbon sequestration in agricultural soils via cultivation of cover crops - A meta-analysis"
+    venue: "Agriculture, Ecosystems & Environment 200:33-41"
+    doi: "10.1016/j.agee.2014.10.024"
+    type: meta_analysis
+  interventions: [legume_cover_crops, improved_fallow_legume]
+  tags: [cover crops, soil organic carbon, legume, nitrogen fixation, rhizodeposition, microbial necromass]
+  text: >
+    A global meta-analysis of cover-crop experiments found a mean soil organic carbon
+    accumulation rate of 0.32 t C/ha/yr in the top 30 cm, with a mean time to a new
+    equilibrium of roughly 155 years and the largest annual gains in the first decade.
+    Legume-containing mixtures outperformed grass-only covers where nitrogen was limiting.
+    The effect was independent of climate zone once growing-season length was accounted for,
+    which makes cover cropping one of the most transferable soil-carbon interventions in cropland.
+
+- id: ev-soc-biodiversity-coupling
+  claim: >
+    Soil organic carbon is the strongest single predictor of soil biological
+    abundance and multifunctionality; below roughly 1% SOC most temperate and
+    semi-arid agricultural soils show sharply reduced microbial biomass, earthworm
+    density and aggregate stability.
+  mechanism: >
+    Organic carbon is simultaneously the energy substrate for heterotrophic soil
+    biota and the binding agent for water-stable aggregates. Aggregates create the
+    pore-size distribution that provides habitat and protective refugia for
+    microarthropods and microbes, so carbon loss removes both the food base and
+    the physical habitat at the same time. This is why SOC decline produces a
+    non-linear collapse in soil biodiversity rather than a proportional one.
+  domain: cross_cutting
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [10, 40]
+      time_to_effect_years: [3.0, 10.0]
+      measurement_context: "soil fauna and microbial richness, not aboveground richness"
+  applies_when: []
+  caveats:
+    - "The relationship is saturating: adding carbon to an already carbon-rich soil yields much smaller biodiversity returns."
+  citation:
+    authors: "Bardgett, R. D. & van der Putten, W. H."
+    year: 2014
+    title: "Belowground biodiversity and ecosystem functioning"
+    venue: "Nature 515:505-511"
+    doi: "10.1038/nature13855"
+    type: systematic_review
+  interventions: [legume_cover_crops, organic_amendment, residue_retention, reduced_tillage]
+  tags: [soil biodiversity, organic carbon, aggregate stability, multifunctionality, threshold]
+  text: >
+    Belowground biodiversity underpins nutrient cycling, carbon storage and plant
+    productivity, and responds strongly to organic matter supply. Reviews of soil
+    biodiversity-function relationships identify organic carbon inputs and physical
+    disturbance as the two dominant management levers. Soils that fall below about
+    1% organic carbon lose aggregate stability, which degrades pore habitat for
+    microarthropods and reduces the water-holding capacity that sustains microbial
+    activity through dry spells.
+
+- id: ev-microbial-diversity-multifunction
+  claim: >
+    Experimentally reducing soil microbial diversity reduces ecosystem
+    multifunctionality; soil microbial richness explains a significant independent
+    share of nutrient cycling and plant productivity across global drylands.
+  mechanism: >
+    Different microbial taxa carry non-redundant enzymatic capabilities, so richness
+    loss removes specific steps in nitrogen, phosphorus and carbon cycling. Under
+    fluctuating moisture and temperature the functional insurance provided by rare
+    taxa becomes rate-limiting, which is why diversity effects are strongest in
+    water-limited and disturbed systems.
+  domain: biodiversity
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [10, 30]
+      time_to_effect_years: [2.0, 6.0]
+  applies_when: []
+  caveats:
+    - "Microbial richness requires molecular assay; it is rarely available in farm-level data and is usually inferred from SOC and disturbance proxies."
+  citation:
+    authors: "Delgado-Baquerizo, M., Maestre, F. T., Reich, P. B., Jeffries, T. C., Gaitan, J. J., Encinar, D., Berdugo, M., Campbell, C. D. & Singh, B. K."
+    year: 2016
+    title: "Microbial diversity drives multifunctionality in terrestrial ecosystems"
+    venue: "Nature Communications 7:10541"
+    doi: "10.1038/ncomms10541"
+    type: field_study
+  interventions: [organic_amendment, reduced_tillage, crop_rotation_diversification, mycorrhiza_management]
+  tags: [microbial diversity, multifunctionality, drylands, nutrient cycling, functional insurance]
+  text: >
+    A global survey of drylands and a parallel set of manipulation experiments showed
+    that soil microbial diversity was positively and significantly related to
+    ecosystem multifunctionality after accounting for climate, soil abiotic factors
+    and spatial predictors. The result implies that management which conserves
+    microbial diversity is not merely correlated with function but contributes to it.
+
+- id: ev-soil-community-multifunctionality
+  claim: >
+    Loss of soil community composition and diversity reduces multiple ecosystem
+    functions simultaneously, with mycorrhizal fungal diversity a particularly
+    strong driver of nutrient retention.
+  mechanism: >
+    Arbuscular mycorrhizal hyphal networks extend the effective root absorption
+    volume by an order of magnitude and physically bind soil particles with
+    glomalin-related proteins. Reducing hyphal network diversity therefore reduces
+    both phosphorus capture and aggregate stability, coupling nutrient leakage to
+    structural degradation.
+  domain: soil
+  effects:
+    - metric: soil_nitrogen_pct
+      direction: increase
+      relative_change_pct: [5, 15]
+      time_to_effect_years: [2.0, 5.0]
+  applies_when:
+    - field: tillage
+      forbidden: [deep]
+      note: "deep inversion tillage severs hyphal networks each season"
+  caveats:
+    - "High soluble phosphorus fertilisation suppresses mycorrhizal colonisation and can nullify the benefit."
+  citation:
+    authors: "Wagg, C., Bender, S. F., Widmer, F. & van der Heijden, M. G. A."
+    year: 2014
+    title: "Soil biodiversity and soil community composition determine ecosystem multifunctionality"
+    venue: "Proceedings of the National Academy of Sciences 111:5266-5270"
+    doi: "10.1073/pnas.1320054111"
+    type: long_term_experiment
+  interventions: [mycorrhiza_management, reduced_tillage, nitrogen_rate_optimization]
+  tags: [mycorrhiza, soil community, multifunctionality, phosphorus, glomalin, hyphal network]
+  text: >
+    Manipulating soil community complexity in controlled mesocosms showed that
+    reduced soil biodiversity and altered community composition decreased plant
+    diversity effects, nutrient cycling and nutrient retention. Loss of arbuscular
+    mycorrhizal fungi in particular increased nutrient leaching, linking soil
+    biological simplification directly to water-quality outcomes.
+
+- id: ev-tillage-soc-stratification
+  claim: >
+    Reducing tillage intensity reliably increases organic carbon in the 0-10 cm
+    layer (commonly +10% to +30%) but frequently produces no significant change in
+    whole-profile carbon stock to 30-60 cm.
+  mechanism: >
+    No-till concentrates residue carbon at the surface and reduces the physical
+    breakdown of aggregates that exposes occluded carbon to microbial attack. Below
+    the former plough layer, however, carbon input is unchanged, and the denser
+    surface layer can reduce root penetration depth, so the gain is largely
+    redistribution rather than net sequestration.
+  domain: soil
+  effects:
+    - metric: soil_organic_carbon_pct
+      direction: increase
+      relative_change_pct: [10, 30]
+      time_to_effect_years: [3.0, 10.0]
+      measurement_context: "0-10 cm only; whole-profile effect often not significant"
+    - metric: soil_bulk_density_g_cm3
+      direction: increase
+      relative_change_pct: [2, 8]
+      time_to_effect_years: [1.0, 4.0]
+      measurement_context: "surface compaction risk in the transition years"
+  applies_when:
+    - field: land_use
+      allowed: [cropland, orchard, plantation]
+  caveats:
+    - "Whole-profile sampling to at least 30 cm, with bulk-density correction, is required before claiming a carbon gain."
+    - "No-till without residue retention or diversified rotation often reduces yield in the first 2-4 years."
+    - "Reduced tillage can increase reliance on herbicides unless combined with competitive cover."
+  citation:
+    authors: "Haddaway, N. R., Hedlund, K., Jackson, L. E., Katterer, T., Lugato, E., Thomsen, I. K., Jorgensen, H. B. & Isberg, P.-E."
+    year: 2017
+    title: "How does tillage intensity affect soil organic carbon? A systematic review"
+    venue: "Environmental Evidence 6:30"
+    doi: "10.1186/s13750-017-0108-9"
+    type: systematic_review
+  interventions: [reduced_tillage, no_till_residue_retention]
+  tags: [tillage, no-till, soil organic carbon, stratification, bulk density, sampling depth]
+  text: >
+    A systematic review of tillage experiments found consistent enrichment of organic
+    carbon in the uppermost soil layers under reduced and no tillage, but inconsistent
+    and often non-significant differences when the full sampled profile was considered.
+    The review highlights that shallow-only sampling has systematically overstated the
+    carbon benefit of conservation tillage in the literature.
+
+- id: ev-conservation-agriculture-yield-limits
+  claim: >
+    No-till alone reduces yields by about 5.7% on average, but when combined with
+    residue retention and crop rotation the penalty largely disappears, and in dry
+    rainfed environments the three practices together increase yields by around 7%.
+  mechanism: >
+    In water-limited systems residue mulch cuts direct soil evaporation and moderates
+    surface temperature, so more of the rainfall reaching the soil becomes plant
+    transpiration. Rotation breaks pest and pathogen cycles and diversifies rooting
+    depth, which compensates for the reduced mineralisation flush that tillage
+    normally provides. The three components are complementary, not substitutable.
+  domain: land_use
+  effects:
+    - metric: soil_moisture_pct
+      direction: increase
+      relative_change_pct: [5, 20]
+      time_to_effect_years: [0.5, 2.0]
+  applies_when:
+    - field: land_use
+      allowed: [cropland]
+    - field: annual_rainfall_mm
+      max: 1000
+      note: "the positive yield response is concentrated in dry rainfed systems"
+  caveats:
+    - "Where residues are needed as livestock fodder, full retention may not be socially feasible."
+    - "The yield benefit in dry environments does not generalise to humid or irrigated systems."
+  citation:
+    authors: "Pittelkow, C. M., Liang, X., Linquist, B. A., van Groenigen, K. J., Lee, J., Lundy, M. E., van Gestel, N., Six, J., Venterea, R. T. & van Kessel, C."
+    year: 2015
+    title: "Productivity limits and potentials of the principles of conservation agriculture"
+    venue: "Nature 517:365-368"
+    doi: "10.1038/nature13809"
+    type: meta_analysis
+  interventions: [no_till_residue_retention, residue_retention, crop_rotation_diversification, mulching]
+  tags: [conservation agriculture, no-till, residue retention, rotation, rainfed, dryland, yield]
+  text: >
+    A meta-analysis of 5,463 paired yield observations from 610 studies found that
+    no-till reduced yields on average, but that the penalty was eliminated when
+    no-till was implemented together with residue retention and crop rotation.
+    In rainfed dry climates the full package raised yields by approximately 7%,
+    indicating that the water-conservation mechanism dominates where water, not
+    nitrogen mineralisation, is limiting.
+
+- id: ev-organic-amendment-soc-biology
+  claim: >
+    Manure and compost additions increase soil organic carbon by roughly 10-40%
+    relative to mineral fertiliser alone over 10-20 years, with proportionally
+    larger increases in microbial biomass carbon.
+  mechanism: >
+    Organic amendments supply carbon and nutrients in the same particulate matrix,
+    so microbial growth is not nutrient-limited and a high share of the added carbon
+    is converted to necromass and stabilised on mineral surfaces. Amendments also
+    raise cation exchange capacity and buffer pH, which widens the range of
+    conditions under which soil fauna remain active.
+  domain: soil
+  effects:
+    - metric: soil_organic_carbon_pct
+      direction: increase
+      relative_change_pct: [10, 40]
+      time_to_effect_years: [3.0, 10.0]
+    - metric: earthworm_count_per_m2
+      direction: increase
+      relative_change_pct: [50, 200]
+      time_to_effect_years: [1.0, 4.0]
+  applies_when:
+    - field: land_use
+      allowed: [cropland, grassland, pasture, orchard, plantation, agroforestry, degraded_barren]
+  caveats:
+    - "Carbon accounting must be done at landscape scale: moving manure between fields relocates carbon rather than creating it."
+    - "High application rates risk phosphorus accumulation, nitrate leaching and, on already nutrient-rich sites, loss of plant species richness."
+  citation:
+    authors: "Bai, X., Huang, Y., Ren, W., Coyne, M., Jacinthe, P.-A., Tao, B., Hui, D., Yang, J. & Matocha, C."
+    year: 2019
+    title: "Responses of soil carbon sequestration to climate-smart agriculture practices: A meta-analysis"
+    venue: "Global Change Biology 25:2591-2606"
+    doi: "10.1111/gcb.14658"
+    type: meta_analysis
+  interventions: [organic_amendment, improved_fallow_legume]
+  tags: [manure, compost, organic amendment, soil carbon, microbial biomass, earthworms, cation exchange]
+  text: >
+    A meta-analysis of climate-smart agricultural practices reported that organic
+    amendment was among the most effective single practices for soil carbon
+    sequestration, exceeding the effect of reduced tillage in most climate zones,
+    and that responses were largest in soils with low initial carbon content.
+
+- id: ev-4-per-mille-saturation
+  claim: >
+    Soil carbon sequestration rates of 0.2-0.5 t C/ha/yr are achievable on
+    carbon-depleted agricultural soils, but rates decline as soils approach
+    saturation and are reversible if the practice stops.
+  mechanism: >
+    Carbon stabilisation depends on the availability of unoccupied mineral surface
+    area and aggregate interiors. Depleted soils have a large carbon deficit and
+    therefore a steep initial accumulation rate; as the protective capacity fills,
+    additional inputs are increasingly respired. Because the stock is maintained by
+    ongoing input rather than by permanence, a return to the prior practice releases
+    the accumulated carbon over a similar timescale.
+  domain: soil
+  effects:
+    - metric: soil_organic_carbon_pct
+      direction: increase
+      absolute_change: "+0.2 to +0.5 t C/ha/yr on depleted soils, declining toward zero at saturation"
+      time_to_effect_years: [3.0, 20.0]
+  applies_when:
+    - field: soil_organic_carbon_pct
+      max: 2.5
+      note: "high initial SOC means little remaining sequestration headroom"
+  caveats:
+    - "Sequestration is non-permanent and must be treated as conditional on continued management."
+    - "Nitrogen and phosphorus must be available in stoichiometric proportion or the carbon gain is constrained."
+  citation:
+    authors: "Minasny, B., Malone, B. P., McBratney, A. B., Angers, D. A., Arrouays, D., Chambers, A., Chaplot, V., Chen, Z.-S., Cheng, K., Das, B. S. et al."
+    year: 2017
+    title: "Soil carbon 4 per mille"
+    venue: "Geoderma 292:59-86"
+    doi: "10.1016/j.geoderma.2017.01.002"
+    type: model
+  interventions: [legume_cover_crops, organic_amendment, agroforestry_alley_cropping, residue_retention]
+  tags: [soil carbon, saturation, sequestration rate, permanence, 4 per 1000, carbon deficit]
+  text: >
+    Analysis of the 4 per 1000 initiative across regional datasets concluded that
+    annual soil carbon increases of 0.2-0.5 t C/ha/yr are realistic for degraded
+    croplands under improved management, that the highest relative gains occur where
+    initial stocks are lowest, and that sustaining the gain requires sustaining the
+    practice.
+
+- id: ev-fao-soc-hidden-potential
+  claim: >
+    Globally, cropland soils have lost 25-75% of their original organic carbon
+    stock, and restoring even part of that deficit simultaneously improves water
+    retention, nutrient supply and habitat for soil organisms.
+  mechanism: >
+    Cultivation-induced carbon loss operates through three coupled pathways:
+    aggregate disruption by tillage exposing occluded carbon, removal of biomass
+    that would otherwise return as residue, and increased erosion of the
+    carbon-enriched surface layer. Each additional gram of restored carbon returns
+    a disproportionate amount of plant-available water because organic matter holds
+    several times its mass in water.
+  domain: soil
+  effects:
+    - metric: soil_moisture_pct
+      direction: increase
+      absolute_change: "roughly +1 to +2 mm additional plant-available water per 0.1% SOC gain in 0-30 cm, texture-dependent"
+      time_to_effect_years: [3.0, 10.0]
+  applies_when: []
+  caveats:
+    - "The water-holding benefit per unit carbon is largest in coarse-textured soils and small in heavy clays."
+  citation:
+    authors: "FAO"
+    year: 2017
+    title: "Soil Organic Carbon: the hidden potential"
+    venue: "Food and Agriculture Organization of the United Nations, Rome"
+    url: "https://www.fao.org/documents/card/en/c/25eaf720-94e4-4f53-8f50-cdfc2487e1f8"
+    type: technical_guideline
+  interventions: [organic_amendment, legume_cover_crops, residue_retention, agroforestry_alley_cropping]
+  tags: [FAO, soil organic carbon, degradation, water holding capacity, global assessment]
+  text: >
+    FAO's assessment of soil organic carbon documents historical losses of a quarter
+    to three quarters of original stocks in cultivated soils, identifies soil organic
+    carbon as a central indicator for land degradation neutrality, and sets out
+    management pathways including residue retention, organic amendment, cover cropping
+    and agroforestry.
+
+- id: ev-swsr-degradation
+  claim: >
+    A third of global soils are moderately to highly degraded, with erosion,
+    organic carbon loss, nutrient imbalance, salinisation and compaction as the
+    dominant threats; these threats co-occur and reinforce each other.
+  mechanism: >
+    Degradation processes are mutually amplifying: carbon loss weakens aggregates,
+    weak aggregates increase erodibility and crusting, crusting reduces infiltration
+    and increases runoff, runoff removes more carbon-rich topsoil. Interventions that
+    address only one threat are therefore commonly reversed by the others.
+  domain: soil
+  effects: []
+  applies_when: []
+  caveats:
+    - "Global percentages should not be read as site-level diagnosis; they justify screening for multiple co-occurring threats."
+  citation:
+    authors: "FAO & ITPS"
+    year: 2015
+    title: "Status of the World's Soil Resources (SWSR) - Main Report"
+    venue: "Food and Agriculture Organization of the United Nations and Intergovernmental Technical Panel on Soils, Rome"
+    url: "https://www.fao.org/3/i5199e/i5199e.pdf"
+    type: global_assessment
+  interventions: [contour_bunding, residue_retention, organic_amendment, gypsum_sodic_reclamation]
+  tags: [FAO, soil degradation, erosion, salinisation, compaction, feedback loop]
+  text: >
+    The Status of the World's Soil Resources report ranks soil erosion, organic
+    carbon loss and nutrient imbalance as the highest-priority global soil threats,
+    and emphasises that soil threats interact, so that integrated management
+    outperforms single-threat interventions.
+
+- id: ev-ph-nutrient-availability
+  claim: >
+    Soil pH controls nutrient availability and microbial community composition;
+    below pH 5.5 aluminium and manganese become phytotoxic and phosphorus is
+    fixed, while above pH 8.0 phosphorus, iron, zinc and manganese become
+    progressively unavailable.
+  mechanism: >
+    Aluminium solubility rises steeply below pH 5.5, damaging root apical meristems
+    and truncating rooting depth, which reduces both water access and carbon input
+    at depth. At high pH, phosphate precipitates as calcium phosphates and
+    micronutrient cations form insoluble hydroxides. Because nitrogen-fixing
+    rhizobia and nitrifying bacteria have narrow pH optima, pH extremes also
+    suppress biological nitrogen supply, compounding the chemical limitation.
+  domain: soil
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [5, 25]
+      time_to_effect_years: [1.0, 4.0]
+      measurement_context: "where pH is corrected from a strongly limiting value into the 5.8-7.2 window"
+  applies_when: []
+  caveats:
+    - "Liming acid grassland can reduce characteristic acid-loving plant species; pH correction is not universally desirable for biodiversity."
+    - "Target pH depends on the crop and on texture; over-liming sandy soils induces micronutrient deficiency."
+  citation:
+    authors: "Holland, J. E., Bennett, A. E., Newton, A. C., White, P. J., McKenzie, B. M., George, T. S., Pakeman, R. J., Bailey, J. S., Fornara, D. A. & Hayes, R. C."
+    year: 2018
+    title: "Liming impacts on soils, crops and biodiversity in the UK: A review"
+    venue: "Science of the Total Environment 610-611:316-332"
+    doi: "10.1016/j.scitotenv.2017.08.020"
+    type: systematic_review
+  interventions: [liming_ph_correction, gypsum_sodic_reclamation, organic_amendment]
+  tags: [soil pH, aluminium toxicity, phosphorus fixation, liming, micronutrients, rhizobia]
+  text: >
+    A review of liming effects across UK soils and crops documents the pH dependence
+    of nutrient availability, root development and rhizobial nitrogen fixation, and
+    notes the trade-off that liming semi-natural acid grassland shifts plant community
+    composition away from acidophilous specialists. It recommends pH management targets
+    set by land-use objective rather than by a single universal optimum.
+
+- id: ev-biochar-degraded-soils
+  claim: >
+    Biochar application increases crop productivity by about 10% on average, with
+    the effect concentrated in acidic and coarse-textured low-fertility soils and
+    approximately zero in fertile temperate soils.
+  mechanism: >
+    Biochar's benefit in poor soils is dominated by a liming effect and an increase
+    in cation exchange capacity, not by nutrient addition. Its highly porous
+    structure also holds water and provides colonisable surface for microbes and
+    mycorrhizal hyphae. In soils that are already near-neutral with high exchange
+    capacity, none of these limitations bind, so no response is expected.
+  domain: soil
+  effects:
+    - metric: soil_ph
+      direction: increase
+      absolute_change: "+0.2 to +1.0 pH units on acidic soils at 10-20 t/ha"
+      time_to_effect_years: [0.5, 2.0]
+    - metric: soil_organic_carbon_pct
+      direction: increase
+      relative_change_pct: [10, 60]
+      time_to_effect_years: [0.5, 2.0]
+      measurement_context: "total SOC including the recalcitrant biochar carbon itself"
+  applies_when:
+    - field: soil_ph
+      max: 6.5
+      note: "the liming mechanism requires an acidic starting point"
+  caveats:
+    - "Feedstock and pyrolysis conditions change the product substantially; unverified biochar can carry polycyclic aromatic hydrocarbons or heavy metals."
+    - "Much of the measured SOC increase is the added recalcitrant carbon and should not be reported as newly sequestered biological carbon."
+    - "Cost per hectare is high relative to cover cropping for a comparable carbon outcome."
+  citation:
+    authors: "Jeffery, S., Verheijen, F. G. A., van der Velde, M. & Bastos, A. C."
+    year: 2011
+    title: "A quantitative review of the effects of biochar application to soils on crop productivity using meta-analytical methods"
+    venue: "Agriculture, Ecosystems & Environment 144:175-187"
+    doi: "10.1016/j.agee.2011.08.015"
+    type: meta_analysis
+  interventions: [biochar_application]
+  tags: [biochar, liming, cation exchange capacity, acidic soils, coarse texture, productivity]
+  text: >
+    Meta-analysis of biochar field and pot trials found a grand mean crop productivity
+    increase of 10%, driven by a liming effect and improved water-holding capacity, with
+    the strongest responses on acidic and sandy soils and negligible or negative responses
+    on fertile neutral soils.
+
+- id: ev-lal-soil-carbon-cobenefits
+  claim: >
+    Restoring soil organic carbon in degraded cropland can raise yields by
+    20-40 kg/ha per 1 t/ha increase in soil carbon pool in the root zone, while
+    also improving water retention and reducing erosion.
+  mechanism: >
+    Soil carbon acts on yield through three simultaneous channels: it increases
+    plant-available water capacity, it supplies mineralisable nitrogen and
+    phosphorus, and it stabilises aggregates so that infiltration is maintained
+    under intense rainfall. Because these channels address different limiting
+    factors, the yield response to carbon is larger in stressed systems than in
+    well-watered, well-fertilised ones.
+  domain: cross_cutting
+  effects:
+    - metric: soil_organic_carbon_pct
+      direction: increase
+      absolute_change: "0.4 to 1.2 Pg C/yr global technical potential on agricultural soils"
+      time_to_effect_years: [5.0, 25.0]
+  applies_when:
+    - field: land_use
+      allowed: [cropland, degraded_barren, grassland, pasture]
+  caveats:
+    - "Yield response figures are for cereals in nutrient- and water-limited systems and do not transfer to high-input systems."
+  citation:
+    authors: "Lal, R."
+    year: 2004
+    title: "Soil carbon sequestration impacts on global climate change and food security"
+    venue: "Science 304:1623-1627"
+    doi: "10.1126/science.1097396"
+    type: systematic_review
+  interventions: [organic_amendment, residue_retention, legume_cover_crops, agroforestry_alley_cropping]
+  tags: [soil carbon, food security, yield response, erosion, water retention, degraded land]
+  text: >
+    A synthesis of soil carbon sequestration potential estimated a global technical
+    potential of 0.4-1.2 Pg C/yr on agricultural soils and reported yield increases of
+    20-40 kg/ha of wheat per tonne of soil carbon increase in depleted soils,
+    establishing soil carbon restoration as a joint climate and food-security measure.
+
+- id: ev-salinity-restoration
+  claim: >
+    Salt-affected soils occupy over 20% of irrigated land globally; reclamation
+    through gypsum amendment, leaching with adequate drainage and salt-tolerant
+    vegetation can restore productivity, but reclamation fails without functioning
+    drainage.
+  mechanism: >
+    Sodicity disperses clay, collapsing macropores and destroying hydraulic
+    conductivity. Gypsum supplies calcium that displaces exchangeable sodium and
+    restores flocculation, but the displaced sodium must physically leave the
+    profile. Without drainage the leached salt returns by capillary rise as the
+    water table rises, which is why amendment alone reliably fails on
+    high-water-table sites.
+  domain: soil
+  effects:
+    - metric: salinity_ec_ds_m
+      direction: decrease
+      relative_change_pct: [20, 60]
+      time_to_effect_years: [2.0, 6.0]
+  applies_when:
+    - field: salinity_ec_ds_m
+      min: 4
+  caveats:
+    - "Where the water table is shallower than about 2 m, drainage must be installed before amendment."
+    - "Leaching water requirements can be substantial and may conflict with water scarcity."
+  citation:
+    authors: "Qadir, M., Quillerou, E., Nangia, V., Murtaza, G., Singh, M., Thomas, R. J., Drechsel, P. & Noble, A. D."
+    year: 2014
+    title: "Economics of salt-induced land degradation and restoration"
+    venue: "Natural Resources Forum 38:282-295"
+    doi: "10.1111/1477-8947.12054"
+    type: systematic_review
+  interventions: [gypsum_sodic_reclamation, drip_irrigation_conversion, native_grass_reseeding]
+  tags: [salinity, sodicity, gypsum, drainage, irrigated land, reclamation, capillary rise]
+  text: >
+    A global economic assessment of salt-induced land degradation estimated large
+    annual losses from salinisation of irrigated land and reviewed reclamation
+    options, concluding that chemical amendment, drainage and vegetative approaches
+    must be combined and that drainage is the binding constraint in most failed
+    reclamation attempts.

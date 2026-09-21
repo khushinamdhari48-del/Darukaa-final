@@ -1,0 +1,74 @@
+metric,band,low,high,verdict,interpretation,source
+soil_organic_carbon_pct,very_low,0,0.6,critical,"Severely depleted; aggregate stability, water retention and soil faunal habitat are all compromised simultaneously. Typical of long-cultivated semi-arid cropland.",FAO 2017 Soil Organic Carbon: the hidden potential
+soil_organic_carbon_pct,low,0.6,1.0,poor,"Below the ~1% threshold at which temperate and semi-arid agricultural soils lose aggregate stability and microbial biomass steeply.",Bardgett & van der Putten 2014
+soil_organic_carbon_pct,moderate,1.0,2.0,moderate,"Functional but with substantial sequestration headroom; most cropland sits here.",Minasny et al. 2017
+soil_organic_carbon_pct,good,2.0,4.0,good,"Well-aggregated, biologically active; sequestration returns begin to saturate.",Minasny et al. 2017
+soil_organic_carbon_pct,high,4.0,60,high,"Peat, wetland or old-growth soils; priority is protection against loss, not further accumulation.",FAO & ITPS 2015
+soil_ph,strongly_acid,2,5.0,critical,"Aluminium and manganese toxicity truncate rooting depth; rhizobial N fixation and nitrification strongly suppressed.",Holland et al. 2018
+soil_ph,acid,5.0,5.5,poor,"Aluminium solubility rising; phosphorus fixation significant; legume nodulation impaired.",Holland et al. 2018
+soil_ph,slightly_acid,5.5,6.2,good,"Near-optimal for most crops and for broad microbial function.",Holland et al. 2018
+soil_ph,neutral,6.2,7.3,good,"Optimal nutrient availability window.",Holland et al. 2018
+soil_ph,alkaline,7.3,8.2,moderate,"Phosphorus, iron and zinc availability declining.",Holland et al. 2018
+soil_ph,strongly_alkaline,8.2,11,poor,"Micronutrient lockout; often co-occurs with sodicity and structural dispersion.",Qadir et al. 2014
+soil_moisture_pct,very_low,0,8,critical,"At or below wilting point for most textures; biological activity largely suspended.",Rockstrom et al. 2010
+soil_moisture_pct,low,8,15,poor,"Frequent water stress; nutrient mineralisation intermittent.",Rockstrom et al. 2010
+soil_moisture_pct,moderate,15,25,good,"Within plant-available range for most textures.",Rockstrom et al. 2010
+soil_moisture_pct,high,25,60,good,"Adequate to saturated; check drainage and denitrification risk at the upper end.",FAO 2021
+soil_moisture_pct,saturated,60,100,poor,"Waterlogging; anaerobic conditions suppress root and aerobic faunal function.",FAO & ITPS 2015
+annual_rainfall_mm,hyper_arid,0,200,critical,"Cropping without irrigation is not viable; rangeland and water-harvesting options only.",IPCC 2019 SRCCL
+annual_rainfall_mm,arid,200,400,poor,"High interannual variability; water harvesting and drought-adapted species essential.",Vohland & Barry 2009
+annual_rainfall_mm,semi_arid,400,700,moderate,"Rainfed cropping viable but dry-spell exposed; water partitioning is the dominant lever.",Rockstrom et al. 2010
+annual_rainfall_mm,dry_subhumid,700,1000,good,"Reliable rainfed cropping; tree-crop competition risk low.",IPCC 2019 SRCCL
+annual_rainfall_mm,humid,1000,12000,good,"Water rarely limiting; nutrient leaching and erosion become the dominant risks.",FAO & ITPS 2015
+salinity_ec_ds_m,none,0,2,good,"No salinity constraint for most crops.",Qadir et al. 2014
+salinity_ec_ds_m,slight,2,4,moderate,"Sensitive crops affected; monitor trend and leaching fraction.",Qadir et al. 2014
+salinity_ec_ds_m,moderate,4,8,poor,"Many crops yield-limited; reclamation and drainage assessment warranted.",Qadir et al. 2014
+salinity_ec_ds_m,severe,8,60,critical,"Only salt-tolerant species viable; drainage is the binding constraint on reclamation.",Qadir et al. 2014
+soil_bulk_density_g_cm3,low,0.5,1.1,good,"Porous, well-structured; typical of high-organic-matter soils.",FAO & ITPS 2015
+soil_bulk_density_g_cm3,moderate,1.1,1.4,good,"Normal range for loams; root growth unimpeded.",FAO & ITPS 2015
+soil_bulk_density_g_cm3,high,1.4,1.6,poor,"Approaching root-restricting density for fine-textured soils; infiltration reduced.",FAO & ITPS 2015
+soil_bulk_density_g_cm3,compacted,1.6,2.2,critical,"Root-restricting; compaction must be relieved before amendment or planting will respond.",FAO & ITPS 2015
+tree_cover_pct,none,0,2,poor,"No woody structure; no perennial root systems, shade refugia or nesting substrate.",Zomer et al. 2016
+tree_cover_pct,sparse,2,10,moderate,"Below the recharge optimum for seasonally dry tropics; scope to increase.",Ilstedt et al. 2016
+tree_cover_pct,parkland,10,25,good,"Within the band that maximises groundwater recharge in seasonally dry tropics while retaining cropping.",Ilstedt et al. 2016
+tree_cover_pct,wooded,25,60,good,"Substantial woody habitat; in dry zones check that transpiration is not reducing recharge.",Ilstedt et al. 2016
+tree_cover_pct,closed,60,100,good,"Forest or dense plantation; priority is composition and protection rather than more cover.",IPCC 2022 AR6 WGIII Ch.7
+native_vegetation_pct,cleared,0,2,critical,"Below the habitat threshold at which populations can persist and recolonise; regional species pool may be exhausted.",Fahrig 2003
+native_vegetation_pct,very_low,2,10,poor,"Steepest part of the biodiversity response curve; each added hectare buys the most.",Estrada-Carmona et al. 2022
+native_vegetation_pct,low,10,20,moderate,"Approaching the 20-30% habitat-amount band where configuration effects weaken.",Fahrig 2003
+native_vegetation_pct,moderate,20,40,good,"Above the main threshold; returns to additional habitat begin to diminish.",Estrada-Carmona et al. 2022
+native_vegetation_pct,high,40,100,good,"Habitat-rich landscape; priority shifts to quality and protection.",Kremen & Merenlender 2018
+distance_to_natural_habitat_m,adjacent,0,100,good,"Within foraging range of most wild pollinators and natural enemies.",Ricketts et al. 2008
+distance_to_natural_habitat_m,near,100,500,moderate,"Service delivery declining with distance; small-bodied taxa already filtered out.",Ricketts et al. 2008
+distance_to_natural_habitat_m,far,500,1500,poor,"Pollinator visitation typically halved or worse; in-field resources alone cannot substitute.",Ricketts et al. 2008
+distance_to_natural_habitat_m,isolated,1500,100000,critical,"Beyond the foraging radius of nearly all wild pollinators; connectivity is the binding constraint.",Ricketts et al. 2008
+mean_patch_size_ha,fine_grained,0,2,good,"High edge density; complementary resources accessible within daily foraging range.",Sirami et al. 2019
+mean_patch_size_ha,moderate,2,5,good,"Within the band where crop heterogeneity gains are realised.",Sirami et al. 2019
+mean_patch_size_ha,coarse,5,20,poor,"Field interiors beyond edge influence; scope to gain diversity by subdividing.",Sirami et al. 2019
+mean_patch_size_ha,very_coarse,20,100000,critical,"Large uniform blocks; interior of field receives negligible service from margins.",Sirami et al. 2019
+fertilizer_n_kg_ha_yr,deficient,0,30,poor,"Nitrogen-limited; soil nitrogen mining likely. The correct action here is usually to increase biological or mineral N supply.",Sutton et al. 2013
+fertilizer_n_kg_ha_yr,low,30,80,good,"Modest rates; efficiency gains available through timing and placement.",Sutton et al. 2013
+fertilizer_n_kg_ha_yr,moderate,80,150,moderate,"Within common commercial range; loss pathways worth quantifying.",Sutton et al. 2013
+fertilizer_n_kg_ha_yr,high,150,250,poor,"Losses likely substantial; eutrophication and margin-flora simplification risk.",Bobbink et al. 2010
+fertilizer_n_kg_ha_yr,very_high,250,1000,critical,"Far above crop uptake capacity; large leaching and gaseous losses expected.",Sutton et al. 2013
+pesticide_applications_per_season,none,0,0.5,good,"No direct pesticide pressure on natural enemies or pollinators.",Geiger et al. 2010
+pesticide_applications_per_season,low,0.5,2.5,moderate,"Some suppression of natural enemy populations likely.",Geiger et al. 2010
+pesticide_applications_per_season,high,2.5,6.5,poor,"Biological control potential materially degraded; pesticide-dependency feedback likely.",Geiger et al. 2010
+pesticide_applications_per_season,very_high,6.5,40,critical,"Natural enemy community largely suppressed; staged IPM transition required.",Beketov et al. 2013
+grazing_intensity_lsu_ha,none,0,0.1,moderate,"Ungrazed; in long-grazed systems competitive dominants may close the sward and reduce diversity.",Milchunas & Lauenroth 1993
+grazing_intensity_lsu_ha,light,0.1,0.5,good,"Light stocking; generally compatible with diversity in most systems.",Filazzola et al. 2020
+grazing_intensity_lsu_ha,moderate,0.5,1.2,moderate,"Depends strongly on rainfall and grazing history; monitor cover and regrowth.",Milchunas & Lauenroth 1993
+grazing_intensity_lsu_ha,heavy,1.2,2.5,poor,"Cover and soil carbon decline likely, particularly in arid systems.",Teague et al. 2011
+grazing_intensity_lsu_ha,very_heavy,2.5,10,critical,"Compaction, cover loss and erosion expected; destocking or rest is the first-order intervention.",Teague et al. 2011
+slope_pct,flat,0,3,good,"Negligible erosion risk from slope alone.",FAO & ITPS 2015
+slope_pct,gentle,3,8,moderate,"Contour-aligned operations advisable.",FAO & ITPS 2015
+slope_pct,moderate,8,15,poor,"Runoff and erosion risk significant; water-harvesting structures need engineered spillways.",Vohland & Barry 2009
+slope_pct,steep,15,100,critical,"High erosion risk; permanent cover or terracing rather than annual cropping.",FAO & ITPS 2015
+earthworm_count_per_m2,absent,0,10,critical,"Effectively no anecic or endogeic earthworm activity; macropore formation and litter incorporation absent.",Bardgett & van der Putten 2014
+earthworm_count_per_m2,low,10,50,poor,"Depressed population, typical of intensively tilled low-organic-matter soils.",Bardgett & van der Putten 2014
+earthworm_count_per_m2,moderate,50,150,good,"Functional population.",Bardgett & van der Putten 2014
+earthworm_count_per_m2,high,150,1000,good,"Abundant; strong indicator of organic matter supply and low disturbance.",Bardgett & van der Putten 2014
+deforestation_last_5yr_pct,none,0,0.5,good,"No material recent clearing.",IPBES 2019
+deforestation_last_5yr_pct,low,0.5,5,moderate,"Some recent loss; edge effects extend beyond the cleared area.",IPBES 2019
+deforestation_last_5yr_pct,high,5,20,poor,"Active conversion; halting clearing outranks any on-site enhancement measure.",IPBES 2019
+deforestation_last_5yr_pct,severe,20,100,critical,"Rapid conversion; extinction debt accumulating and carbon emissions immediate.",IPBES 2019

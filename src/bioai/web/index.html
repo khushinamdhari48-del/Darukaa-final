@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Biodiversity Intelligence Engine</title>
+<style>
+  :root {
+    --bg: #fbfaf7; --panel: #ffffff; --ink: #1c1f1a; --muted: #6a7065;
+    --line: #e2e0d8; --accent: #2f6b4f; --accent-soft: #e8f0ea;
+    --user: #eef2f7; --warn: #8a5a1f; --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14171a; --panel: #1b1f23; --ink: #e8e6e0; --muted: #9aa094;
+      --line: #2c3238; --accent: #6fbf8f; --accent-soft: #1f2b24;
+      --user: #22282e; --warn: #d9a358;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  header {
+    padding: 18px 16px 12px; border-bottom: 1px solid var(--line);
+    background: var(--panel); position: sticky; top: 0; z-index: 5;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
+  h1 { margin: 0 0 4px; font-size: 19px; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); font-size: 13px; margin: 0; }
+  .status { margin-top: 8px; font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+  nav { display: flex; gap: 4px; margin-top: 12px; flex-wrap: wrap; }
+  nav button {
+    background: none; border: 1px solid var(--line); color: var(--muted);
+    padding: 5px 11px; border-radius: 999px; cursor: pointer; font-size: 13px;
+  }
+  nav button[aria-selected="true"] { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+  main { padding: 20px 0 140px; }
+  .msg { margin: 0 0 16px; }
+  .msg .who { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-bottom: 5px; }
+  .bubble { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; overflow-x: auto; }
+  .msg.user .bubble { background: var(--user); }
+  .bubble h2 { font-size: 16px; margin: 18px 0 8px; padding-bottom: 5px; border-bottom: 1px solid var(--line); }
+  .bubble h2:first-child { margin-top: 0; }
+  .bubble h3 { font-size: 14.5px; margin: 16px 0 6px; color: var(--accent); }
+  .bubble table { border-collapse: collapse; width: 100%; font-size: 12.5px; margin: 8px 0; }
+  .bubble th, .bubble td { border: 1px solid var(--line); padding: 5px 8px; text-align: left; vertical-align: top; }
+  .bubble th { background: var(--accent-soft); }
+  .bubble code { font-family: var(--mono); font-size: 12.5px; background: var(--accent-soft); padding: 1px 4px; border-radius: 3px; }
+  .bubble pre { background: var(--accent-soft); padding: 10px; border-radius: 6px; overflow-x: auto; }
+  .bubble details { margin: 10px 0; border: 1px dashed var(--line); border-radius: 6px; padding: 8px 12px; }
+  .bubble summary { cursor: pointer; color: var(--muted); font-size: 13px; }
+  .bubble ul { padding-left: 20px; }
+  .meta { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 6px; }
+  footer {
+    position: fixed; bottom: 0; left: 0; right: 0; background: var(--panel);
+    border-top: 1px solid var(--line); padding: 12px 0;
+  }
+  .composer { display: flex; gap: 8px; align-items: flex-end; }
+  textarea, input[type=text] {
+    flex: 1; resize: vertical; min-height: 46px; padding: 11px 12px; font: inherit;
+    border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink);
+  }
+  textarea.json { font-family: var(--mono); font-size: 12.5px; min-height: 190px; }
+  button.go {
+    background: var(--accent); color: #fff; border: 0; padding: 12px 20px;
+    border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px;
+  }
+  button.go:disabled { opacity: .5; cursor: default; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 8px; }
+  .chip {
+    border: 1px solid var(--line); background: var(--panel); color: var(--muted);
+    border-radius: 999px; padding: 4px 10px; font-size: 12.5px; cursor: pointer;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+  label.inline { font-size: 12.5px; color: var(--muted); display: flex; gap: 5px; align-items: center; }
+  .hidden { display: none; }
+  .hint { color: var(--muted); font-size: 12.5px; margin: 0 0 10px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; }
+  .card .sc { font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+  .bad { color: var(--warn); }
+  @media (max-width: 640px) { .composer { flex-direction: column; } button.go { width: 100%; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Biodiversity Intelligence Engine</h1>
+    <p class="sub">Every recommendation is produced by a deterministic multi-metric reasoning engine over a curated, citation-carrying knowledge base. The language model, when configured, only parses your input and phrases the output.</p>
+    <div class="status" id="status">loading engine status...</div>
+    <nav role="tablist">
+      <button role="tab" id="tab-chat" aria-selected="true" onclick="showTab('chat')">Conversation</button>
+      <button role="tab" id="tab-json" aria-selected="false" onclick="showTab('json')">Structured input</button>
+      <button role="tab" id="tab-kb" aria-selected="false" onclick="showTab('kb')">Knowledge retrieval</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- Conversation -->
+  <section id="pane-chat">
+    <div class="row">
+      <span class="hint">Try:</span>
+      <button class="chip" onclick="preset('Biodiversity is declining on my land.')">vague opener</button>
+      <button class="chip" onclick="preset('Soil organic carbon is 0.3%, rainfall is low at about 420 mm, monoculture wheat, semi-arid region, pH 5.2. Nearest scrub is 1.5 km away, I spray 4 times a season and burn the stubble.')">semi-arid wheat</button>
+      <button class="chip" onclick="preset('300 ha of cereals, temperate, 850 mm rainfall, soil organic carbon 2.4%, pH 6.8, 220 kg N per hectare, 5 sprays a season, mean field size 40 ha, no hedgerows, pollinators low.')">over-fertilised cropland</button>
+      <button class="chip" onclick="preset('Semi-arid grassland, 480 mm rainfall, stocking 2.2 LSU/ha, soil organic carbon 0.9%, bulk density 1.55, severe erosion with gullies, no surface water, invasive weeds taking over.')">overgrazed rangeland</button>
+      <button class="chip" onclick="preset('Located at 0.35 N, 37.58 E. Two hectares, humid, 1700 mm rainfall, maize monoculture, pH 5.1, organic matter 2.8%, no irrigation, slope 18%. Limited budget, no machinery.')">geo-referenced smallholder</button>
+    </div>
+    <div id="thread"></div>
+  </section>
+
+  <!-- Structured input -->
+  <section id="pane-json" class="hidden">
+    <p class="hint">POSTs to <code>/assess</code>. Any subset of fields is valid; the engine reports what is missing and how much it would change the answer. See <code>/docs</code> for the full schema.</p>
+    <textarea id="jsonInput" class="json" spellcheck="false"></textarea>
+    <div class="row" style="margin-top:10px">
+      <label class="inline"><input type="checkbox" id="jsonExplain" /> include scoring and retrieval traces</label>
+      <button class="go" onclick="runAssess()">Assess</button>
+    </div>
+    <div id="jsonOut"></div>
+  </section>
+
+  <!-- Knowledge retrieval -->
+  <section id="pane-kb" class="hidden">
+    <p class="hint">Queries the retrieval layer directly, with per-signal scores. Supply a site profile on the <b>Structured input</b> tab first and the results become site-conditioned: applicability predicates the site satisfies, contradicts or leaves unknown are shown per card.</p>
+    <div class="row">
+      <input type="text" id="kbQuery" placeholder="e.g. does adding trees reduce water availability in drylands?" onkeydown="if(event.key==='Enter')runSearch()" />
+      <button class="go" onclick="runSearch()">Search</button>
+    </div>
+    <div class="row">
+      <label class="inline"><input type="checkbox" id="kbProfile" /> condition on the profile from the Structured input tab</label>
+      <label class="inline"><input type="checkbox" id="kbViolated" /> include evidence the site contradicts</label>
+    </div>
+    <div id="kbOut"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="composer" id="composer">
+      <textarea id="input" placeholder="Describe the site: soil, rainfall, land use, inputs, what you have observed..." onkeydown="if(event.key==='Enter'&&(event.metaKey||event.ctrlKey))send()"></textarea>
+      <button class="go" id="sendBtn" onclick="send()">Send</button>
+    </div>
+    <div class="meta" id="footMeta">Ctrl/Cmd + Enter to send. Session memory is structured: a number given once is remembered and can be corrected later.</div>
+  </div>
+</footer>
+
+<script>
+const DEFAULT_JSON = {
+  soil_organic_carbon_pct: 0.3,
+  soil_ph: 5.2,
+  annual_rainfall_mm: 420,
+  rainfall_pattern: "erratic",
+  land_use: "cropland",
+  cropping_system: "monoculture",
+  primary_crop: "wheat",
+  area_ha: 40,
+  tree_cover_pct: 1,
+  native_vegetation_pct: 4,
+  mean_patch_size_ha: 12,
+  distance_to_natural_habitat_m: 1500,
+  pesticide_applications_per_season: 4,
+  fertilizer_n_kg_ha_yr: 25,
+  tillage: "conventional",
+  residue_removal: "burned",
+  irrigation: "none",
+  pollinator_activity: "low",
+  permanent_water_present: false,
+  geo: { latitude: 26.9, longitude: 75.8, region_name: "semi-arid plains" },
+  objectives: ["biodiversity recovery", "maintain or raise production"],
+  constraints: ["capital-constrained"]
+};
+
+let sessionId = null;
+document.getElementById('jsonInput').value = JSON.stringify(DEFAULT_JSON, null, 2);
+
+function showTab(name) {
+  for (const t of ['chat','json','kb']) {
+    document.getElementById('pane-'+t).classList.toggle('hidden', t !== name);
+    document.getElementById('tab-'+t).setAttribute('aria-selected', String(t === name));
+  }
+  document.getElementById('composer').style.display = name === 'chat' ? 'flex' : 'none';
+  document.getElementById('footMeta').style.display = name === 'chat' ? 'block' : 'none';
+}
+
+function preset(text) {
+  document.getElementById('input').value = text;
+  document.getElementById('input').focus();
+}
+
+/* Minimal markdown -> HTML. The server sends a constrained subset: headings,
+   tables, bold/italic, code, lists, details blocks and horizontal rules. */
+function md(src) {
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  // Preserve the server's <details> wrappers before escaping everything else.
+  const stash = [];
+  src = src.replace(/<details>([\s\S]*?)<\/details>/g, (_, inner) => {
+    const i = stash.length;
+    stash.push(inner);
+    return ` DETAILS${i} `;
+  });
+  let out = renderBlocks(esc(src));
+  out = out.replace(/ DETAILS(\d+) /g, (_, i) => {
+    const inner = stash[Number(i)];
+    const m = inner.match(/<summary>([\s\S]*?)<\/summary>([\s\S]*)/);
+    const summary = m ? esc(m[1]) : 'Detail';
+    const body = renderBlocks(esc(m ? m[2] : inner));
+    return `<details><summary>${summary}</summary>${body}</details>`;
+  });
+  return out;
+}
+
+function renderBlocks(text) {
+  const lines = text.split('\n');
+  const html = [];
+  let inList = false, inTable = false, inPre = false;
+  const closeList = () => { if (inList) { html.push('</ul>'); inList = false; } };
+  const closeTable = () => { if (inTable) { html.push('</tbody></table>'); inTable = false; } };
+
+  for (let i = 0; i < lines.length; i++) {
+    let line = lines[i];
+    if (/^```/.test(line)) { closeList(); closeTable(); html.push(inPre ? '</pre>' : '<pre>'); inPre = !inPre; continue; }
+    if (inPre) { html.push(line); continue; }
+
+    if (/^\s*\|/.test(line)) {
+      const cells = line.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim());
+      if (/^[\s|:-]+$/.test(line)) continue;           // separator row
+      if (!inTable) {
+        closeList();
+        html.push('<table><thead><tr>' + cells.map(c => `<th>${inline(c)}</th>`).join('') + '</tr></thead><tbody>');
+        inTable = true;
+      } else {
+        html.push('<tr>' + cells.map(c => `<td>${inline(c)}</td>`).join('') + '</tr>');
+      }
+      continue;
+    }
+    closeTable();
+
+    let m;
+    if ((m = line.match(/^###\s+(.*)/))) { closeList(); html.push(`<h3>${inline(m[1])}</h3>`); continue; }
+    if ((m = line.match(/^##\s+(.*)/)))  { closeList(); html.push(`<h2>${inline(m[1])}</h2>`); continue; }
+    if (/^---+$/.test(line.trim()))      { closeList(); html.push('<hr/>'); continue; }
+    if ((m = line.match(/^(\s*)[-*]\s+(.*)/))) {
+      if (!inList) { html.push('<ul>'); inList = true; }
+      const indent = m[1].length >= 2 ? ' style="opacity:.85"' : '';
+      html.push(`<li${indent}>${inline(m[2])}</li>`);
+      continue;
+    }
+    closeList();
+    if (!line.trim()) continue;
+    html.push(`<p>${inline(line)}</p>`);
+  }
+  closeList(); closeTable();
+  if (inPre) html.push('</pre>');
+  return html.join('\n');
+}
+
+function inline(s) {
+  return s
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/(^|[\s(])_([^_]+)_/g, '$1<em>$2</em>');
+}
+
+function bubble(role, contentHtml, meta) {
+  const div = document.createElement('div');
+  div.className = 'msg ' + role;
+  div.innerHTML =
+    `<div class="who">${role === 'user' ? 'You' : 'Engine'}</div>` +
+    `<div class="bubble">${contentHtml}</div>` +
+    (meta ? `<div class="meta">${meta}</div>` : '');
+  document.getElementById('thread').appendChild(div);
+  window.scrollTo(0, document.body.scrollHeight);
+  return div;
+}
+
+async function send() {
+  const box = document.getElementById('input');
+  const text = box.value.trim();
+  if (!text) return;
+  box.value = '';
+  const btn = document.getElementById('sendBtn');
+  btn.disabled = true;
+  bubble('user', `<p>${text.replace(/</g,'&lt;')}</p>`);
+  const pending = bubble('assistant', '<p><em>Retrieving evidence and reasoning over the causal graph...</em></p>');
+  try {
+    const res = await fetch('/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ session_id: sessionId, message: text })
+    });
+    if (!res.ok) throw new Error(`${res.status} ${await res.text()}`);
+    const data = await res.json();
+    sessionId = data.session_id;
+    pending.querySelector('.bubble').innerHTML = md(data.reply);
+    const a = data.assessment;
+    pending.querySelector('.who').insertAdjacentHTML('afterend', '');
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    meta.textContent =
+      `turn ${data.turn} | session ${data.session_id} | ` +
+      `llm ${data.llm_used ? 'used for parsing/phrasing' : 'not used (fully deterministic)'} | ` +
+      (a ? `completeness ${(a.data_completeness*100).toFixed(0)}% | ${a.diagnoses.length} diagnoses | ${a.recommendations.length} recommendations` : '');
+    pending.appendChild(meta);
+  } catch (err) {
+    pending.querySelector('.bubble').innerHTML = `<p class="bad">Request failed: ${String(err)}</p>`;
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+async function runAssess() {
+  const out = document.getElementById('jsonOut');
+  let profile;
+  try {
+    profile = JSON.parse(document.getElementById('jsonInput').value);
+  } catch (err) {
+    out.innerHTML = `<div class="card bad">Invalid JSON: ${String(err)}</div>`;
+    return;
+  }
+  out.innerHTML = '<div class="card"><em>Assessing...</em></div>';
+  try {
+    const res = await fetch('/assess', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        profile,
+        explain_retrieval: document.getElementById('jsonExplain').checked,
+        render_markdown: true
+      })
+    });
+    if (!res.ok) throw new Error(`${res.status} ${await res.text()}`);
+    const data = await res.json();
+    out.innerHTML = `<div class="bubble">${md(data.report_markdown)}</div>`;
+  } catch (err) {
+    out.innerHTML = `<div class="card bad">Request failed: ${String(err)}</div>`;
+  }
+}
+
+async function runSearch() {
+  const q = document.getElementById('kbQuery').value.trim();
+  const out = document.getElementById('kbOut');
+  if (!q) return;
+  out.innerHTML = '<div class="card"><em>Searching...</em></div>';
+  let profile = null;
+  if (document.getElementById('kbProfile').checked) {
+    try { profile = JSON.parse(document.getElementById('jsonInput').value); } catch { profile = null; }
+  }
+  try {
+    const res = await fetch('/knowledge/search', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: q, profile, top_k: 8,
+        include_violated: document.getElementById('kbViolated').checked
+      })
+    });
+    if (!res.ok) throw new Error(`${res.status} ${await res.text()}`);
+    const data = await res.json();
+    const w = data.trace.fusion_weights;
+    const head =
+      `<div class="card sc">embedder ${data.trace.embedder} | vector store ${data.trace.vector_backend} | ` +
+      `corpus ${data.trace.corpus_size} cards | weights dense ${w.dense} / lexical ${w.lexical} / site-condition ${w.condition}</div>`;
+    const cards = data.results.map(r => {
+      const sc = r.scores;
+      const sat = r.site_conditions.satisfied.length ? `<div class="sc">site satisfies: ${r.site_conditions.satisfied.join('; ')}</div>` : '';
+      const vio = r.site_conditions.violated.length ? `<div class="sc bad">site CONTRADICTS: ${r.site_conditions.violated.join('; ')}</div>` : '';
+      const unk = r.site_conditions.unknown.length ? `<div class="sc">not yet verifiable: ${r.site_conditions.unknown.join('; ')}</div>` : '';
+      return `<div class="card">
+        <div class="sc">fused ${sc.fused.toFixed(3)} &nbsp; dense ${sc.dense.toFixed(2)} &nbsp; lexical ${sc.lexical.toFixed(2)} &nbsp; site-match ${sc.site_condition_match.toFixed(2)} &nbsp; [${r.evidence_type.replace(/_/g,' ')}]</div>
+        <p><strong>${r.claim.replace(/</g,'&lt;')}</strong></p>
+        <p style="font-size:13.5px;color:var(--muted)">${r.mechanism.replace(/</g,'&lt;')}</p>
+        <div class="sc">${r.citation.replace(/</g,'&lt;')}</div>
+        ${sat}${vio}${unk}
+      </div>`;
+    }).join('');
+    out.innerHTML = head + (cards || '<div class="card">No matching evidence.</div>');
+  } catch (err) {
+    out.innerHTML = `<div class="card bad">Request failed: ${String(err)}</div>`;
+  }
+}
+
+(async () => {
+  try {
+    const res = await fetch('/healthz');
+    const h = await res.json();
+    const k = h.knowledge_base;
+    document.getElementById('status').textContent =
+      `${k.evidence_cards} evidence cards / ${k.distinct_citations} citations | ` +
+      `${k.causal_edges} causal edges | ${k.interventions} interventions | ` +
+      `${h.retrieval.embedder} + ${h.retrieval.vector_backend} | LLM: ${h.llm}`;
+  } catch {
+    document.getElementById('status').textContent = 'engine status unavailable';
+  }
+})();
+</script>
+</body>
+</html>

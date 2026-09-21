@@ -1,0 +1,159 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHONPATH: src
+  # Prove in CI that the system is fully functional with no API key: the
+  # deterministic engine must carry the whole test suite on its own.
+  BIOAI_LLM_ENABLED: "false"
+
+jobs:
+  test:
+    name: test (py${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Validate knowledge base and build retrieval index
+        # Strict load-time validation means a dangling reference, an unsourced
+        # causal edge or an intervention with no evidence fails here, loudly,
+        # before any test runs.
+        run: python scripts/build_index.py --force
+
+      - name: Knowledge base composition
+        run: python -m bioai.cli stats
+
+      - name: Run test suite
+        run: python -m pytest tests/ -q --junitxml=junit-${{ matrix.python-version }}.xml
+
+      - name: End-to-end smoke test on every example profile
+        run: |
+          set -e
+          for profile in examples/*.json; do
+            echo "--- $profile"
+            python -m bioai.cli assess --json "$profile" --format json > /dev/null
+          done
+
+      - name: Scripted scenario walkthroughs
+        run: |
+          set -e
+          for scenario in 1 2 3 4 5; do
+            python -m bioai.cli demo "$scenario" > /dev/null
+          done
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: junit-${{ matrix.python-version }}
+          path: junit-${{ matrix.python-version }}.xml
+          if-no-files-found: ignore
+
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install ruff==0.6.9
+      - name: ruff check
+        run: ruff check src tests scripts
+      - name: ruff format --check
+        run: ruff format --check src tests scripts
+        continue-on-error: true
+
+  docker:
+    name: docker build and container smoke test
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t bioai:ci .
+
+      - name: Start container with NO API key
+        run: |
+          docker run -d --name bioai -p 8000:8000 bioai:ci
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:8000/healthz > /dev/null 2>&1; then
+              echo "up after ${i}s"; break
+            fi
+            sleep 1
+          done
+
+      - name: Assert the knowledge base loaded inside the container
+        run: |
+          set -e
+          curl -fsS http://localhost:8000/healthz | tee /tmp/health.json
+          python - <<'PY'
+          import json
+          health = json.load(open("/tmp/health.json"))
+          assert health["status"] == "ok", health
+          kb = health["knowledge_base"]
+          assert kb["evidence_cards"] >= 60, kb
+          assert kb["causal_edges"] >= 40, kb
+          assert health["retrieval"]["indexed_vectors"] == kb["evidence_cards"], health
+          print("knowledge base OK:", kb)
+          PY
+
+      - name: Assert a full assessment is produced without an API key
+        run: |
+          set -e
+          curl -fsS -X POST http://localhost:8000/assess \
+            -H 'content-type: application/json' \
+            -d '{"profile":{"soil_organic_carbon_pct":0.3,"annual_rainfall_mm":420,
+                 "land_use":"cropland","cropping_system":"monoculture",
+                 "primary_crop":"wheat","soil_ph":5.2,
+                 "pesticide_applications_per_season":4,
+                 "distance_to_natural_habitat_m":1500}}' > /tmp/assess.json
+          python - <<'PY'
+          import json
+          body = json.load(open("/tmp/assess.json"))
+          assessment = body["assessment"]
+          assert assessment["diagnoses"], "no diagnoses"
+          recs = assessment["recommendations"]
+          assert recs, "no recommendations"
+          for rec in recs:
+              assert rec["evidence"], f"{rec['id']} has no citation"
+              assert len({m["metric"] for m in rec["impacted_metrics"]}) >= 3, (
+                  f"{rec['id']} is a single-variable answer"
+              )
+              assert rec["confidence"]["label"] in ("low", "moderate", "high", "very_high")
+              assert rec["time_horizon"] in ("short", "medium", "long")
+          print(f"{len(recs)} evidence-backed multi-metric recommendations OK")
+          PY
+
+      - name: Container logs
+        if: always()
+        run: docker logs bioai
+
+      - name: Tear down
+        if: always()
+        run: docker rm -f bioai || true

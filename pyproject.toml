@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bioai"
+version = "1.0.0"
+description = "Evidence-grounded biodiversity and environmental intelligence engine"
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+bioai = ["knowledge/corpus/*.yaml", "knowledge/datasets/*.csv", "knowledge/datasets/*.yaml", "web/*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests", "scripts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "C4", "SIM", "RUF"]
+ignore = [
+  "E501",    # line length is handled by the formatter, not enforced on prose
+  "B008",    # FastAPI dependency injection idiom
+  "RUF012",  # pydantic/dataclass class attrs are not ClassVar
+  "SIM108",  # ternaries are not always clearer than an if/else
+  "UP038",   # isinstance(x, (A, B)) reads better than isinstance(x, A | B)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E402"]        # tests import after fixtures/sys.path setup
+"scripts/*" = ["E402"]      # scripts insert src/ into sys.path before importing

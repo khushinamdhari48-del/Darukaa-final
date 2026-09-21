@@ -1,0 +1,7 @@
+climate_zone,rainfall_min_mm,rainfall_max_mm,typical_dry_season_months,aridity_index_range,notes,source
+arid,100,400,7,0.05-0.20,"Cropping unreliable without water harvesting or irrigation; rangeland dominant. Tree establishment needs micro-catchments.",FAO agro-ecological zone framework; IPCC 2019 SRCCL
+semi_arid,400,700,5,0.20-0.50,"Rainfed cropping viable but dry-spell limited. Intermediate tree cover maximises recharge. Water partitioning outranks fertility in most seasons.",Ilstedt et al. 2016; Rockstrom et al. 2010
+dry_subhumid,700,1000,3,0.50-0.65,"Reliable single rainfed season; tree-crop water competition modest; erosion risk on slopes.",FAO agro-ecological zone framework
+subhumid,1000,1500,2,0.65-1.00,"Two cropping seasons possible in bimodal regimes; nutrient leaching becomes significant.",FAO agro-ecological zone framework
+humid,1500,12000,1,1.00-4.00,"Water rarely limiting; acidification, leaching and erosion dominate; natural regeneration fastest here.",Crouzeilles et al. 2017
+montane,600,3000,3,0.40-2.00,"Temperature-limited rather than water-limited; slope erosion and short growing season dominate; high endemism common.",FAO agro-ecological zone framework

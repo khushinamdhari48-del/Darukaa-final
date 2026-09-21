@@ -1,0 +1,21 @@
+{
+  "_comment": "Semi-arid rangeland with compaction, severe erosion, no free water and invasive encroachment. Tests non-monotonic grazing reasoning and the invasive-control-first sequencing rule.",
+  "land_use": "grassland",
+  "annual_rainfall_mm": 480,
+  "rainfall_pattern": "erratic",
+  "dry_season_months": 7,
+  "grazing_intensity_lsu_ha": 2.2,
+  "soil_organic_carbon_pct": 0.9,
+  "soil_ph": 7.6,
+  "soil_bulk_density_g_cm3": 1.55,
+  "erosion_class": "severe",
+  "slope_pct": 9,
+  "tree_cover_pct": 3,
+  "native_vegetation_pct": 22,
+  "permanent_water_present": false,
+  "invasive_species_present": true,
+  "keystone_or_threatened_species": ["Ardeotis nigriceps (great Indian bustard) - reported historically"],
+  "species_richness_observed": 11,
+  "objectives": ["biodiversity recovery", "water security"],
+  "constraints": ["labour-constrained"]
+}

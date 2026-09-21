@@ -1,0 +1,1077 @@
+# Intervention catalogue.
+#
+# Candidate generation works off this file: an intervention becomes a candidate
+# only if (a) at least one diagnosis it `addresses` fired, and (b) no
+# `contraindications` predicate is violated by the site profile. `requires`
+# predicates that evaluate to unknown do not disqualify but do become
+# preconditions in the output and feed the clarifying-question ranking.
+#
+# `novelty: non_obvious` marks interventions a non-specialist would be unlikely
+# to propose, or where the correct form of the action is counter-intuitive.
+
+interventions:
+  - id: legume_cover_crops
+    title: Legume-based multi-species cover crop in the fallow window
+    what_to_do: >
+      Sow a legume-dominant mixture (for example cowpea or lablab with a cereal
+      such as millet plus a brassica) into the fallow window, terminate by
+      rolling or grazing rather than by tillage, and leave the residue on the
+      surface. Target 3-4 functional groups rather than a single species.
+    targets: [soil_organic_carbon_pct, soil_nitrogen_pct, earthworm_count_per_m2, soil_moisture_pct]
+    addresses: [soc_depleted, nitrogen_limited, soil_biology_collapsed, bare_soil_exposure]
+    requires:
+      - field: land_use
+        allowed: [cropland, orchard, plantation, agroforestry]
+      - field: annual_rainfall_mm
+        min: 300
+    contraindications:
+      - field: annual_rainfall_mm
+        max: 250
+        note: "below ~250 mm the cover crop depletes the soil water the cash crop needs"
+    cost_intensity: low
+    reversibility: easy
+    time_horizon: medium
+    establishment_years: [0.5, 1.0]
+    monitoring:
+      - "Soil organic carbon at 0-30 cm with bulk-density correction, baseline plus 3-yearly, same month each time"
+      - "Earthworm counts by hand sorting of 20x20x20 cm blocks, 5 replicates, at field capacity in the cool season"
+      - "Cover-crop aboveground biomass at termination as the proxy for carbon input"
+    synergies: [reduced_tillage, no_till_residue_retention, mycorrhiza_management, organic_amendment]
+    conflicts: [rainwater_harvesting_zai]
+    novelty: standard
+
+  - id: intercropping
+    title: Legume-cereal intercropping in place of sole cropping
+    what_to_do: >
+      Replace sole-crop rows with an additive or replacement legume-cereal
+      intercrop, at a density ratio set so the legume occupies the light and
+      rooting space the cereal does not use, and stagger sowing so peak water
+      demand of the two components does not coincide.
+    targets: [soil_nitrogen_pct, species_richness_observed, pollinator_activity, soil_organic_carbon_pct]
+    addresses: [structural_simplification, nitrogen_limited, pollinator_deficit, monoculture_risk]
+    requires:
+      - field: land_use
+        allowed: [cropland, orchard, agroforestry]
+      - field: annual_rainfall_mm
+        min: 350
+    contraindications:
+      - field: soil_ph
+        max: 4.8
+        note: "rhizobial nodulation fails below about pH 4.8, so the nitrogen mechanism does not operate"
+    cost_intensity: low
+    reversibility: easy
+    time_horizon: short
+    establishment_years: [0.5, 1.0]
+    monitoring:
+      - "Land equivalent ratio against the sole-crop control to verify the productivity claim"
+      - "Nodule counts on 10 legume plants at flowering to confirm fixation is actually occurring"
+      - "Soil mineral nitrogen before and after the legume phase"
+    synergies: [legume_cover_crops, mycorrhiza_management, flower_strips]
+    conflicts: []
+    novelty: standard
+
+  - id: crop_rotation_diversification
+    title: Extend the rotation with functionally distinct crops
+    what_to_do: >
+      Lengthen the rotation to at least three functionally distinct crops,
+      chosen to differ in rooting depth, family and sowing date rather than
+      simply in variety, and include at least one legume and one deep-rooted
+      species in each cycle.
+    targets: [species_richness_observed, soil_organic_carbon_pct, pesticide_applications_per_season, soil_nitrogen_pct]
+    addresses: [monoculture_risk, structural_simplification, pesticide_dependency, soc_depleted]
+    requires:
+      - field: land_use
+        allowed: [cropland]
+    contraindications: []
+    cost_intensity: low
+    reversibility: easy
+    time_horizon: medium
+    establishment_years: [1.0, 3.0]
+    monitoring:
+      - "Pest and disease incidence scored on a fixed scale each season to detect break-crop effect"
+      - "Rotation-mean soil mineral nitrogen and organic carbon"
+      - "Number of pesticide applications per rotation cycle, not per season, to capture the real change"
+    synergies: [legume_cover_crops, reduced_tillage, ipm_pesticide_reduction]
+    conflicts: []
+    novelty: standard
+
+  - id: agroforestry_alley_cropping
+    title: Alley cropping with nitrogen-fixing woody species
+    what_to_do: >
+      Establish hedgerows of nitrogen-fixing woody species (for example Gliricidia,
+      Leucaena or Faidherbia depending on zone) at 8-15 m alley spacing on the
+      contour, prune 2-3 times per season and apply the prunings as surface mulch
+      in the alleys. Root-prune the tree lines where rainfall is below 600 mm.
+    targets: [soil_organic_carbon_pct, soil_nitrogen_pct, tree_cover_pct, species_richness_observed, erosion_class]
+    addresses: [soc_depleted, nitrogen_limited, structural_simplification, erosion_risk, habitat_isolation, water_partitioning_loss]
+    requires:
+      - field: land_use
+        allowed: [cropland, pasture, grassland, degraded_barren, orchard, agroforestry]
+      - field: annual_rainfall_mm
+        min: 400
+    contraindications:
+      - field: annual_rainfall_mm
+        max: 350
+        note: "tree-crop water competition dominates below roughly 350 mm unless micro-catchments are used"
+      - field: salinity_ec_ds_m
+        min: 8
+        note: "most agroforestry species fail above 8 dS/m; use halophytes instead"
+    cost_intensity: moderate
+    reversibility: moderate
+    time_horizon: long
+    establishment_years: [2.0, 4.0]
+    monitoring:
+      - "Tree survival and height at 6 and 24 months; below 70% survival, revisit species choice"
+      - "Soil organic carbon and total nitrogen in the alley centre and at 1 m from the tree line, sampled separately"
+      - "Crop yield by distance from tree line, to detect competition before it becomes a net loss"
+      - "Bird point counts as the structural-habitat indicator"
+    synergies: [legume_cover_crops, contour_bunding, mulching, fmnr_natural_regeneration]
+    conflicts: [crop_heterogeneity]
+    novelty: standard
+
+  - id: faidherbia_parkland
+    title: Faidherbia albida parkland at low density
+    what_to_do: >
+      Retain and protect naturally regenerating Faidherbia albida, or plant at
+      10-40 stems per hectare within the species' native range, and crop directly
+      beneath the canopy. Protect young stems from browsing for the first three
+      seasons.
+    targets: [soil_nitrogen_pct, soil_organic_carbon_pct, tree_cover_pct, soil_moisture_pct]
+    addresses: [nitrogen_limited, soc_depleted, water_partitioning_loss, structural_simplification]
+    requires:
+      - field: climate_zone
+        allowed: [arid, semi_arid, dry_subhumid]
+      - field: annual_rainfall_mm
+        min: 300
+        max: 1200
+    contraindications:
+      - field: water_table_depth_m
+        min: 40
+        note: "the species relies on a taproot reaching accessible groundwater"
+    cost_intensity: low
+    reversibility: moderate
+    time_horizon: long
+    establishment_years: [3.0, 6.0]
+    monitoring:
+      - "Stems per hectare and canopy diameter, annually"
+      - "Under-canopy versus open-field yield in the same field, which is the direct test of the reverse-phenology benefit"
+      - "Soil nitrogen under canopy versus open at the same depth"
+    synergies: [fmnr_natural_regeneration, rainwater_harvesting_zai, no_till_residue_retention]
+    conflicts: []
+    novelty: non_obvious
+
+  - id: fmnr_natural_regeneration
+    title: Farmer-managed natural regeneration of existing rootstock
+    what_to_do: >
+      Instead of planting seedlings, identify living stumps and rootstock already
+      present, select 1-3 of the strongest stems per stump, prune the remainder,
+      and protect from fire and browsing. Target 30-60 stems per hectare rather
+      than closed canopy.
+    targets: [tree_cover_pct, species_richness_observed, soil_moisture_pct, soil_organic_carbon_pct]
+    addresses: [structural_simplification, water_partitioning_loss, habitat_isolation, degraded_land]
+    requires:
+      - field: climate_zone
+        allowed: [arid, semi_arid, dry_subhumid, subhumid]
+      - field: land_use
+        allowed: [cropland, degraded_barren, pasture, grassland, agroforestry]
+    contraindications: []
+    cost_intensity: low
+    reversibility: easy
+    time_horizon: medium
+    establishment_years: [1.0, 3.0]
+    monitoring:
+      - "Stems per hectare and species composition of the regenerating cohort, annually in the dry season"
+      - "Whether regeneration is species-diverse or dominated by one coppicing species, which determines habitat value"
+      - "Infiltration rate under canopy versus open using a consistent method"
+    synergies: [faidherbia_parkland, rainwater_harvesting_zai, grazing_exclosure_rest]
+    conflicts: []
+    novelty: non_obvious
+
+  - id: silvopasture
+    title: Scattered trees and fodder shrubs within grazing land
+    what_to_do: >
+      Introduce or retain scattered trees and fodder shrubs at 10-20% canopy
+      cover within paddocks, protecting establishment with temporary exclosure,
+      and integrate the woody fodder into the dry-season feed budget.
+    targets: [tree_cover_pct, soil_organic_carbon_pct, species_richness_observed, soil_moisture_pct]
+    addresses: [structural_simplification, soc_depleted, overgrazing, water_partitioning_loss]
+    requires:
+      - field: land_use
+        allowed: [pasture, grassland, agroforestry]
+    contraindications:
+      - field: annual_rainfall_mm
+        max: 300
+    cost_intensity: moderate
+    reversibility: moderate
+    time_horizon: long
+    establishment_years: [2.0, 5.0]
+    monitoring:
+      - "Canopy cover by point-intercept transect, every 2 years"
+      - "Sward composition under and away from canopy, since shade changes the grass community"
+      - "Dry-season liveweight change as the production-side test"
+    synergies: [grazing_rotational_management, native_grass_reseeding]
+    conflicts: []
+    novelty: standard
+
+  - id: hedgerow_establishment
+    title: Native woody hedgerow on field boundaries
+    what_to_do: >
+      Plant or allow to regenerate a multi-species native woody hedgerow at least
+      2 m wide on field boundaries, using locally sourced provenances, and exclude
+      herbicide drift and breeding-season mowing. Aim for staggered flowering
+      across the season rather than a single showy species.
+    targets: [pollinator_activity, species_richness_observed, hedgerow_density_m_per_ha, bird_species_count]
+    addresses: [pollinator_deficit, habitat_isolation, structural_simplification, natural_enemy_deficit]
+    requires:
+      - field: land_use
+        allowed: [cropland, orchard, plantation, pasture, grassland, agroforestry]
+    contraindications: []
+    cost_intensity: moderate
+    reversibility: moderate
+    time_horizon: medium
+    establishment_years: [3.0, 5.0]
+    monitoring:
+      - "Pan-trap or transect counts of wild bees in the hedgerow and at 0, 50 and 150 m into the field, to verify export rather than concentration"
+      - "Hedgerow length per hectare and number of flowering species by month"
+      - "Breeding bird territories along the hedgerow"
+    synergies: [flower_strips, habitat_corridor, beetle_banks, windbreak_shelterbelt, ipm_pesticide_reduction]
+    conflicts: []
+    novelty: standard
+
+  - id: flower_strips
+    title: Perennial flower strips spaced to match foraging range
+    what_to_do: >
+      Sow species-rich perennial flower strips of 3-6 m width, using locally
+      native forbs with staggered flowering, and space them so that no point in
+      the field is more than 50-100 m from a strip rather than placing all the
+      area on the field perimeter.
+    targets: [pollinator_activity, species_richness_observed, pesticide_applications_per_season]
+    addresses: [pollinator_deficit, natural_enemy_deficit, structural_simplification, pesticide_dependency]
+    requires:
+      - field: land_use
+        allowed: [cropland, orchard, plantation, agroforestry]
+    contraindications: []
+    cost_intensity: low
+    reversibility: easy
+    time_horizon: short
+    establishment_years: [1.0, 3.0]
+    monitoring:
+      - "Floral unit density by month, which is the resource actually driving the effect"
+      - "Natural enemy counts and aphid counts by distance from strip, to confirm the service penetrates the field"
+      - "Strip species composition in year 3, since poorly established strips revert to grass"
+    synergies: [hedgerow_establishment, ipm_pesticide_reduction, beetle_banks, field_margin_setaside]
+    conflicts: []
+    novelty: non_obvious
+
+  - id: beetle_banks
+    title: In-field grass banks as natural enemy overwintering habitat
+    what_to_do: >
+      Create raised tussock-grass banks roughly 2 m wide across large fields, sown
+      with tussock-forming perennial grasses, left undisturbed year-round to
+      provide overwintering refuge for predatory beetles and spiders.
+    targets: [pesticide_applications_per_season, species_richness_observed]
+    addresses: [natural_enemy_deficit, pesticide_dependency, structural_simplification]
+    requires:
+      - field: land_use
+        allowed: [cropland]
+      - field: mean_patch_size_ha
+        min: 5
+    contraindications: []
+    cost_intensity: low
+    reversibility: easy
+    time_horizon: medium
+    establishment_years: [2.0, 3.0]
+    monitoring:
+      - "Overwintering predator density in bank versus field by suction or soil-block sampling in late winter"
+      - "Spring aphid colonisation rate by distance from bank"
+    synergies: [flower_strips, hedgerow_establishment, ipm_pesticide_reduction]
+    conflicts: []
+    novelty: non_obvious
+
+  - id: field_margin_setaside
+    title: Convert the lowest-yielding 3-8% of field area to habitat
+    what_to_do: >
+      Identify the lowest-yielding parts of each field from yield maps or local
+      knowledge, typically corners, shaded edges and shallow-soil patches, and
+      convert only those to permanent habitat. Do not take habitat area
+      uniformly from productive ground.
+    targets: [native_vegetation_pct, pollinator_activity, species_richness_observed]
+    addresses: [habitat_isolation, pollinator_deficit, structural_simplification, natural_enemy_deficit]
+    requires:
+      - field: land_use
+        allowed: [cropland, orchard, plantation]
+    contraindications: []
+    cost_intensity: low
+    reversibility: easy
+    time_horizon: medium
+    establishment_years: [1.0, 3.0]
+    monitoring:
+      - "Whole-field output before and after, which is the claim that needs testing, not per-hectare yield"
+      - "Pollinator and natural enemy counts in the converted area and in the adjacent crop"
+    synergies: [flower_strips, hedgerow_establishment, habitat_corridor]
+    conflicts: []
+    novelty: non_obvious
+
+  - id: habitat_corridor
+    title: Vegetated corridor linking isolated habitat patches
+    what_to_do: >
+      Establish a continuous vegetated corridor, ideally along an existing
+      drainage line or field boundary, linking the site to the nearest
+      semi-natural patch. Width should be set by the target taxa: 5-10 m for
+      invertebrates and small mammals, 30 m or more for woodland interior species.
+    targets: [distance_to_natural_habitat_m, species_richness_observed, native_vegetation_pct]
+    addresses: [habitat_isolation, fragmentation, pollinator_deficit]
+    requires:
+      - field: distance_to_natural_habitat_m
+        min: 200
+    contraindications: []
+    cost_intensity: moderate
+    reversibility: moderate
+    time_horizon: long
+    establishment_years: [3.0, 8.0]
+    monitoring:
+      - "Species turnover in the target patch: new arrivals are the actual test, not corridor vegetation cover"
+      - "Corridor continuity check for gaps, which disproportionately reduce function"
+      - "Watch for invasive species and fire using the corridor as a conduit"
+    synergies: [hedgerow_establishment, riparian_buffer, assisted_natural_regeneration]
+    conflicts: []
+    novelty: standard
+
+  - id: crop_heterogeneity
+    title: Subdivide large fields and diversify crop types spatially
+    what_to_do: >
+      Reduce mean field size toward 2-3 ha by subdividing with permanent
+      boundaries, and arrange several crop types in a mosaic rather than a single
+      block, so that adjacent parcels differ in crop and in harvest date.
+    targets: [mean_patch_size_ha, species_richness_observed]
+    addresses: [fragmentation, structural_simplification, monoculture_risk]
+    requires:
+      - field: land_use
+        allowed: [cropland]
+      - field: mean_patch_size_ha
+        min: 5
+    contraindications: []
+    cost_intensity: moderate
+    reversibility: moderate
+    time_horizon: medium
+    establishment_years: [1.0, 4.0]
+    monitoring:
+      - "Mean field size and crop-type richness within a 1 km radius, since the effect is a landscape one"
+      - "Multitrophic sampling of at least two taxa, because single-taxon monitoring misses the multitrophic mechanism"
+    synergies: [hedgerow_establishment, crop_rotation_diversification]
+    conflicts: [agroforestry_alley_cropping]
+    novelty: non_obvious
+
+  - id: reduced_tillage
+    title: Shift to reduced or strip tillage with residue retained
+    what_to_do: >
+      Replace inversion tillage with strip or shallow non-inversion tillage,
+      retain at least 30% surface residue cover, and pair with a competitive cover
+      crop so that herbicide use does not rise to fill the weed-control gap.
+    targets: [soil_organic_carbon_pct, earthworm_count_per_m2, soil_moisture_pct]
+    addresses: [soc_depleted, soil_biology_collapsed, bare_soil_exposure, erosion_risk]
+    requires:
+      - field: land_use
+        allowed: [cropland, orchard, plantation]
+    contraindications:
+      - field: soil_bulk_density_g_cm3
+        min: 1.7
+        note: "existing severe compaction must be relieved mechanically before disturbance is reduced"
+    cost_intensity: low
+    reversibility: easy
+    time_horizon: medium
+    establishment_years: [2.0, 4.0]
+    monitoring:
+      - "Soil organic carbon to at least 30 cm with bulk-density correction; shallow-only sampling will overstate the gain"
+      - "Penetrometer resistance profile annually to catch developing surface compaction"
+      - "Herbicide active-ingredient load per hectare, to verify it has not simply substituted for tillage"
+    synergies: [legume_cover_crops, no_till_residue_retention, mycorrhiza_management]
+    conflicts: []
+    novelty: standard
+
+  - id: no_till_residue_retention
+    title: Full conservation agriculture package - no-till plus residue plus rotation
+    what_to_do: >
+      Adopt all three components together: no-till planting, retention of at
+      least 30% residue cover, and a diversified rotation. Do not adopt no-till
+      alone, which carries a yield penalty without the other two.
+    targets: [soil_moisture_pct, soil_organic_carbon_pct, erosion_class]
+    addresses: [water_partitioning_loss, soc_depleted, erosion_risk, bare_soil_exposure]
+    requires:
+      - field: land_use
+        allowed: [cropland]
+      - field: annual_rainfall_mm
+        max: 1000
+    contraindications:
+      - field: residue_removal
+        allowed: [full, burned]
+        note: "where residues are removed for fodder or fuel, the package cannot be implemented as specified; resolve the competing use first"
+    cost_intensity: moderate
+    reversibility: moderate
+    time_horizon: medium
+    establishment_years: [2.0, 4.0]
+    monitoring:
+      - "Residue cover percentage by line-transect at planting, the component most often silently dropped"
+      - "Soil water at 0-60 cm through the dry spell, which is the mechanism in dry rainfed systems"
+      - "Yield against a tilled control strip kept in the same field"
+    synergies: [legume_cover_crops, mulching, crop_rotation_diversification, faidherbia_parkland]
+    conflicts: []
+    novelty: non_obvious
+
+  - id: residue_retention
+    title: Stop residue removal and burning
+    what_to_do: >
+      Retain crop residues on the field surface instead of removing or burning
+      them. Where residues are needed as fodder, resolve the competing demand
+      first, for example by establishing a dedicated fodder bank or fodder shrubs.
+    targets: [soil_organic_carbon_pct, soil_moisture_pct, earthworm_count_per_m2]
+    addresses: [soc_depleted, bare_soil_exposure, water_partitioning_loss, soil_biology_collapsed]
+    requires:
+      - field: land_use
+        allowed: [cropland, orchard, plantation, agroforestry]
+    contraindications: []
+    cost_intensity: low
+    reversibility: easy
+    time_horizon: short
+    establishment_years: [0.5, 1.0]
+    monitoring:
+      - "Surface cover percentage at planting and at mid-season"
+      - "Soil temperature at 5 cm in the hottest month, covered versus bare"
+      - "Fodder balance, to confirm the competing use has genuinely been substituted rather than displaced"
+    synergies: [no_till_residue_retention, mulching, silvopasture]
+    conflicts: []
+    novelty: standard
+
+  - id: organic_amendment
+    title: Targeted compost or manure application
+    what_to_do: >
+      Apply composted organic matter at 5-15 t/ha, concentrated on the most
+      carbon-depleted zones rather than spread uniformly, and account for the
+      source: moving manure between fields relocates carbon rather than creating it.
+    targets: [soil_organic_carbon_pct, earthworm_count_per_m2, soil_nitrogen_pct, soil_ph]
+    addresses: [soc_depleted, soil_biology_collapsed, nitrogen_limited, degraded_land]
+    requires: []
+    contraindications:
+      - field: fertilizer_n_kg_ha_yr
+        min: 200
+        note: "already at very high nitrogen loading; additional nutrient input would worsen enrichment and richness loss"
+    cost_intensity: moderate
+    reversibility: easy
+    time_horizon: medium
+    establishment_years: [1.0, 2.0]
+    monitoring:
+      - "Soil organic carbon and available phosphorus, since repeated manure application accumulates phosphorus"
+      - "Nitrate in shallow groundwater or drainage if application exceeds 10 t/ha"
+      - "Landscape-level carbon accounting where manure is imported"
+    synergies: [rainwater_harvesting_zai, legume_cover_crops, reduced_tillage, biochar_application]
+    conflicts: [nitrogen_rate_optimization]
+    novelty: standard
+
+  - id: biochar_application
+    title: Biochar on acidic coarse-textured soils only
+    what_to_do: >
+      Apply characterised biochar at 5-20 t/ha, co-applied with compost or
+      manure, restricted to acidic and coarse-textured soils where the liming
+      and cation-exchange mechanisms actually operate. Require feedstock and
+      contaminant certification.
+    targets: [soil_ph, soil_organic_carbon_pct, soil_moisture_pct]
+    addresses: [acidity_constraint, soc_depleted, degraded_land]
+    requires:
+      - field: soil_ph
+        max: 6.5
+    contraindications:
+      - field: soil_ph
+        min: 7.0
+        note: "no liming or exchange-capacity limitation to relieve; expected response is zero"
+    cost_intensity: high
+    reversibility: hard
+    time_horizon: medium
+    establishment_years: [1.0, 2.0]
+    monitoring:
+      - "Soil pH and cation exchange capacity before and 12 months after"
+      - "Report biochar carbon separately from biologically sequestered carbon in any carbon claim"
+      - "Feedstock contaminant certificate on file"
+    synergies: [organic_amendment, liming_ph_correction]
+    conflicts: []
+    novelty: standard
+
+  - id: liming_ph_correction
+    title: Lime to a purpose-specific pH target
+    what_to_do: >
+      Apply lime at a rate set by a buffer-pH or exchangeable-acidity test to
+      reach a target chosen for the land-use objective, typically 6.0-6.5 for
+      cropping. Do not lime semi-natural acid grassland or heath, where
+      acidophilous specialists are the conservation interest.
+    targets: [soil_ph, soil_nitrogen_pct, species_richness_observed]
+    addresses: [acidity_constraint, nitrogen_limited]
+    requires:
+      - field: soil_ph
+        max: 5.5
+    contraindications:
+      - field: land_use
+        allowed: [grassland, wetland]
+        note: "liming semi-natural acid grassland or wetland displaces the specialist community that is the conservation value"
+    cost_intensity: moderate
+    reversibility: hard
+    time_horizon: short
+    establishment_years: [0.5, 2.0]
+    monitoring:
+      - "Soil pH at 0-20 cm annually for three years, since over-liming sandy soils induces micronutrient deficiency"
+      - "Legume nodulation as the functional confirmation that the constraint has been relieved"
+      - "Micronutrient status on sandy soils"
+    synergies: [legume_cover_crops, intercropping, biochar_application]
+    conflicts: []
+    novelty: standard
+
+  - id: gypsum_sodic_reclamation
+    title: Drainage-first sodic reclamation with gypsum
+    what_to_do: >
+      Establish or verify functioning drainage before any amendment, then apply
+      gypsum at a rate set by the exchangeable sodium percentage, leach with a
+      calculated leaching fraction, and establish salt-tolerant vegetation to
+      maintain structure.
+    targets: [salinity_ec_ds_m, species_richness_observed, soil_bulk_density_g_cm3]
+    addresses: [salinity_constraint, degraded_land]
+    requires:
+      - field: salinity_ec_ds_m
+        min: 4
+    contraindications: []
+    cost_intensity: high
+    reversibility: moderate
+    time_horizon: medium
+    establishment_years: [2.0, 5.0]
+    monitoring:
+      - "Electrical conductivity and exchangeable sodium percentage by depth, twice yearly"
+      - "Water table depth monthly; a rising table means the drainage is inadequate and the reclamation will reverse"
+      - "Infiltration rate as the structural recovery indicator"
+    synergies: [drip_irrigation_conversion, native_grass_reseeding, organic_amendment]
+    conflicts: []
+    novelty: non_obvious
+
+  - id: rainwater_harvesting_zai
+    title: Planting pits or half-moons charged with organic matter
+    what_to_do: >
+      Dig planting pits (zai) or half-moon micro-catchments on the contour at
+      roughly 10,000-15,000 per hectare, charge each with a handful of manure or
+      compost, and plant into the pit. Combine the structure with the amendment;
+      either alone performs far worse.
+    targets: [soil_moisture_pct, soil_organic_carbon_pct, species_richness_observed]
+    addresses: [water_partitioning_loss, degraded_land, soc_depleted, crusted_surface]
+    requires:
+      - field: annual_rainfall_mm
+        min: 200
+        max: 800
+      - field: slope_pct
+        max: 15
+    contraindications:
+      - field: annual_rainfall_mm
+        min: 1000
+        note: "in humid zones water capture is not the limiting factor and pits risk waterlogging"
+    cost_intensity: moderate
+    reversibility: easy
+    time_horizon: short
+    establishment_years: [0.5, 2.0]
+    monitoring:
+      - "Soil water in pit versus between pits through a dry spell"
+      - "Labour hours per hectare actually spent, since this is the usual adoption constraint"
+      - "Downstream flow effects if scaled across a catchment, which is an equity question not a technical one"
+    synergies: [organic_amendment, fmnr_natural_regeneration, contour_bunding, mulching]
+    conflicts: [legume_cover_crops]
+    novelty: non_obvious
+
+  - id: contour_bunding
+    title: Contour bunds or stone lines with engineered spillways
+    what_to_do: >
+      Construct contour bunds, stone lines or vegetated barriers on the contour at
+      a vertical interval set by slope, with designed spillways to pass peak flows
+      without breaching. Stabilise with perennial grass.
+    targets: [erosion_class, soil_moisture_pct, soil_organic_carbon_pct]
+    addresses: [erosion_risk, water_partitioning_loss, crusted_surface]
+    requires:
+      - field: slope_pct
+        min: 3
+    contraindications: []
+    cost_intensity: moderate
+    reversibility: moderate
+    time_horizon: medium
+    establishment_years: [1.0, 3.0]
+    monitoring:
+      - "Bund integrity after each major rainfall event; an unmaintained breach concentrates flow and initiates a gully"
+      - "Sediment accumulation upslope of bunds as the erosion-reduction measure"
+      - "Soil moisture upslope versus downslope of the bund"
+    synergies: [rainwater_harvesting_zai, agroforestry_alley_cropping, native_grass_reseeding]
+    conflicts: []
+    novelty: standard
+
+  - id: swale_infiltration
+    title: Infiltration swales on gentle slopes
+    what_to_do: >
+      Excavate level swales along the contour, with the spoil forming a downslope
+      berm planted with perennial vegetation, sized to hold the runoff from a
+      design storm and infiltrate it over 24-48 hours.
+    targets: [soil_moisture_pct, water_table_depth_m, erosion_class]
+    addresses: [water_partitioning_loss, erosion_risk]
+    requires:
+      - field: slope_pct
+        min: 2
+        max: 12
+    contraindications:
+      - field: water_table_depth_m
+        max: 2
+        note: "shallow water table means infiltrated water will not be stored and may raise salinity by capillary rise"
+    cost_intensity: moderate
+    reversibility: moderate
+    time_horizon: medium
+    establishment_years: [1.0, 3.0]
+    monitoring:
+      - "Time to drain after a filling event; standing water beyond 48 hours indicates undersized infiltration"
+      - "Shallow water table depth, to detect unintended waterlogging or salinity"
+    synergies: [contour_bunding, agroforestry_alley_cropping]
+    conflicts: []
+    novelty: standard
+
+  - id: mulching
+    title: Surface mulch to cut evaporation and crusting
+    what_to_do: >
+      Maintain 3-5 t/ha of surface mulch from crop residue, tree prunings or cut
+      grass through the period of highest evaporative demand and at the onset of
+      rains when crusting risk is highest.
+    targets: [soil_moisture_pct, soil_organic_carbon_pct, earthworm_count_per_m2]
+    addresses: [water_partitioning_loss, bare_soil_exposure, crusted_surface, soil_biology_collapsed]
+    requires: []
+    contraindications: []
+    cost_intensity: low
+    reversibility: easy
+    time_horizon: short
+    establishment_years: [0.3, 1.0]
+    monitoring:
+      - "Surface cover percentage and mulch mass at the start and end of the dry period"
+      - "Soil temperature and moisture at 5-10 cm, mulched versus bare"
+    synergies: [no_till_residue_retention, agroforestry_alley_cropping, rainwater_harvesting_zai]
+    conflicts: []
+    novelty: standard
+
+  - id: drip_irrigation_conversion
+    title: Convert flood or furrow irrigation to localised delivery
+    what_to_do: >
+      Convert to drip or micro-sprinkler with filtration matched to water
+      quality, schedule from soil-moisture or evapotranspiration data, and retain
+      a periodic leaching event in arid zones to move salts past the root zone.
+      Do not claim basin-level water savings from field-level efficiency gains.
+    targets: [salinity_ec_ds_m, soil_moisture_pct]
+    addresses: [salinity_constraint, water_partitioning_loss, waterlogging]
+    requires:
+      - field: irrigation
+        allowed: [flood, furrow, sprinkler]
+    contraindications: []
+    cost_intensity: high
+    reversibility: moderate
+    time_horizon: medium
+    establishment_years: [1.0, 2.0]
+    monitoring:
+      - "Electrical conductivity at the wetting-front margin, where drip concentrates salts"
+      - "Applied water per hectare and per unit yield"
+      - "Whether irrigated area has expanded, which would offset the saving at basin scale"
+    synergies: [gypsum_sodic_reclamation, mulching]
+    conflicts: []
+    novelty: standard
+
+  - id: farm_pond_wetland
+    title: Small farm pond or seasonal wetland with graded margins
+    what_to_do: >
+      Construct or restore a small pond or seasonal wetland with shallow graded
+      margins and native emergent vegetation, sited to intercept runoff, and
+      fence to control livestock access to a single hardened drinking point.
+    targets: [permanent_water_present, species_richness_observed, soil_moisture_pct]
+    addresses: [water_scarcity_for_fauna, structural_simplification, habitat_isolation]
+    requires: []
+    contraindications:
+      - field: salinity_ec_ds_m
+        min: 8
+        note: "evaporative concentration in saline settings produces a salt sink rather than habitat"
+    cost_intensity: moderate
+    reversibility: moderate
+    time_horizon: medium
+    establishment_years: [1.0, 3.0]
+    monitoring:
+      - "Amphibian and odonate counts, the fastest-responding indicator groups"
+      - "Margin vegetation cover and whether livestock access is concentrating nutrients"
+      - "Whether grazing pressure has concentrated around the water point, which can outweigh the habitat gain"
+    synergies: [riparian_buffer, wetland_restoration, grazing_rotational_management]
+    conflicts: []
+    novelty: non_obvious
+
+  - id: riparian_buffer
+    title: Vegetated riparian buffer along watercourses
+    what_to_do: >
+      Establish a permanently vegetated buffer of at least 10 m, wider on steeper
+      or more erodible ground, along all watercourses and drainage lines, with no
+      cultivation, no fertiliser and no spraying inside the buffer.
+    targets: [species_richness_observed, erosion_class, distance_to_natural_habitat_m]
+    addresses: [pollution_pathway, erosion_risk, habitat_isolation, fragmentation]
+    requires: []
+    contraindications: []
+    cost_intensity: low
+    reversibility: easy
+    time_horizon: medium
+    establishment_years: [2.0, 4.0]
+    monitoring:
+      - "Buffer width and continuity, mapped; gaps dominate performance"
+      - "Aquatic invertebrate family richness upstream and downstream"
+      - "Turbidity or suspended sediment after storm events"
+    synergies: [habitat_corridor, ipm_pesticide_reduction, nitrogen_rate_optimization, wetland_restoration]
+    conflicts: []
+    novelty: standard
+
+  - id: ipm_pesticide_reduction
+    title: Staged IPM transition with habitat support in place first
+    what_to_do: >
+      Establish natural enemy habitat first, then introduce economic thresholds
+      and scouting, switch to selective products, and only then reduce
+      application frequency. Reducing applications before the enemy community is
+      established risks outbreak.
+    targets: [pesticide_applications_per_season, pollinator_activity, species_richness_observed]
+    addresses: [pesticide_dependency, pollinator_deficit, natural_enemy_deficit, pollution_pathway]
+    requires:
+      - field: pesticide_applications_per_season
+        min: 1
+    contraindications: []
+    cost_intensity: low
+    reversibility: easy
+    time_horizon: medium
+    establishment_years: [1.0, 4.0]
+    monitoring:
+      - "Applications per season and total active-ingredient load, tracked separately"
+      - "Pest and natural enemy counts weekly during the risk window, which is what thresholds depend on"
+      - "Yield and crop-loss records, to demonstrate the reduction is not costing production"
+    synergies: [flower_strips, hedgerow_establishment, beetle_banks, crop_rotation_diversification]
+    conflicts: []
+    novelty: non_obvious
+
+  - id: neonicotinoid_phaseout
+    title: Withdraw systemic neonicotinoid seed treatments
+    what_to_do: >
+      Replace neonicotinoid-treated seed with untreated seed plus threshold-based
+      intervention, retaining a targeted rescue treatment option for verified
+      outbreaks rather than prophylactic treatment of every seed.
+    targets: [pollinator_activity, species_richness_observed]
+    addresses: [pollinator_deficit, pollution_pathway, pesticide_dependency]
+    requires:
+      - field: pesticide_applications_per_season
+        min: 1
+    contraindications: []
+    cost_intensity: low
+    reversibility: easy
+    time_horizon: short
+    establishment_years: [0.5, 2.0]
+    monitoring:
+      - "Wild bee abundance and species richness through the crop flowering window"
+      - "Early-season pest damage at the seedling stage, the risk this treatment was managing"
+    synergies: [ipm_pesticide_reduction, flower_strips]
+    conflicts: []
+    novelty: standard
+
+  - id: nitrogen_rate_optimization
+    title: Match nitrogen rate, timing, placement and form to crop demand
+    what_to_do: >
+      Set rate from soil and tissue testing, split applications to track the crop
+      uptake curve, place fertiliser in the root zone rather than broadcast, and
+      use stabilised forms where leaching or volatilisation risk is high.
+    targets: [fertilizer_n_kg_ha_yr, species_richness_observed, soil_ph]
+    addresses: [nutrient_enrichment, pollution_pathway, acidity_constraint]
+    requires:
+      - field: fertilizer_n_kg_ha_yr
+        min: 60
+    contraindications:
+      - field: fertilizer_n_kg_ha_yr
+        max: 40
+        note: "site is nitrogen-deficient; the correct action is to increase biological or mineral nitrogen supply, not to cut it"
+    cost_intensity: low
+    reversibility: easy
+    time_horizon: short
+    establishment_years: [0.5, 2.0]
+    monitoring:
+      - "Applied nitrogen per hectare and partial nitrogen balance (applied minus removed)"
+      - "Nitrate in shallow groundwater or drainage water"
+      - "Field-margin plant richness, the receptor most exposed to over-application"
+    synergies: [legume_cover_crops, riparian_buffer, mycorrhiza_management]
+    conflicts: [organic_amendment]
+    novelty: standard
+
+  - id: mycorrhiza_management
+    title: Manage for resident mycorrhizal networks rather than inoculating
+    what_to_do: >
+      Conserve resident arbuscular mycorrhizal networks by avoiding deep
+      inversion tillage, keeping a living host plant in the ground year-round,
+      including mycorrhizal host species in the rotation, and avoiding high
+      soluble-phosphorus applications, which suppress colonisation. Prefer this
+      over purchased inoculants, which frequently fail to establish.
+    targets: [soil_nitrogen_pct, fertilizer_n_kg_ha_yr, soil_organic_carbon_pct]
+    addresses: [soil_biology_collapsed, nutrient_enrichment, nitrogen_limited]
+    requires: []
+    contraindications:
+      - field: tillage
+        allowed: [deep]
+        note: "annual deep inversion severs hyphal networks each season, so conservation cannot succeed without changing tillage first"
+    cost_intensity: low
+    reversibility: easy
+    time_horizon: medium
+    establishment_years: [2.0, 5.0]
+    monitoring:
+      - "Root colonisation percentage by staining, on 10 root samples, in the same growth stage each year"
+      - "Phosphorus uptake efficiency (P removed per unit P applied)"
+      - "Extraradical hyphal length if laboratory capacity allows"
+    synergies: [reduced_tillage, legume_cover_crops, crop_rotation_diversification]
+    conflicts: []
+    novelty: non_obvious
+
+  - id: grazing_rotational_management
+    title: Flexible rotational grazing keyed to regrowth, not to a calendar
+    what_to_do: >
+      Subdivide into paddocks and set the rest period by measured regrowth rather
+      than a fixed schedule, extending rest in dry years. Manage grazing
+      distribution and timing, not just stocking rate, and retain patches of
+      ungrazed structure within paddocks.
+    targets: [soil_organic_carbon_pct, soil_moisture_pct, species_richness_observed, soil_bulk_density_g_cm3]
+    addresses: [overgrazing, soc_depleted, structural_simplification, erosion_risk]
+    requires:
+      - field: land_use
+        allowed: [grassland, pasture, agroforestry]
+    contraindications: []
+    cost_intensity: moderate
+    reversibility: easy
+    time_horizon: medium
+    establishment_years: [2.0, 5.0]
+    monitoring:
+      - "Residual sward height or biomass at exit from each paddock, the variable that actually controls outcomes"
+      - "Basal cover of perennial grasses by point transect, annually at the same phenological stage"
+      - "Soil bulk density at 0-10 cm at gateways and water points, where compaction concentrates"
+    synergies: [silvopasture, native_grass_reseeding, grazing_exclosure_rest, farm_pond_wetland]
+    conflicts: []
+    novelty: non_obvious
+
+  - id: grazing_exclosure_rest
+    title: Temporary exclosure to allow recruitment, not permanent exclusion
+    what_to_do: >
+      Exclude grazing from defined areas for 2-4 growing seasons to allow woody
+      and perennial grass recruitment, then reintroduce controlled grazing. Avoid
+      indefinite exclusion in systems with a long grazing history, where it
+      allows competitive dominants to close the sward and reduce diversity.
+    targets: [species_richness_observed, tree_cover_pct, soil_organic_carbon_pct]
+    addresses: [overgrazing, degraded_land, structural_simplification]
+    requires:
+      - field: grazing_intensity_lsu_ha
+        min: 0.5
+    contraindications: []
+    cost_intensity: moderate
+    reversibility: easy
+    time_horizon: medium
+    establishment_years: [2.0, 4.0]
+    monitoring:
+      - "Woody seedling and perennial grass recruitment density inside versus outside the exclosure"
+      - "Plant species richness, watching for decline if exclusion runs too long"
+      - "Fuel load, since ungrazed biomass raises fire risk"
+    synergies: [fmnr_natural_regeneration, grazing_rotational_management, native_grass_reseeding]
+    conflicts: []
+    novelty: non_obvious
+
+  - id: native_grass_reseeding
+    title: Reseed with a diverse native perennial grass and forb mix
+    what_to_do: >
+      Reseed degraded sward with a locally sourced mix of at least 8-10 native
+      perennial grasses and forbs, drilled into a lightly scarified surface, and
+      rest from grazing until established.
+    targets: [species_richness_observed, soil_organic_carbon_pct, soil_moisture_pct]
+    addresses: [degraded_land, structural_simplification, soc_depleted, overgrazing]
+    requires:
+      - field: land_use
+        allowed: [grassland, pasture, degraded_barren, agroforestry]
+    contraindications: []
+    cost_intensity: moderate
+    reversibility: moderate
+    time_horizon: medium
+    establishment_years: [2.0, 4.0]
+    monitoring:
+      - "Establishment counts at 6 and 18 months by sown species, not just total cover"
+      - "Species richness and functional group balance at year 3, since mixes commonly collapse to 2-3 dominants"
+      - "Root depth distribution, the mechanism behind the drought-stability benefit"
+    synergies: [grazing_rotational_management, grazing_exclosure_rest, silvopasture]
+    conflicts: []
+    novelty: standard
+
+  - id: assisted_natural_regeneration
+    title: Assisted natural regeneration in preference to planting
+    what_to_do: >
+      Where a seed source is within about 2 km, protect the site from fire and
+      grazing, suppress competing exotic grasses around natural recruits, and let
+      succession proceed. Plant only to fill gaps or where the seedbank is
+      genuinely exhausted. This costs far less than planting and produces higher
+      biodiversity outcomes.
+    targets: [tree_cover_pct, species_richness_observed, native_vegetation_pct, soil_organic_carbon_pct]
+    addresses: [degraded_land, habitat_isolation, fragmentation, structural_simplification]
+    requires:
+      - field: distance_to_natural_habitat_m
+        max: 2000
+    contraindications: []
+    cost_intensity: low
+    reversibility: easy
+    time_horizon: long
+    establishment_years: [3.0, 10.0]
+    monitoring:
+      - "Natural recruit density and species composition annually, which distinguishes succession from arrest"
+      - "Exotic grass cover, the usual cause of arrested succession"
+      - "Fire occurrence and grazing incursion records"
+    synergies: [invasive_species_control, habitat_corridor, fmnr_natural_regeneration]
+    conflicts: []
+    novelty: non_obvious
+
+  - id: invasive_species_control
+    title: Sequenced invasive control with native replacement planned first
+    what_to_do: >
+      Map the invasion, plan the native replacement cover before removal, remove
+      in stages to avoid bare soil, and budget for a multi-year follow-up regime.
+      Treat control as a precondition for other restoration on invaded sites, not
+      as an alternative to it.
+    targets: [species_richness_observed, native_vegetation_pct]
+    addresses: [invasive_dominance, degraded_land, structural_simplification]
+    requires:
+      - field: invasive_species_present
+        allowed: ["true"]
+    contraindications: []
+    cost_intensity: high
+    reversibility: moderate
+    time_horizon: medium
+    establishment_years: [2.0, 6.0]
+    monitoring:
+      - "Invasive cover by mapped compartment, with reinvasion rate as the key metric"
+      - "Native recruitment in cleared areas; no recruitment means the seed source is the real constraint"
+      - "Bare soil percentage after clearing, to catch erosion risk early"
+    synergies: [assisted_natural_regeneration, native_grass_reseeding]
+    conflicts: []
+    novelty: standard
+
+  - id: windbreak_shelterbelt
+    title: Multi-row shelterbelt across the prevailing wind
+    what_to_do: >
+      Establish a permeable multi-row, multi-species shelterbelt perpendicular to
+      the prevailing wind, aiming for about 50% porosity rather than a solid
+      barrier, which would create damaging downwind turbulence.
+    targets: [soil_moisture_pct, erosion_class, species_richness_observed, tree_cover_pct]
+    addresses: [erosion_risk, water_partitioning_loss, structural_simplification, habitat_isolation]
+    requires: []
+    contraindications:
+      - field: annual_rainfall_mm
+        max: 250
+    cost_intensity: moderate
+    reversibility: moderate
+    time_horizon: long
+    establishment_years: [3.0, 6.0]
+    monitoring:
+      - "Wind speed reduction at 5, 10 and 20 times belt height downwind"
+      - "Crop yield by distance downwind, which reveals both shelter benefit and competition zone"
+      - "Belt porosity, since a solid belt underperforms a permeable one"
+    synergies: [hedgerow_establishment, agroforestry_alley_cropping, habitat_corridor]
+    conflicts: []
+    novelty: standard
+
+  - id: improved_fallow_legume
+    title: Short-rotation legume fallow
+    what_to_do: >
+      Insert a one- to two-season legume shrub or herbaceous fallow (for example
+      Sesbania, Tephrosia or pigeonpea) into the rotation, incorporate or mulch
+      the biomass, and correct phosphorus deficiency first, since phosphorus
+      limits nitrogen fixation.
+    targets: [soil_nitrogen_pct, soil_organic_carbon_pct, species_richness_observed]
+    addresses: [nitrogen_limited, soc_depleted, monoculture_risk, degraded_land]
+    requires:
+      - field: land_use
+        allowed: [cropland, degraded_barren, agroforestry]
+      - field: annual_rainfall_mm
+        min: 350
+    contraindications:
+      - field: soil_ph
+        max: 4.8
+    cost_intensity: low
+    reversibility: easy
+    time_horizon: medium
+    establishment_years: [1.0, 3.0]
+    monitoring:
+      - "Legume biomass at incorporation, the direct determinant of nitrogen added"
+      - "Following-crop yield against a continuous-cropping control"
+      - "Available phosphorus, since fixation is P-limited"
+    synergies: [intercropping, legume_cover_crops, agroforestry_alley_cropping]
+    conflicts: []
+    novelty: standard
+
+  - id: pollinator_nesting_habitat
+    title: Provide the nesting substrate, not just the flowers
+    what_to_do: >
+      Create bare, compacted, sunny ground patches for soil-nesting bees (which
+      are the majority of species), retain standing dead stems and deadwood over
+      winter, and leave small areas unmown and untilled year-round. Floral
+      provision without nesting substrate limits the population.
+    targets: [pollinator_activity, species_richness_observed]
+    addresses: [pollinator_deficit, structural_simplification]
+    requires: []
+    contraindications: []
+    cost_intensity: low
+    reversibility: easy
+    time_horizon: short
+    establishment_years: [1.0, 3.0]
+    monitoring:
+      - "Nest aggregation counts on bare-ground patches in spring"
+      - "Proportion of the wild bee community that is soil-nesting versus cavity-nesting, to check the provision matches the community"
+      - "Occupancy of retained stems by cavity nesters"
+    synergies: [flower_strips, hedgerow_establishment, field_margin_setaside]
+    conflicts: []
+    novelty: non_obvious
+
+  - id: wetland_restoration
+    title: Restore hydroperiod before restoring vegetation
+    what_to_do: >
+      Re-establish the natural depth, duration and timing of inundation by
+      blocking drains or restoring inflow, and only then address vegetation.
+      Divert or buffer nutrient-rich inflow, which otherwise drives the restored
+      wetland to a species-poor eutrophic state.
+    targets: [permanent_water_present, species_richness_observed, soil_organic_carbon_pct]
+    addresses: [water_scarcity_for_fauna, degraded_land, habitat_isolation, pollution_pathway]
+    requires:
+      - field: land_use
+        allowed: [wetland, degraded_barren, cropland, grassland]
+    contraindications: []
+    cost_intensity: high
+    reversibility: moderate
+    time_horizon: long
+    establishment_years: [3.0, 8.0]
+    monitoring:
+      - "Water depth and duration against the reference hydroperiod, the single strongest predictor of success"
+      - "Emergent and submerged plant composition versus a reference wetland"
+      - "Inflow nutrient concentration; methane flux if restoring on drained organic soil"
+    synergies: [riparian_buffer, farm_pond_wetland, nitrogen_rate_optimization]
+    conflicts: []
+    novelty: non_obvious
+
+  - id: mangrove_restoration
+    title: Hydrology-first mangrove restoration with zonation-matched species
+    what_to_do: >
+      Restore tidal hydrology and elevation first, then allow natural recruitment
+      where propagule supply exists, and plant only to fill gaps using species
+      matched to the local inundation zonation rather than the most available
+      nursery species.
+    targets: [soil_organic_carbon_pct, species_richness_observed, tree_cover_pct]
+    addresses: [degraded_land, structural_simplification, habitat_isolation]
+    requires:
+      - field: land_use
+        allowed: [mangrove, wetland, degraded_barren]
+    contraindications: []
+    cost_intensity: high
+    reversibility: moderate
+    time_horizon: long
+    establishment_years: [3.0, 10.0]
+    monitoring:
+      - "Inundation frequency and duration at planting elevation, the dominant cause of restoration failure"
+      - "Natural propagule recruitment versus planted survival"
+      - "Sediment carbon by depth, since most of the stock is below ground"
+    synergies: [wetland_restoration, assisted_natural_regeneration]
+    conflicts: []
+    novelty: non_obvious

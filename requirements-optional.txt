@@ -1,0 +1,6 @@
+# Optional retrieval backends. The system ships with a zero-dependency
+# persistent vector store + BM25 and works fully without these.
+#   chromadb          -> swaps the vector store for ChromaDB (BIOAI_VECTOR_BACKEND=chroma)
+#   sentence-transformers -> swaps hashed-TFIDF embeddings for MiniLM (BIOAI_EMBEDDER=minilm)
+chromadb>=0.5
+sentence-transformers>=3.0

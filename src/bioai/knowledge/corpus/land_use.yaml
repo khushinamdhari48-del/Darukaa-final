@@ -1,0 +1,600 @@
+# Land use / land cover, habitat configuration, fragmentation and restoration.
+
+- id: ev-fragmentation-lasting-impact
+  claim: >
+    Habitat fragmentation reduces biodiversity in fragments by 13-75%, impairs
+    nutrient retention and reduces biomass, and the effects intensify over decades
+    rather than stabilising; the largest losses occur in the smallest and most
+    isolated fragments.
+  mechanism: >
+    Fragmentation acts through three distinct processes that must be diagnosed
+    separately: loss of total habitat area reduces population size, isolation blocks
+    recolonisation after local extinction, and increased edge-to-area ratio changes
+    microclimate and admits edge-adapted and invasive species. Because extinction
+    debt is paid off slowly, a fragment can continue losing species for decades after
+    the fragmentation event, so a currently adequate species list is not evidence of
+    stability.
+  domain: land_use
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [15, 60]
+      time_to_effect_years: [5.0, 20.0]
+      measurement_context: "gain achievable by reversing isolation and increasing effective patch size"
+    - metric: mean_patch_size_ha
+      direction: increase
+      relative_change_pct: [20, 100]
+      time_to_effect_years: [3.0, 15.0]
+  applies_when:
+    - field: mean_patch_size_ha
+      max: 100
+  caveats:
+    - "Fragment area and isolation effects are confounded in most landscapes; both must be addressed, and area is usually the stronger lever."
+    - "Extinction debt means outcomes lag interventions by years to decades."
+  citation:
+    authors: "Haddad, N. M., Brudvig, L. A., Clobert, J., Davies, K. F., Gonzalez, A., Holt, R. D., Lovejoy, T. E., Sexton, J. O., Austin, M. P., Collins, C. D. et al."
+    year: 2015
+    title: "Habitat fragmentation and its lasting impact on Earth's ecosystems"
+    venue: "Science Advances 1:e1500052"
+    doi: "10.1126/sciadv.1500052"
+    type: meta_analysis
+  interventions: [habitat_corridor, assisted_natural_regeneration, hedgerow_establishment, field_margin_setaside]
+  tags: [fragmentation, patch size, isolation, edge effects, extinction debt, connectivity]
+  text: >
+    Synthesis of seven long-running fragmentation experiments spanning up to 35 years
+    and five continents found consistent declines in biodiversity and ecosystem
+    function in fragments, with the magnitude increasing through time, and identified
+    reduced core area and increased edge as the dominant drivers.
+
+- id: ev-fragmentation-area-vs-config
+  claim: >
+    Total habitat amount in the landscape is generally a stronger predictor of
+    species richness than the spatial configuration of that habitat, though
+    configuration matters most when habitat amount is low.
+  mechanism: >
+    Below a habitat-amount threshold of roughly 20-30% of the landscape, patches
+    become functionally isolated because inter-patch distances exceed typical dispersal
+    distances, and configuration then determines whether a metapopulation can persist.
+    Above the threshold the landscape is sufficiently permeable that arrangement
+    matters little. This is why connectivity investment should be prioritised
+    specifically in habitat-poor landscapes.
+  domain: land_use
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [10, 40]
+      time_to_effect_years: [5.0, 20.0]
+  applies_when:
+    - field: native_vegetation_pct
+      max: 30
+  caveats:
+    - "The threshold value is taxon- and dispersal-dependent; treat 20-30% as an indicative band, not a target."
+  citation:
+    authors: "Fahrig, L."
+    year: 2003
+    title: "Effects of habitat fragmentation on biodiversity"
+    venue: "Annual Review of Ecology, Evolution, and Systematics 34:487-515"
+    doi: "10.1146/annurev.ecolsys.34.011802.132419"
+    type: systematic_review
+  interventions: [assisted_natural_regeneration, habitat_corridor, field_margin_setaside, hedgerow_establishment]
+  tags: [habitat amount, configuration, fragmentation threshold, dispersal, metapopulation, connectivity]
+  text: >
+    A review distinguishing habitat loss from fragmentation per se concludes that
+    habitat amount effects are consistently large and negative while fragmentation-per-se
+    effects are weaker and more variable in sign, and that the relative importance of
+    configuration rises as habitat amount falls.
+
+- id: ev-corridor-effectiveness
+  claim: >
+    Wildlife corridors increase movement between habitat patches by about 50%
+    relative to unconnected patches, with larger effects for invertebrates and
+    non-avian taxa than for birds.
+  mechanism: >
+    Corridors work by reducing the perceived matrix resistance along a route, so
+    animals that will not cross open ground will traverse a vegetated strip. Highly
+    mobile taxa such as birds already cross the matrix, so their marginal gain is
+    small, while ground-dwelling invertebrates, small mammals and understorey plants
+    with animal-dispersed seeds gain most. Corridor design should therefore be keyed
+    to the dispersal ecology of the target taxa, not to generic width rules.
+  domain: land_use
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [10, 35]
+      time_to_effect_years: [4.0, 15.0]
+    - metric: distance_to_natural_habitat_m
+      direction: decrease
+      absolute_change: "functional isolation reduced; effective distance falls even where euclidean distance is unchanged"
+      time_to_effect_years: [3.0, 10.0]
+  applies_when:
+    - field: distance_to_natural_habitat_m
+      min: 200
+  caveats:
+    - "Corridors can also facilitate spread of invasive species, pathogens and fire."
+    - "Narrow corridors in hot dry landscapes can function as edge habitat only, delivering movement but not breeding value."
+  citation:
+    authors: "Gilbert-Norton, L., Wilson, R., Stevens, J. R. & Beard, K. H."
+    year: 2010
+    title: "A meta-analytic review of corridor effectiveness"
+    venue: "Conservation Biology 24:660-668"
+    doi: "10.1111/j.1523-1739.2010.01450.x"
+    type: meta_analysis
+  interventions: [habitat_corridor, hedgerow_establishment, riparian_buffer, windbreak_shelterbelt]
+  tags: [corridors, connectivity, movement, matrix resistance, dispersal, invasive spread, design]
+  text: >
+    A meta-analysis of 78 corridor experiments found that corridors increased movement
+    between habitat patches by approximately 50% compared with isolated patches, with
+    natural corridors outperforming manipulated ones and invertebrates, non-avian
+    vertebrates and plants responding more strongly than birds.
+
+- id: ev-agroforestry-carbon-on-farmland
+  claim: >
+    Trees on agricultural land already store substantial carbon, and increasing tree
+    cover on farmland is among the highest-potential land-based measures; median
+    agroforestry systems in the tropics accumulate 1.5-3.5 t C/ha/yr in biomass
+    plus soil carbon gains.
+  mechanism: >
+    Woody perennials add a vertical layer that intercepts light and rainfall not used
+    by the annual crop, so total system productivity rises without displacing the
+    crop entirely. Deep roots access water and nutrients below the crop rooting zone
+    and return them at the surface as litter, a nutrient-pumping effect that
+    progressively enriches the topsoil while adding structural habitat.
+  domain: land_use
+  effects:
+    - metric: tree_cover_pct
+      direction: increase
+      absolute_change: "+5 to +30 percentage points depending on system design"
+      time_to_effect_years: [3.0, 10.0]
+    - metric: soil_organic_carbon_pct
+      direction: increase
+      relative_change_pct: [15, 50]
+      time_to_effect_years: [5.0, 15.0]
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [20, 60]
+      time_to_effect_years: [4.0, 12.0]
+  applies_when:
+    - field: land_use
+      allowed: [cropland, pasture, grassland, orchard, degraded_barren, agroforestry]
+    - field: annual_rainfall_mm
+      min: 300
+  caveats:
+    - "Tree-crop competition for water is the dominant risk below roughly 600 mm rainfall; species choice and root pruning become decisive."
+    - "Exotic fast-growing monocultures deliver carbon but little habitat value and can deplete groundwater."
+    - "Tenure security over trees is a precondition for adoption in many jurisdictions."
+  citation:
+    authors: "Zomer, R. J., Neufeldt, H., Xu, J., Ahrends, A., Bossio, D., Trabucco, A., van Noordwijk, M. & Wang, M."
+    year: 2016
+    title: "Global Tree Cover and Biomass Carbon on Agricultural Land: The contribution of agroforestry to global and national carbon budgets"
+    venue: "Scientific Reports 6:29987"
+    doi: "10.1038/srep29987"
+    type: model
+  interventions: [agroforestry_alley_cropping, faidherbia_parkland, silvopasture, fmnr_natural_regeneration, windbreak_shelterbelt]
+  tags: [agroforestry, tree cover, carbon, nutrient pumping, competition, water, tenure]
+  text: >
+    Global remote-sensing analysis found that 43% of all agricultural land had at
+    least 10% tree cover and that tree cover on agricultural land increased by 2%
+    over ten years, contributing significant biomass carbon, and identified
+    agroforestry as a major and under-counted component of national carbon budgets.
+
+- id: ev-agroforestry-ssa-winwin
+  claim: >
+    In sub-Saharan Africa, agroforestry increases soil organic carbon, nitrogen and
+    water infiltration and reduces erosion, with maize yield gains of roughly
+    30-60% relative to unfertilised monoculture controls.
+  mechanism: >
+    Nitrogen-fixing trees and shrubs supply nitrogen through litter and root
+    turnover at rates comparable to modest mineral fertiliser applications, while
+    canopy and litter cover reduce soil temperature and evaporation. The combination
+    relieves nitrogen and water limitation simultaneously, which is why gains exceed
+    what either input alone produces in these systems.
+  domain: land_use
+  effects:
+    - metric: soil_organic_carbon_pct
+      direction: increase
+      relative_change_pct: [15, 45]
+      time_to_effect_years: [3.0, 10.0]
+    - metric: soil_nitrogen_pct
+      direction: increase
+      relative_change_pct: [15, 50]
+      time_to_effect_years: [2.0, 6.0]
+    - metric: erosion_class
+      direction: decrease
+      relative_change_pct: [30, 70]
+      time_to_effect_years: [2.0, 6.0]
+  applies_when:
+    - field: land_use
+      allowed: [cropland, degraded_barren, pasture, agroforestry]
+    - field: annual_rainfall_mm
+      min: 400
+      max: 1800
+  caveats:
+    - "Yield comparisons against unfertilised controls overstate the benefit relative to well-fertilised systems."
+    - "Establishment phase of 2-4 years can carry a yield cost before net benefit appears."
+  citation:
+    authors: "Kuyah, S., Whitney, C. W., Jonsson, M., Sileshi, G. W., Oborn, I., Muthuri, C. W. & Luedeling, E."
+    year: 2019
+    title: "Agroforestry delivers a win-win solution for ecosystem services in sub-Saharan Africa. A meta-analysis"
+    venue: "Agronomy for Sustainable Development 39:47"
+    doi: "10.1007/s13593-019-0589-8"
+    type: meta_analysis
+  interventions: [agroforestry_alley_cropping, faidherbia_parkland, improved_fallow_legume, fmnr_natural_regeneration]
+  tags: [agroforestry, sub-Saharan Africa, nitrogen fixation, erosion, infiltration, maize yield, establishment cost]
+  text: >
+    A meta-analysis of agroforestry practices in sub-Saharan Africa found significant
+    improvements in soil fertility indicators, water infiltration, erosion control and
+    crop yield, with the strongest and most consistent effects from nitrogen-fixing
+    species in systems where nitrogen was the primary limiting nutrient.
+
+- id: ev-legume-intercrop-yield-nitrogen
+  claim: >
+    Woody and herbaceous legume intercrops and improved fallows increase maize
+    yields by roughly 0.8-1.6 t/ha over continuous unfertilised maize in
+    sub-Saharan Africa, with residual benefits persisting for two or more seasons.
+  mechanism: >
+    Biological nitrogen fixation adds 30-150 kg N/ha per season depending on species
+    and biomass, and the nitrogen is released gradually through litter mineralisation
+    matched to crop uptake rather than as a single soluble pulse. Deep legume roots
+    also recover subsoil nitrate that annual crops leave behind, reducing leaching
+    losses while building the topsoil nitrogen pool.
+  domain: land_use
+  effects:
+    - metric: soil_nitrogen_pct
+      direction: increase
+      relative_change_pct: [15, 60]
+      time_to_effect_years: [1.0, 4.0]
+    - metric: soil_organic_carbon_pct
+      direction: increase
+      relative_change_pct: [8, 25]
+      time_to_effect_years: [2.0, 6.0]
+  applies_when:
+    - field: land_use
+      allowed: [cropland, agroforestry, degraded_barren]
+    - field: annual_rainfall_mm
+      min: 350
+  caveats:
+    - "Improved fallow occupies land for a season, which is a real opportunity cost for land-constrained households."
+    - "Phosphorus deficiency limits nitrogen fixation; on P-deficient soils a P amendment is a precondition."
+    - "Some legume species are poor fits on acidic or waterlogged soils."
+  citation:
+    authors: "Sileshi, G., Akinnifesi, F. K., Ajayi, O. C. & Place, F."
+    year: 2008
+    title: "Meta-analysis of maize yield response to woody and herbaceous legumes in sub-Saharan Africa"
+    venue: "Plant and Soil 307:1-19"
+    doi: "10.1007/s11104-008-9547-y"
+    type: meta_analysis
+  interventions: [improved_fallow_legume, intercropping, legume_cover_crops, agroforestry_alley_cropping]
+  tags: [legumes, nitrogen fixation, improved fallow, intercropping, maize, phosphorus limitation, residual effect]
+  text: >
+    A meta-analysis of 94 peer-reviewed studies found mean maize yield increases of
+    over 1 t/ha from coppicing and non-coppicing legume systems relative to
+    unfertilised controls, with responses conditional on phosphorus availability and
+    on rainfall adequacy during the legume growth phase.
+
+- id: ev-fmnr-sahel-regreening
+  claim: >
+    Farmer-managed natural regeneration of on-farm trees across roughly 5 million
+    hectares in Niger raised on-farm tree densities substantially, increased crop
+    yields and fodder supply, and improved household resilience to drought, at a
+    fraction of the cost of tree planting.
+  mechanism: >
+    Protecting and pruning existing rootstock exploits established root systems
+    already adapted to the site, so survival rates far exceed those of planted
+    seedlings and no nursery or irrigation is needed. Scaling depended on a change in
+    perceived tree tenure, which is why the binding constraint on this intervention is
+    institutional rather than biophysical.
+  domain: land_use
+  effects:
+    - metric: tree_cover_pct
+      direction: increase
+      absolute_change: "from near-zero to 20-100+ stems/ha over 10-20 years"
+      time_to_effect_years: [3.0, 15.0]
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [20, 70]
+      time_to_effect_years: [5.0, 15.0]
+  applies_when:
+    - field: climate_zone
+      allowed: [arid, semi_arid, dry_subhumid]
+    - field: land_use
+      allowed: [cropland, degraded_barren, pasture, grassland]
+  caveats:
+    - "Requires viable rootstock or a seed source in the soil; where the seedbank is exhausted, planting is unavoidable."
+    - "Depends on secure rights to trees and on community agreement over grazing during regeneration."
+  citation:
+    authors: "Reij, C., Tappan, G. & Smale, M."
+    year: 2009
+    title: "Agroenvironmental Transformation in the Sahel: Another Kind of Green Revolution"
+    venue: "IFPRI Discussion Paper 00914, International Food Policy Research Institute, Washington DC"
+    url: "https://www.ifpri.org/publication/agroenvironmental-transformation-sahel"
+    type: field_study
+  interventions: [fmnr_natural_regeneration, faidherbia_parkland, rainwater_harvesting_zai]
+  tags: [FMNR, Sahel, re-greening, Niger, tree tenure, rootstock, low cost, drought resilience]
+  text: >
+    Documentation of the Sahelian re-greening describes farmer-managed natural
+    regeneration on approximately 5 million hectares in Niger, with increased tree
+    density, fuelwood and fodder availability, higher cereal yields, and improved
+    resilience during drought years, achieved primarily through changes in tree tenure
+    and management rather than through planting programmes.
+
+- id: ev-faidherbia-evergreen-agriculture
+  claim: >
+    Faidherbia albida parklands increase maize yields by 50-280% beneath canopy
+    relative to open field in the same plots, because the species is reverse
+    phenological and sheds leaves at the start of the rainy season.
+  mechanism: >
+    Faidherbia drops its leaves as the cropping season begins, so it does not shade
+    or compete for water during crop growth, while the leaf fall delivers a nitrogen-rich
+    mulch exactly when the crop needs nitrogen. Its deep taproot draws water from below
+    the crop root zone. This phenological complementarity is the reason the usual
+    tree-crop competition trade-off does not apply, and it is why species selection
+    dominates generic canopy-cover targets.
+  domain: land_use
+  effects:
+    - metric: soil_nitrogen_pct
+      direction: increase
+      relative_change_pct: [20, 60]
+      time_to_effect_years: [4.0, 12.0]
+    - metric: soil_organic_carbon_pct
+      direction: increase
+      relative_change_pct: [15, 40]
+      time_to_effect_years: [5.0, 15.0]
+  applies_when:
+    - field: climate_zone
+      allowed: [arid, semi_arid, dry_subhumid]
+    - field: annual_rainfall_mm
+      min: 300
+      max: 1200
+  caveats:
+    - "Slow to establish; yield benefits build over 5-15 years."
+    - "Not native everywhere; introducing it outside its range carries invasion and provenance risks."
+    - "Browsing pressure on young trees requires protection during establishment."
+  citation:
+    authors: "Garrity, D. P., Akinnifesi, F. K., Ajayi, O. C., Weldesemayat, S. G., Mowo, J. G., Kalinganire, A., Larwanou, M. & Bayala, J."
+    year: 2010
+    title: "Evergreen Agriculture: a robust approach to sustainable food security in Africa"
+    venue: "Food Security 2:197-214"
+    doi: "10.1007/s12571-010-0070-7"
+    type: field_study
+  interventions: [faidherbia_parkland, fmnr_natural_regeneration, agroforestry_alley_cropping]
+  tags: [Faidherbia albida, reverse phenology, parkland, nitrogen mulch, taproot, species selection, evergreen agriculture]
+  text: >
+    Reviews of evergreen agriculture report substantial maize yield increases beneath
+    Faidherbia albida canopies in Malawi, Zambia and Niger, attributed to reverse
+    phenology that avoids competition during the cropping season while delivering
+    nitrogen-rich litter, and describe the system as compatible with conservation
+    agriculture practices.
+
+- id: ev-restoration-meta-benefits
+  claim: >
+    Ecological restoration increases biodiversity by about 44% and ecosystem service
+    provision by about 25% relative to degraded baselines, but restored sites remain
+    below undisturbed reference sites on both measures.
+  mechanism: >
+    Restoration re-establishes vegetation structure and soil conditions, which
+    recovers generalist species and structure-dependent functions relatively quickly.
+    Specialist species dependent on old-growth features such as deadwood, deep litter
+    or specific mycorrhizal partners recover on multi-decadal timescales or not at
+    all without dispersal from a source. Setting expectations at "improved but not
+    reference" is therefore the scientifically defensible framing.
+  domain: land_use
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [25, 60]
+      time_to_effect_years: [3.0, 15.0]
+  applies_when:
+    - field: land_use
+      allowed: [degraded_barren, cropland, grassland, pasture, wetland, forest, mangrove]
+  caveats:
+    - "Restored sites did not reach reference conditions in the analysed studies; do not promise full recovery."
+    - "Restoration outcomes depend on proximity of a source population for recolonisation."
+  citation:
+    authors: "Rey Benayas, J. M., Newton, A. C., Diaz, A. & Bullock, J. M."
+    year: 2009
+    title: "Enhancement of biodiversity and ecosystem services by ecological restoration: a meta-analysis"
+    venue: "Science 325:1121-1124"
+    doi: "10.1126/science.1172460"
+    type: meta_analysis
+  interventions: [assisted_natural_regeneration, native_grass_reseeding, wetland_restoration, habitat_corridor]
+  tags: [restoration, biodiversity recovery, ecosystem services, reference condition, specialists, dispersal limitation]
+  text: >
+    A meta-analysis of 89 restoration assessments across a range of ecosystems found
+    that restoration increased biodiversity by 44% and ecosystem services by 25%
+    relative to degraded systems, while values in restored systems remained lower
+    than in intact reference systems.
+
+- id: ev-natural-regeneration-outperforms-planting
+  claim: >
+    In tropical forests, natural regeneration achieves higher biodiversity and
+    vegetation-structure recovery than active tree planting, with roughly 34-56%
+    higher biodiversity outcomes and 19-56% higher vegetation-structure outcomes.
+  mechanism: >
+    Natural regeneration recruits the locally adapted species pool in the successional
+    order that site conditions favour, whereas planting imposes a species list and a
+    simultaneous cohort. Planting also usually involves soil disturbance and a limited
+    palette of nursery-available species. Where seed sources and dispersers remain,
+    letting succession proceed therefore outperforms planting at far lower cost,
+    which inverts the default assumption that restoration means planting.
+  domain: land_use
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [30, 60]
+      time_to_effect_years: [5.0, 20.0]
+      measurement_context: "relative to active planting on comparable sites"
+    - metric: tree_cover_pct
+      direction: increase
+      relative_change_pct: [20, 60]
+      time_to_effect_years: [5.0, 20.0]
+  applies_when:
+    - field: distance_to_natural_habitat_m
+      max: 2000
+      note: "natural regeneration requires a nearby seed source and disperser community"
+  caveats:
+    - "Fails where the landscape is heavily cleared, the seedbank is exhausted, dispersers are absent, or aggressive exotic grasses arrest succession."
+    - "Requires protection from fire and grazing during the regeneration window."
+  citation:
+    authors: "Crouzeilles, R., Ferreira, M. S., Chazdon, R. L., Lindenmayer, D. B., Sansevero, J. B. B., Monteiro, L., Iribarrem, A., Latawiec, A. E. & Strassburg, B. B. N."
+    year: 2017
+    title: "Ecological restoration success is higher for natural regeneration than for active restoration in tropical forests"
+    venue: "Science Advances 3:e1701345"
+    doi: "10.1126/sciadv.1701345"
+    type: meta_analysis
+  interventions: [assisted_natural_regeneration, fmnr_natural_regeneration, invasive_species_control]
+  tags: [natural regeneration, active restoration, tropical forest, succession, seed source, cost, arrested succession]
+  text: >
+    A meta-analysis of 133 studies found that natural regeneration surpassed active
+    restoration in biodiversity and vegetation structure outcomes for tropical forests,
+    with the difference greatest in wetter regions and where time since restoration was
+    longer, and noted that active restoration remains necessary in heavily degraded
+    landscapes.
+
+- id: ev-restoration-service-tradeoffs
+  claim: >
+    Restoration does not increase all ecosystem services simultaneously; carbon
+    storage, water yield, biodiversity and provisioning services can trade off, and
+    the pattern depends on which service the pre-restoration land use was optimised for.
+  mechanism: >
+    Different services are maximised by different vegetation structures. Dense woody
+    cover maximises carbon but reduces water yield in dry catchments and may reduce
+    grassland-specialist biodiversity. Because a site cannot simultaneously maximise
+    all of them, an explicit objective ordering is a prerequisite for a defensible
+    recommendation rather than an optional refinement.
+  domain: land_use
+  effects: []
+  applies_when: []
+  caveats:
+    - "Afforesting native grassland typically raises carbon while reducing grassland biodiversity and downstream water yield."
+  citation:
+    authors: "Bullock, J. M., Aronson, J., Newton, A. C., Pywell, R. F. & Rey-Benayas, J. M."
+    year: 2011
+    title: "Restoration of ecosystem services and biodiversity: conflicts and opportunities"
+    venue: "Trends in Ecology & Evolution 26:541-549"
+    doi: "10.1016/j.tree.2011.06.011"
+    type: systematic_review
+  interventions: [assisted_natural_regeneration, native_grass_reseeding, agroforestry_alley_cropping]
+  tags: [restoration, trade-offs, ecosystem services, carbon vs water, objective setting, afforestation risk]
+  text: >
+    A review of restoration outcomes documents cases where biodiversity and ecosystem
+    service goals align and cases where they conflict, and argues that restoration
+    planning must state which services are prioritised because maximising one
+    frequently reduces another.
+
+- id: ev-landscapes-that-work
+  claim: >
+    Diversified, biodiversity-friendly working landscapes can support substantially
+    more biodiversity than intensive monocultures while maintaining production,
+    making the land-sparing versus land-sharing choice context-dependent rather
+    than universal.
+  mechanism: >
+    The relative merit of sparing and sharing depends on the shape of the
+    species-yield curve for the taxa present. Where many species tolerate
+    low-intensity use, sharing retains more of the community for the same total
+    production; where species are intolerant of any use, concentrating production and
+    protecting intact habitat retains more. Diagnosing which regime applies requires
+    knowing the sensitivity of the local species pool, not applying a global rule.
+  domain: land_use
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [20, 70]
+      time_to_effect_years: [4.0, 15.0]
+  applies_when: []
+  caveats:
+    - "Sharing strategies are inadequate for habitat-specialist and area-demanding species, which still require protected intact habitat."
+  citation:
+    authors: "Kremen, C. & Merenlender, A. M."
+    year: 2018
+    title: "Landscapes that work for biodiversity and people"
+    venue: "Science 362:eaau6020"
+    doi: "10.1126/science.aau6020"
+    type: systematic_review
+  interventions: [agroforestry_alley_cropping, silvopasture, hedgerow_establishment, crop_heterogeneity, habitat_corridor]
+  tags: [working landscapes, land sparing, land sharing, diversified farming, species-yield curve, specialists]
+  text: >
+    A review of diversified farming and working-landscape approaches concludes that
+    such systems can support high biodiversity and ecosystem services while producing
+    food and fibre, and that the appropriate mix of protected, restored and diversified
+    land depends on the sensitivity of the regional species pool.
+
+- id: ev-landscape-composition-configuration-interplay
+  claim: >
+    The effect of adding semi-natural habitat depends on the existing configuration
+    of the landscape, and configurational and compositional heterogeneity interact
+    rather than adding independently.
+  mechanism: >
+    Organisms need complementary resources within their daily movement range. Adding
+    habitat area helps only if it falls within reach of the crop area that needs the
+    service, so the same total area delivers very different outcomes depending on
+    whether it is one block or several dispersed strips. Configuration therefore
+    modifies the returns to composition, which is why area-only targets misallocate
+    habitat investment.
+  domain: land_use
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [10, 35]
+      time_to_effect_years: [2.0, 8.0]
+  applies_when:
+    - field: land_use
+      allowed: [cropland, orchard, plantation, pasture]
+  caveats:
+    - "Optimal configuration differs by taxon mobility, so a single spatial design cannot optimise for all groups."
+  citation:
+    authors: "Martin, E. A., Dainese, M., Clough, Y., Baldi, A., Bommarco, R., Gagic, V., Garratt, M. P. D., Holzschuh, A., Kleijn, D., Kovacs-Hostyanszki, A. et al."
+    year: 2019
+    title: "The interplay of landscape composition and configuration: new pathways to manage functional biodiversity and agroecosystem services across Europe"
+    venue: "Ecology Letters 22:1083-1094"
+    doi: "10.1111/ele.13265"
+    type: field_study
+  interventions: [hedgerow_establishment, flower_strips, field_margin_setaside, crop_heterogeneity, habitat_corridor]
+  tags: [landscape composition, configuration, interaction, functional biodiversity, spatial design, mobility]
+  text: >
+    A multi-region European analysis found that the effects of semi-natural habitat
+    cover on functional biodiversity and ecosystem services depended on landscape
+    configuration, and recommended jointly managing how much habitat is present and
+    how it is arranged.
+
+- id: ev-degraded-land-restoration-opportunity
+  claim: >
+    Restoration of degraded and abandoned agricultural land can recover biodiversity
+    and ecosystem services with lower opportunity cost than restoring productive
+    land, and secondary and regenerating forests already provide substantial
+    biodiversity and carbon value.
+  mechanism: >
+    Degraded land has low agricultural opportunity cost and is often already under
+    spontaneous succession, so the marginal cost of an additional unit of habitat is
+    low. Secondary vegetation accumulates biomass quickly in the first decades because
+    growth is fastest in young stands, meaning carbon returns arrive earlier than from
+    slower-growing mature systems.
+  domain: land_use
+  effects:
+    - metric: tree_cover_pct
+      direction: increase
+      relative_change_pct: [30, 100]
+      time_to_effect_years: [5.0, 20.0]
+    - metric: soil_organic_carbon_pct
+      direction: increase
+      relative_change_pct: [15, 60]
+      time_to_effect_years: [5.0, 20.0]
+  applies_when:
+    - field: land_use
+      allowed: [degraded_barren, grassland, pasture]
+  caveats:
+    - "Land classified as degraded is frequently in active use by pastoralists or gatherers; social assessment must precede designation."
+    - "Secondary forest carbon is vulnerable to re-clearing without tenure security."
+  citation:
+    authors: "Chazdon, R. L."
+    year: 2008
+    title: "Beyond deforestation: restoring forests and ecosystem services on degraded lands"
+    venue: "Science 320:1458-1460"
+    doi: "10.1126/science.1155365"
+    type: systematic_review
+  interventions: [assisted_natural_regeneration, fmnr_natural_regeneration, native_grass_reseeding, habitat_corridor]
+  tags: [degraded land, secondary forest, opportunity cost, succession, tenure, carbon accumulation]
+  text: >
+    A review of forest restoration on degraded lands argues that secondary and
+    regenerating forests contribute substantially to biodiversity conservation and
+    carbon storage, and that restoration targeted at degraded and abandoned land
+    offers the largest gains per unit of foregone production.

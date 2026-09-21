@@ -1,0 +1,774 @@
+# Biodiversity indicator evidence cards: richness, habitat diversity, functional
+# groups (pollinators, natural enemies, soil fauna) and the practices that move them.
+
+- id: ev-diversification-multi-service
+  claim: >
+    Agricultural diversification increases biodiversity, pollination, pest
+    regulation, nutrient cycling, water regulation and soil fertility
+    simultaneously, without a significant average yield penalty.
+  mechanism: >
+    Diversification acts through resource complementarity in space and time. Adding
+    species with different phenologies and rooting depths extends the period during
+    which living roots exude carbon and during which floral resources are available,
+    which sustains larger and more stable populations of pollinators and natural
+    enemies. Those populations then feed back into yield stability, which is why
+    diversification tends to be service-positive and yield-neutral rather than
+    a straight trade-off.
+  domain: biodiversity
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [15, 40]
+      time_to_effect_years: [1.0, 5.0]
+    - metric: pollinator_activity
+      direction: increase
+      relative_change_pct: [20, 50]
+      time_to_effect_years: [1.0, 3.0]
+    - metric: soil_organic_carbon_pct
+      direction: increase
+      relative_change_pct: [5, 15]
+      time_to_effect_years: [3.0, 8.0]
+  applies_when:
+    - field: land_use
+      allowed: [cropland, orchard, plantation, pasture, agroforestry]
+  caveats:
+    - "Effect sizes vary widely by diversification type; agroforestry and cover cropping outperform simple variety mixtures."
+    - "Management complexity and labour requirements increase, which is a real adoption constraint."
+  citation:
+    authors: "Tamburini, G., Bommarco, R., Wanger, T. C., Kremen, C., van der Heijden, M. G. A., Liebman, M. & Hallin, S."
+    year: 2020
+    title: "Agricultural diversification promotes multiple ecosystem services without compromising yield"
+    venue: "Science Advances 6:eaba1715"
+    doi: "10.1126/sciadv.aba1715"
+    type: meta_analysis
+  interventions: [crop_rotation_diversification, intercropping, legume_cover_crops, agroforestry_alley_cropping, flower_strips]
+  tags: [diversification, ecosystem services, pollination, pest control, yield, complementarity]
+  text: >
+    A second-order meta-analysis covering 98 meta-analyses and 5,160 original studies
+    found that diversification practices enhanced biodiversity, pollination, pest
+    control, nutrient cycling, soil fertility and water regulation, and that yield
+    was on average unaffected. Diversification most reliably delivered win-wins when
+    it added functionally distinct plant groups rather than more of the same.
+
+- id: ev-crop-diversification-variable
+  claim: >
+    Crop diversification increases associated biodiversity by a median of about
+    24% and above- and below-ground diversity in particular, but responses are
+    highly variable and a minority of cases show no or negative effects.
+  mechanism: >
+    The variance is explained by which limiting factor the diversification relieves.
+    Where the landscape already supplies floral and nesting resources, adding
+    in-field diversity is redundant; where the surrounding matrix is depauperate,
+    in-field diversity becomes the only resource and the response is large. This
+    landscape-dependence is the core reason for assessing the surrounding matrix
+    before recommending in-field measures.
+  domain: biodiversity
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [10, 35]
+      time_to_effect_years: [2.0, 6.0]
+  applies_when:
+    - field: land_use
+      allowed: [cropland, orchard, plantation]
+  caveats:
+    - "Expect high variance; a site-level prediction should be given as a range, not a point estimate."
+  citation:
+    authors: "Beillouin, D., Ben-Ari, T., Malezieux, E., Seufert, V. & Makowski, D."
+    year: 2021
+    title: "Positive but variable effects of crop diversification on biodiversity and ecosystem services"
+    venue: "Global Change Biology 27:4697-4710"
+    doi: "10.1111/gcb.15747"
+    type: meta_analysis
+  interventions: [crop_rotation_diversification, intercropping, improved_fallow_legume]
+  tags: [crop diversification, biodiversity, variance, landscape context, rotation, intercropping]
+  text: >
+    A synthesis of 95 meta-analyses reported that crop diversification increased
+    associated biodiversity and most ecosystem services, with a median biodiversity
+    gain of roughly a quarter, while emphasising that outcomes depend on the
+    diversification strategy and on pedoclimatic and landscape context.
+
+- id: ev-landuse-local-richness
+  claim: >
+    Land use has reduced local species richness by an average of 13.6% and total
+    abundance by 10.7% relative to minimally disturbed baselines, with losses
+    reaching 76% richness reduction in the most intensively used sites.
+  mechanism: >
+    Intensification removes structural complexity, which removes the microhabitat
+    and microclimate heterogeneity that specialist species depend on. Because
+    specialists are lost preferentially while a small set of disturbance-tolerant
+    generalists expands, richness falls faster than abundance and communities
+    become functionally homogenised across regions.
+  domain: biodiversity
+  effects: []
+  applies_when: []
+  caveats:
+    - "These are global averages across biomes; local baselines differ by an order of magnitude and must be set regionally."
+  citation:
+    authors: "Newbold, T., Hudson, L. N., Hill, S. L. L., Contu, S., Lysenko, I., Senior, R. A., Borger, L., Bennett, D. J., Choimes, A., Collen, B. et al."
+    year: 2015
+    title: "Global effects of land use on local terrestrial biodiversity"
+    venue: "Nature 520:45-50"
+    doi: "10.1038/nature14324"
+    type: global_assessment
+  interventions: [assisted_natural_regeneration, hedgerow_establishment, field_margin_setaside, crop_heterogeneity]
+  tags: [land use intensity, species richness, abundance, homogenisation, PREDICTS, baseline]
+  text: >
+    The PREDICTS analysis of 1.1 million records from 284 publications quantified how
+    local richness and abundance decline along gradients of land use and human
+    population density, providing the reference gradient against which a site's
+    observed richness can be benchmarked.
+
+- id: ev-ipbes-drivers
+  claim: >
+    Land- and sea-use change is the single largest direct driver of biodiversity
+    loss, followed by direct exploitation, climate change, pollution and invasive
+    alien species; around 1 million species face extinction risk.
+  mechanism: >
+    The five direct drivers rarely act alone. Habitat conversion reduces population
+    size and connectivity, which lowers the resilience of the remaining populations
+    to pollution, climate extremes and invasion. Interventions that address a single
+    driver while leaving the others intact typically fail to reverse decline, which
+    is the empirical basis for multi-driver site assessment.
+  domain: biodiversity
+  effects: []
+  applies_when: []
+  caveats:
+    - "Global driver ranking does not determine local driver ranking; the local ranking must be established from site data."
+  citation:
+    authors: "IPBES"
+    year: 2019
+    title: "Global Assessment Report on Biodiversity and Ecosystem Services"
+    venue: "Intergovernmental Science-Policy Platform on Biodiversity and Ecosystem Services, Bonn"
+    doi: "10.5281/zenodo.6417333"
+    type: global_assessment
+  interventions: [assisted_natural_regeneration, invasive_species_control, ipm_pesticide_reduction, habitat_corridor]
+  tags: [IPBES, drivers, land use change, extinction risk, pollution, invasive species, interaction]
+  text: >
+    The IPBES Global Assessment ranks direct drivers of biodiversity loss and
+    documents that driver interactions amplify impacts, concluding that transformative
+    change across production landscapes, not protected areas alone, is required to
+    bend the curve of biodiversity loss.
+
+- id: ev-wild-pollinators-fruit-set
+  claim: >
+    Wild insect pollinators improve crop fruit set roughly twice as effectively per
+    visit as managed honey bees, and honey bee abundance does not substitute for
+    wild pollinator richness.
+  mechanism: >
+    Wild pollinator assemblages are functionally complementary: species differ in
+    body size, foraging height, tongue length, daily activity window and temperature
+    tolerance, so a diverse assemblage pollinates across more of the flowering period
+    and more of the flower morphology space. A single managed species, however
+    abundant, cannot cover that niche space, so richness and abundance are not
+    interchangeable.
+  domain: biodiversity
+  effects:
+    - metric: pollinator_activity
+      direction: increase
+      relative_change_pct: [20, 60]
+      time_to_effect_years: [1.0, 3.0]
+  applies_when:
+    - field: land_use
+      allowed: [cropland, orchard, agroforestry, plantation]
+  caveats:
+    - "Wind- and self-pollinated crops such as wheat and rice gain no direct yield benefit; the justification there is landscape and non-crop plant reproduction."
+  citation:
+    authors: "Garibaldi, L. A., Steffan-Dewenter, I., Winfree, R., Aizen, M. A., Bommarco, R., Cunningham, S. A., Kremen, C., Carvalheiro, L. G., Harder, L. D., Afik, O. et al."
+    year: 2013
+    title: "Wild pollinators enhance fruit set of crops regardless of honey bee abundance"
+    venue: "Science 339:1608-1611"
+    doi: "10.1126/science.1230200"
+    type: field_study
+  interventions: [flower_strips, hedgerow_establishment, pollinator_nesting_habitat, ipm_pesticide_reduction]
+  tags: [pollinators, wild bees, fruit set, honey bee, functional complementarity, crop yield]
+  text: >
+    A coordinated study of 41 crop systems worldwide found that fruit set increased
+    with wild insect visitation in all systems, and with honey bee visitation in only
+    14%, and that wild insects improved fruit set twice as efficiently per visit.
+    Conserving wild pollinator communities is therefore not substitutable by hive
+    stocking.
+
+- id: ev-pollination-distance-decay
+  claim: >
+    Both pollinator richness and visitation rate decline steeply with distance from
+    natural or semi-natural habitat, with visitation typically halving within a few
+    hundred metres to about 1 km in tropical systems.
+  mechanism: >
+    Most wild bees are central-place foragers nesting in undisturbed soil, stems or
+    cavities in semi-natural habitat and commuting to forage. Foraging range scales
+    with body size, so distance from habitat filters the assemblage down to
+    large-bodied species. Field interiors beyond the foraging radius receive
+    essentially no service regardless of in-field floral provision.
+  domain: biodiversity
+  effects:
+    - metric: pollinator_activity
+      direction: decrease
+      relative_change_pct: [30, 70]
+      time_to_effect_years: [0.0, 1.0]
+      measurement_context: "per additional ~1 km of isolation from semi-natural habitat"
+  applies_when:
+    - field: distance_to_natural_habitat_m
+      min: 300
+  caveats:
+    - "Decay rates are steeper in tropical than temperate systems and steeper for small-bodied taxa."
+  citation:
+    authors: "Ricketts, T. H., Regetz, J., Steffan-Dewenter, I., Cunningham, S. A., Kremen, C., Bogdanski, A., Gemmill-Herren, B., Greenleaf, S. S., Klein, A. M., Mayfield, M. M. et al."
+    year: 2008
+    title: "Landscape effects on crop pollination services: are there general patterns?"
+    venue: "Ecology Letters 11:499-515"
+    doi: "10.1111/j.1461-0248.2008.01157.x"
+    type: meta_analysis
+  interventions: [hedgerow_establishment, flower_strips, habitat_corridor, pollinator_nesting_habitat, field_margin_setaside]
+  tags: [pollination, distance decay, isolation, foraging range, semi-natural habitat, landscape]
+  text: >
+    A quantitative synthesis of 23 studies found consistent exponential declines in
+    pollinator richness and visitation with isolation from natural habitat, with
+    significantly steeper decay in tropical systems, establishing distance to habitat
+    as a primary design parameter for on-farm pollinator interventions.
+
+- id: ev-flower-strips-hedgerows-synthesis
+  claim: >
+    Flower strips increase pest control services by about 16% on average and
+    pollinator visitation in adjacent crop, while hedgerows increase pollination
+    services; benefits decline with distance into the field and increase with
+    strip age and floral diversity.
+  mechanism: >
+    Sown floral resources supply nectar and pollen during the crop's non-flowering
+    period, sustaining parasitoid and hoverfly populations whose larvae consume
+    aphids. Perennial woody hedgerows additionally supply overwintering refuge and
+    nesting substrate, which is the limiting resource for many cavity- and
+    soil-nesting bees, so hedgerows build populations while annual strips mainly
+    redistribute them.
+  domain: biodiversity
+  effects:
+    - metric: pollinator_activity
+      direction: increase
+      relative_change_pct: [15, 40]
+      time_to_effect_years: [1.0, 4.0]
+    - metric: pesticide_applications_per_season
+      direction: decrease
+      relative_change_pct: [10, 30]
+      time_to_effect_years: [2.0, 5.0]
+      measurement_context: "achievable reduction where natural enemy regulation is established"
+  applies_when:
+    - field: land_use
+      allowed: [cropland, orchard, plantation, agroforestry]
+  caveats:
+    - "Benefits penetrate only a limited distance into the field, so strip spacing matters more than total strip area."
+    - "Species-poor or non-native seed mixes deliver markedly weaker effects."
+    - "Hedgerows take 3-5 years to deliver their full effect and require an establishment-phase weed and water plan."
+  citation:
+    authors: "Albrecht, M., Kleijn, D., Williams, N. M., Tschumi, M., Blaauw, B. R., Bommarco, R., Campbell, A. J., Dainese, M., Drummond, F. A., Entling, M. H. et al."
+    year: 2020
+    title: "The effectiveness of flower strips and hedgerows on pest control, pollination services and crop yield: a quantitative synthesis"
+    venue: "Ecology Letters 23:1488-1498"
+    doi: "10.1111/ele.13576"
+    type: meta_analysis
+  interventions: [flower_strips, hedgerow_establishment, beetle_banks, field_margin_setaside]
+  tags: [flower strips, hedgerow, pest control, pollination, natural enemies, distance decay, seed mix]
+  text: >
+    A quantitative synthesis of 35 studies across Europe and North America found that
+    flower strips enhanced pest control services in adjacent crops by 16% on average,
+    that effects increased with strip age and floral diversity, and that both flower
+    strips and hedgerows improved pollination services, while yield effects were
+    positive but more variable.
+
+- id: ev-hedgerow-bee-export
+  claim: >
+    Restored native hedgerows raise native bee richness and abundance within the
+    hedgerow and export bees into adjacent crop fields, acting as a population
+    source rather than only a concentrator.
+  mechanism: >
+    A mature native hedgerow provides three resources simultaneously: continuous
+    floral supply, undisturbed nesting substrate, and windbreak shelter that raises
+    the effective foraging temperature. Because reproduction occurs in the hedgerow,
+    the population grows and disperses outward, which distinguishes source habitat
+    from resource concentration that merely relocates existing foragers.
+  domain: biodiversity
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [20, 60]
+      time_to_effect_years: [3.0, 7.0]
+      measurement_context: "native bee richness in hedgerow and adjacent field margin"
+  applies_when:
+    - field: land_use
+      allowed: [cropland, orchard, plantation, pasture, agroforestry]
+  caveats:
+    - "Native, locally sourced woody species are essential; exotic ornamental hedges do not reproduce the effect."
+    - "Requires protection from herbicide drift and from mowing during the nesting season."
+  citation:
+    authors: "Morandin, L. A. & Kremen, C."
+    year: 2013
+    title: "Hedgerow restoration promotes pollinator populations and exports native bees to adjacent fields"
+    venue: "Ecological Applications 23:829-839"
+    doi: "10.1890/12-1051.1"
+    type: field_study
+  interventions: [hedgerow_establishment, pollinator_nesting_habitat, windbreak_shelterbelt]
+  tags: [hedgerow, native bees, source-sink, nesting habitat, export, restoration]
+  text: >
+    Comparison of restored native hedgerows with unenhanced field margins in
+    intensively farmed landscapes showed higher native bee richness and abundance in
+    hedgerows, and a net movement of bees from hedgerow into adjacent crop, supporting
+    hedgerows as population sources in otherwise resource-poor agricultural matrices.
+
+- id: ev-biodiversity-mediated-yield
+  claim: >
+    Higher richness of wild pollinators and natural enemies is associated with
+    higher and more stable crop yields; landscape simplification reduces yield
+    partly by reducing this biodiversity-mediated service.
+  mechanism: >
+    Service delivery depends on response diversity: species differ in their
+    sensitivity to weather and disturbance, so a richer assemblage maintains a more
+    constant aggregate service under variable conditions. This converts biodiversity
+    into a yield-stability asset, which is an economic rather than purely ecological
+    argument and often the decisive one for landholders.
+  domain: cross_cutting
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [10, 30]
+      time_to_effect_years: [2.0, 6.0]
+  applies_when:
+    - field: land_use
+      allowed: [cropland, orchard, plantation, agroforestry]
+  caveats:
+    - "The yield linkage is established for pollination-dependent and pest-susceptible crops; it is weaker for wind-pollinated staples."
+  citation:
+    authors: "Dainese, M., Martin, E. A., Aizen, M. A., Albrecht, M., Bartomeus, I., Bommarco, R., Carvalheiro, L. G., Chaplin-Kramer, R., Gagic, V., Garibaldi, L. A. et al."
+    year: 2019
+    title: "A global synthesis reveals biodiversity-mediated benefits for crop production"
+    venue: "Science Advances 5:eaax0121"
+    doi: "10.1126/sciadv.aax0121"
+    type: meta_analysis
+  interventions: [flower_strips, hedgerow_establishment, crop_rotation_diversification, ipm_pesticide_reduction]
+  tags: [biodiversity, crop production, yield stability, natural enemies, pollinators, landscape simplification]
+  text: >
+    Analysis of 89 studies across 1,475 sites found that landscape simplification
+    reduced pollinator and natural-enemy richness and abundance, and that this
+    reduction accounted for a significant share of the associated decline in crop
+    pollination and pest control, linking biodiversity conservation directly to
+    production outcomes.
+
+- id: ev-organic-management-biodiversity
+  claim: >
+    Organic and low-input management increases species richness by about 30% and
+    organism abundance by about 50% on average relative to conventional management,
+    with birds, insects and plants responding most strongly.
+  mechanism: >
+    The dominant mechanism is the removal of broad-spectrum insecticide and herbicide
+    pressure, which restores the arable plant community that supports herbivorous
+    insects, which in turn support birds. The effect is therefore a trophic cascade
+    initiated at the plant level, not a direct effect of fertiliser type.
+  domain: biodiversity
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [20, 40]
+      time_to_effect_years: [3.0, 8.0]
+    - metric: bird_species_count
+      direction: increase
+      relative_change_pct: [20, 50]
+      time_to_effect_years: [3.0, 8.0]
+  applies_when:
+    - field: land_use
+      allowed: [cropland, orchard, pasture, plantation]
+  caveats:
+    - "Yields are typically 8-25% lower, so per-unit-production biodiversity benefit is smaller than per-hectare benefit."
+    - "Benefits are largest in simple landscapes and much smaller in already complex landscapes."
+  citation:
+    authors: "Bengtsson, J., Ahnstrom, J. & Weibull, A.-C."
+    year: 2005
+    title: "The effects of organic agriculture on biodiversity and abundance: a meta-analysis"
+    venue: "Journal of Applied Ecology 42:261-269"
+    doi: "10.1111/j.1365-2664.2005.01005.x"
+    type: meta_analysis
+  interventions: [ipm_pesticide_reduction, nitrogen_rate_optimization, organic_amendment]
+  tags: [organic farming, species richness, abundance, birds, pesticides, trophic cascade, landscape context]
+  text: >
+    A meta-analysis of 66 studies found organic farming increased species richness by
+    roughly 30% and abundance by roughly 50% on average, with substantial variation
+    among taxa and a clear dependence on landscape context, and noted that
+    per-unit-yield comparisons narrow the advantage.
+
+- id: ev-wildlife-friendly-ecological-intensification
+  claim: >
+    Converting 3-8% of a field's area to wildlife habitat can leave total farm
+    output unchanged or slightly higher after five years, because service gains on
+    the remaining area offset the area removed from production.
+  mechanism: >
+    Yield in the cropped area rises through improved pollination and natural pest
+    regulation, and marginal, low-yielding field corners are typically what gets
+    converted. Because the converted land contributes disproportionately little
+    production and the service gain applies to the whole field, the arithmetic can
+    be net-neutral or positive. This makes small-area habitat provision a
+    non-obvious efficiency measure rather than a sacrifice.
+  domain: land_use
+  effects:
+    - metric: native_vegetation_pct
+      direction: increase
+      absolute_change: "+3 to +8 percentage points of field area"
+      time_to_effect_years: [1.0, 5.0]
+    - metric: pollinator_activity
+      direction: increase
+      relative_change_pct: [15, 40]
+      time_to_effect_years: [2.0, 5.0]
+  applies_when:
+    - field: land_use
+      allowed: [cropland, orchard, plantation]
+  caveats:
+    - "Demonstrated for pollinator-dependent and pest-susceptible crops in temperate systems; the arithmetic must be recomputed for staple cereals."
+    - "Requires siting on the lowest-yielding parts of the field to hold."
+  citation:
+    authors: "Pywell, R. F., Heard, M. S., Woodcock, B. A., Hinsley, S., Ridding, L., Nowakowski, M. & Bullock, J. M."
+    year: 2015
+    title: "Wildlife-friendly farming increases crop yield: evidence for ecological intensification"
+    venue: "Proceedings of the Royal Society B 282:20151740"
+    doi: "10.1098/rspb.2015.1740"
+    type: long_term_experiment
+  interventions: [field_margin_setaside, flower_strips, hedgerow_establishment, beetle_banks]
+  tags: [ecological intensification, land sparing, field margins, yield, habitat area, marginal land]
+  text: >
+    A five-year replicated field-scale experiment found that removing 3% and 8% of
+    land from production for wildlife habitat did not reduce, and in later years
+    increased, total crop yield, providing direct evidence that small-area habitat
+    creation can be production-neutral.
+
+- id: ev-natural-pest-control-landscape
+  claim: >
+    Natural enemy abundance and pest control are higher in landscapes with more
+    semi-natural habitat; about three quarters of studies report enhanced natural
+    enemy populations in structurally complex landscapes.
+  mechanism: >
+    Semi-natural habitat supplies alternative prey, nectar for adult parasitoids and
+    overwintering refuge, the three resources that crop fields lack seasonally.
+    Enemy populations therefore persist between crop cycles and recolonise fields
+    early in the season, arriving before pest populations reach the point of
+    exponential growth. Timing of arrival, not total enemy abundance, is usually the
+    control-determining variable.
+  domain: biodiversity
+  effects:
+    - metric: pesticide_applications_per_season
+      direction: decrease
+      relative_change_pct: [10, 40]
+      time_to_effect_years: [2.0, 5.0]
+  applies_when:
+    - field: land_use
+      allowed: [cropland, orchard, plantation, agroforestry]
+  caveats:
+    - "Responses are pest- and crop-specific; some mobile pests also benefit from complex landscapes."
+    - "Pest suppression outcomes are less consistent than enemy-abundance outcomes."
+  citation:
+    authors: "Bianchi, F. J. J. A., Booij, C. J. H. & Tscharntke, T."
+    year: 2006
+    title: "Sustainable pest regulation in agricultural landscapes: a review on landscape composition, biodiversity and natural pest control"
+    venue: "Proceedings of the Royal Society B 273:1715-1727"
+    doi: "10.1098/rspb.2006.3530"
+    type: systematic_review
+  interventions: [beetle_banks, hedgerow_establishment, flower_strips, ipm_pesticide_reduction, field_margin_setaside]
+  tags: [natural pest control, natural enemies, landscape complexity, semi-natural habitat, overwintering, parasitoids]
+  text: >
+    A review of 24 studies found that natural enemy populations were enhanced in
+    74% of cases in complex landscapes relative to simple ones, and that pest pressure
+    was reduced in 45%, identifying overwintering habitat and alternative food
+    resources as the key landscape functions.
+
+- id: ev-crop-heterogeneity-multitrophic
+  claim: >
+    Increasing crop-type heterogeneity and reducing mean field size increases
+    multitrophic diversity across agricultural regions even without increasing the
+    area of semi-natural habitat.
+  mechanism: >
+    Smaller fields create more edge per unit area, and edges are where a mobile
+    organism can access complementary resources in different crops within its daily
+    foraging range. Crop-type diversity also spreads the timing of disturbance events
+    such as harvest and spraying, so refuge is always available somewhere nearby.
+    Configuration, not just composition, therefore carries independent biodiversity
+    value.
+  domain: land_use
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [10, 30]
+      time_to_effect_years: [2.0, 6.0]
+    - metric: mean_patch_size_ha
+      direction: decrease
+      relative_change_pct: [20, 50]
+      time_to_effect_years: [1.0, 5.0]
+  applies_when:
+    - field: land_use
+      allowed: [cropland]
+    - field: mean_patch_size_ha
+      min: 5
+      note: "the lever only exists where fields are currently large"
+  caveats:
+    - "Smaller fields raise machinery operating costs and headland losses."
+    - "Effect confirmed at landscape scale; a single landholder may need coordination with neighbours to realise it."
+  citation:
+    authors: "Sirami, C., Gross, N., Baillod, A. B., Bertrand, C., Carrie, R., Hass, A., Henckel, L., Miguet, P., Vuillot, C., Alignier, A. et al."
+    year: 2019
+    title: "Increasing crop heterogeneity enhances multitrophic diversity across agricultural regions"
+    venue: "Proceedings of the National Academy of Sciences 116:16442-16447"
+    doi: "10.1073/pnas.1906419116"
+    type: field_study
+  interventions: [crop_heterogeneity, hedgerow_establishment, crop_rotation_diversification]
+  tags: [crop heterogeneity, field size, configurational heterogeneity, edge density, multitrophic, landscape]
+  text: >
+    A study across 435 landscapes in eight regions of Europe and North America found
+    that increasing crop-type richness and decreasing mean field size both increased
+    multitrophic diversity, and that reducing mean field size from 5 ha to 2.8 ha
+    produced diversity gains comparable to adding a substantial area of semi-natural
+    cover.
+
+- id: ev-complex-landscapes-meta
+  claim: >
+    Complex agricultural landscapes host significantly more biodiversity than
+    simplified ones, with the strongest gains where semi-natural cover rises from
+    very low levels toward roughly 20% of the landscape.
+  mechanism: >
+    The response to semi-natural cover is non-linear and steepest at low cover,
+    because at very low cover the landscape is below the habitat threshold at which
+    populations can persist and recolonise. Once above that threshold, additional
+    cover yields diminishing returns. This means the same hectare of habitat buys far
+    more biodiversity in a simplified landscape than in an already complex one.
+  domain: land_use
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [15, 45]
+      time_to_effect_years: [3.0, 10.0]
+  applies_when:
+    - field: native_vegetation_pct
+      max: 25
+      note: "intervention leverage is greatest below roughly 20-25% semi-natural cover"
+  caveats:
+    - "Gains attenuate above roughly 20% semi-natural cover, so a uniform target across landscapes misallocates effort."
+  citation:
+    authors: "Estrada-Carmona, N., Sanchez, A. C., Remans, R. & Jones, S. K."
+    year: 2022
+    title: "Complex agricultural landscapes host more biodiversity than simple ones: A global meta-analysis"
+    venue: "Proceedings of the National Academy of Sciences 119:e2203385119"
+    doi: "10.1073/pnas.2203385119"
+    type: meta_analysis
+  interventions: [hedgerow_establishment, assisted_natural_regeneration, field_margin_setaside, habitat_corridor]
+  tags: [landscape complexity, semi-natural cover, threshold, non-linear, global meta-analysis, leverage]
+  text: >
+    A global meta-analysis of 122 studies found that landscape complexity, measured
+    as compositional and configurational heterogeneity, was consistently associated
+    with higher biodiversity in agricultural landscapes, and that diversified farming
+    systems supported more biodiversity than simplified ones across taxa and regions.
+
+- id: ev-insect-decline-multiple-stressors
+  claim: >
+    Insect declines are driven by the interaction of habitat loss, agricultural
+    intensification, pesticide use, light pollution, invasive species and climate
+    change rather than by any single stressor.
+  mechanism: >
+    Stressors combine sub-additively or synergistically on the same populations:
+    habitat loss reduces population size and genetic diversity, which lowers
+    tolerance of pesticide exposure and climate extremes. Because the stressors act
+    on different life stages, removing only one may not restore the population, which
+    is why single-measure insect conservation frequently fails.
+  domain: human_impact
+  effects: []
+  applies_when: []
+  caveats:
+    - "Long-term monitoring data are geographically biased toward Europe and North America."
+  citation:
+    authors: "Wagner, D. L., Grames, E. M., Forister, M. L., Berenbaum, M. R. & Stopak, D."
+    year: 2021
+    title: "Insect decline in the Anthropocene: Death by a thousand cuts"
+    venue: "Proceedings of the National Academy of Sciences 118:e2023989118"
+    doi: "10.1073/pnas.2023989118"
+    type: systematic_review
+  interventions: [ipm_pesticide_reduction, hedgerow_establishment, flower_strips, invasive_species_control]
+  tags: [insect decline, multiple stressors, interaction, pesticides, habitat loss, climate change]
+  text: >
+    A synthesis of insect decline evidence identifies interacting anthropogenic
+    stressors as the cause, argues that effective conservation must address several
+    simultaneously, and highlights that declines are documented in both abundance and
+    biomass across multiple continents.
+
+- id: ev-flying-insect-biomass-decline
+  claim: >
+    Total flying insect biomass in protected areas declined by more than 75% over
+    27 years, indicating that reserve designation alone does not protect insect
+    populations from surrounding land-use pressure.
+  mechanism: >
+    Small reserves embedded in intensive agricultural matrices remain exposed to
+    pesticide drift, nutrient deposition and the loss of the wider population network
+    that sustains local occupancy. Because most insects have life histories spanning
+    habitat types, protecting a patch boundary does not protect the full life cycle,
+    making matrix quality the operative variable.
+  domain: human_impact
+  effects: []
+  applies_when: []
+  caveats:
+    - "Single-region long-term dataset; magnitude should not be extrapolated globally without local monitoring."
+  citation:
+    authors: "Hallmann, C. A., Sorg, M., Jongejans, E., Siepel, H., Hofland, N., Schwan, H., Stenmans, W., Muller, A., Sumser, H., Horren, T. et al."
+    year: 2017
+    title: "More than 75 percent decline over 27 years in total flying insect biomass in protected areas"
+    venue: "PLOS ONE 12:e0185809"
+    doi: "10.1371/journal.pone.0185809"
+    type: long_term_experiment
+  interventions: [ipm_pesticide_reduction, field_margin_setaside, habitat_corridor, flower_strips]
+  tags: [insect biomass, decline, protected areas, matrix quality, long-term monitoring, pesticide drift]
+  text: >
+    Standardised malaise-trap monitoring in 63 German protected areas recorded a
+    76% mean decline in flying insect biomass over 27 years, with an 82% decline at
+    midsummer, unexplained by weather, habitat or land-use change within the reserves
+    themselves.
+
+- id: ev-diversity-resistance-climate-extremes
+  claim: >
+    More diverse plant communities lose less productivity during climate extremes
+    and recover faster; diversity roughly halves the productivity anomaly caused by
+    drought in grassland experiments.
+  mechanism: >
+    Species differ in drought tolerance strategy, so at any given level of water
+    stress some component of a diverse community continues to function, and released
+    resources are taken up by the tolerant species. This asynchrony among species
+    responses is the statistical basis of the insurance effect, and it grows with the
+    functional, not merely taxonomic, diversity of the community.
+  domain: cross_cutting
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [20, 50]
+      time_to_effect_years: [3.0, 10.0]
+      measurement_context: "richness needed for measurable stability gains in sown grassland"
+  applies_when:
+    - field: land_use
+      allowed: [grassland, pasture, cropland, agroforestry]
+  caveats:
+    - "Demonstrated primarily in grassland biodiversity experiments; transfer to cropping systems is by mechanism rather than by direct measurement."
+  citation:
+    authors: "Isbell, F., Craven, D., Connolly, J., Loreau, M., Schmid, B., Beierkuhnlein, C., Bezemer, T. M., Bonin, C., Bruelheide, H., de Luca, E. et al."
+    year: 2015
+    title: "Biodiversity increases the resistance of ecosystem productivity to climate extremes"
+    venue: "Nature 526:574-577"
+    doi: "10.1038/nature15374"
+    type: long_term_experiment
+  interventions: [native_grass_reseeding, crop_rotation_diversification, intercropping, silvopasture]
+  tags: [diversity stability, climate extremes, drought resistance, insurance hypothesis, asynchrony, grassland]
+  text: >
+    Analysis of 46 grassland biodiversity experiments across North America and Europe
+    found that communities with more plant species had smaller productivity anomalies
+    during both wet and dry climate extremes, with the largest stabilising gains
+    occurring as richness rose from one to about ten species.
+
+- id: ev-agri-environment-scheme-context
+  claim: >
+    Agri-environment schemes deliver larger biodiversity gains in simple landscapes
+    than in complex or extremely simplified ones, and larger gains for local
+    measures than for landscape-scale prescriptions applied indiscriminately.
+  mechanism: >
+    The intermediate-landscape-complexity hypothesis: in complex landscapes the
+    species pool is already served, and in cleared landscapes the regional species
+    pool is too depleted to respond. Only at intermediate complexity is there both an
+    unmet resource limitation and a surviving pool of colonists to exploit it.
+    Targeting schemes to that middle band therefore raises return on effort
+    substantially.
+  domain: land_use
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [10, 35]
+      time_to_effect_years: [2.0, 8.0]
+  applies_when:
+    - field: native_vegetation_pct
+      min: 2
+      max: 25
+  caveats:
+    - "Where the regional species pool is exhausted, habitat creation must be paired with reintroduction or a nearby source population."
+  citation:
+    authors: "Batary, P., Dicks, L. V., Kleijn, D. & Sutherland, W. J."
+    year: 2015
+    title: "The role of agri-environment schemes in conservation and environmental management"
+    venue: "Conservation Biology 29:1006-1016"
+    doi: "10.1111/cobi.12536"
+    type: systematic_review
+  interventions: [field_margin_setaside, flower_strips, hedgerow_establishment, habitat_corridor]
+  tags: [agri-environment schemes, landscape context, intermediate complexity, species pool, targeting]
+  text: >
+    A review of agri-environment scheme effectiveness concludes that outcomes depend
+    strongly on landscape context and on whether measures address the resource that
+    is actually limiting, and recommends spatial targeting rather than uniform
+    application.
+
+- id: ev-soil-engineering-bender
+  claim: >
+    Managing soil biota deliberately, through reduced disturbance, organic inputs
+    and mycorrhizal conservation, can substitute for a measurable share of
+    fertiliser and pesticide input while raising nutrient-use efficiency.
+  mechanism: >
+    Mycorrhizal hyphae and saprotrophic networks intercept nutrients before they
+    leach and deliver them to roots in exchange for photosynthate; predatory
+    nematodes and microarthropods suppress root pathogens. Both services are
+    disturbance-sensitive, so the practical lever is disturbance reduction rather
+    than inoculant addition, which frequently fails to establish against resident
+    communities.
+  domain: soil
+  effects:
+    - metric: fertilizer_n_kg_ha_yr
+      direction: decrease
+      relative_change_pct: [10, 30]
+      time_to_effect_years: [3.0, 8.0]
+  applies_when:
+    - field: tillage
+      forbidden: [deep]
+  caveats:
+    - "Commercial mycorrhizal inoculants often fail to establish; conserving resident communities is usually more reliable."
+    - "Fertiliser reduction must be staged and monitored against tissue and yield data."
+  citation:
+    authors: "Bender, S. F., Wagg, C. & van der Heijden, M. G. A."
+    year: 2016
+    title: "An underground revolution: biodiversity and soil ecological engineering for agricultural sustainability"
+    venue: "Trends in Ecology & Evolution 31:440-452"
+    doi: "10.1016/j.tree.2016.02.016"
+    type: systematic_review
+  interventions: [mycorrhiza_management, reduced_tillage, organic_amendment, nitrogen_rate_optimization]
+  tags: [soil ecological engineering, mycorrhiza, nutrient use efficiency, disturbance, inoculant, nematodes]
+  text: >
+    A review of soil biodiversity management argues for engineering soil communities
+    through management of disturbance and organic inputs, documents substitution of
+    biological function for external inputs, and cautions that inoculation is less
+    reliable than conservation of resident soil biota.
+
+- id: ev-grassland-diversity-productivity
+  claim: >
+    Long-term grassland experiments show that plant species richness increases
+    productivity and nitrogen retention, with effects strengthening over time rather
+    than diminishing.
+  mechanism: >
+    Complementarity accumulates as species sort into niches and as soil communities
+    specialise around them, so the diversity-productivity slope steepens across
+    years. Deeper and more varied rooting profiles in diverse swards also capture
+    nitrate that would otherwise leach, coupling the productivity effect to a
+    water-quality effect.
+  domain: biodiversity
+  effects:
+    - metric: species_richness_observed
+      direction: increase
+      relative_change_pct: [20, 60]
+      time_to_effect_years: [4.0, 12.0]
+  applies_when:
+    - field: land_use
+      allowed: [grassland, pasture]
+  caveats:
+    - "Sown diverse swards require grazing or cutting management to prevent competitive dominance reverting the sward to a few species."
+  citation:
+    authors: "Tilman, D., Reich, P. B., Knops, J., Wedin, D., Mielke, T. & Lehman, C."
+    year: 2001
+    title: "Diversity and productivity in a long-term grassland experiment"
+    venue: "Science 294:843-845"
+    doi: "10.1126/science.1060391"
+    type: long_term_experiment
+  interventions: [native_grass_reseeding, grazing_rotational_management, silvopasture]
+  tags: [grassland, species richness, productivity, complementarity, nitrogen retention, long-term]
+  text: >
+    A long-term grassland biodiversity experiment found that plots with more plant
+    species were more productive and retained more nitrogen, and that the magnitude
+    of the diversity effect increased with the duration of the experiment.

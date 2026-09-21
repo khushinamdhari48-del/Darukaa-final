@@ -1,0 +1,511 @@
+# Signed, weighted, lagged causal graph over environmental metrics.
+#
+# This is what makes the engine multi-metric rather than multi-variable-in-a-prompt.
+# Each edge asserts: a change in `source` propagates to `target` with the given
+# `sign`, an elasticity-like `strength` in [0,1], and a `lag_years` delay.
+#
+# The engine uses the graph three ways:
+#   1. forward propagation - estimate secondary effects of an intervention that
+#      the evidence cards only report a primary effect for;
+#   2. backward tracing    - given a degraded target metric, find which upstream
+#      metrics could be the limiting factor;
+#   3. pathway narration   - emit the chain of edges as the stated causal pathway.
+#
+# `evidence` lists the card ids that justify the edge, so no edge is unsourced.
+
+edges:
+  # --- soil carbon as a hub -------------------------------------------------
+  - source: soil_organic_carbon_pct
+    target: soil_moisture_pct
+    sign: positive
+    strength: 0.55
+    lag_years: 1.0
+    mechanism: >
+      Organic matter holds several times its own mass in water and stabilises the
+      aggregates that maintain the pore-size distribution responsible for
+      plant-available water. Effect per unit carbon is largest in coarse textures.
+    evidence: [ev-fao-soc-hidden-potential, ev-lal-soil-carbon-cobenefits]
+
+  - source: soil_organic_carbon_pct
+    target: earthworm_count_per_m2
+    sign: positive
+    strength: 0.65
+    lag_years: 1.5
+    mechanism: >
+      Organic carbon is the energy substrate for detritivores and its
+      decomposition products bind the aggregates that form their burrow habitat.
+    evidence: [ev-soc-biodiversity-coupling, ev-organic-amendment-soc-biology]
+
+  - source: soil_organic_carbon_pct
+    target: species_richness_observed
+    sign: positive
+    strength: 0.40
+    lag_years: 3.0
+    mechanism: >
+      Soil carbon drives soil faunal and microbial richness directly, and
+      indirectly supports aboveground richness through nutrient supply and
+      water retention. The relationship is saturating, with the steepest
+      response below about 1% carbon.
+    evidence: [ev-soc-biodiversity-coupling, ev-microbial-diversity-multifunction]
+
+  - source: soil_organic_carbon_pct
+    target: soil_bulk_density_g_cm3
+    sign: negative
+    strength: 0.45
+    lag_years: 2.0
+    mechanism: >
+      Organic matter is less dense than mineral soil and promotes aggregation,
+      increasing total porosity and lowering bulk density.
+    evidence: [ev-swsr-degradation, ev-organic-amendment-soc-biology]
+
+  - source: soil_organic_carbon_pct
+    target: erosion_class
+    sign: negative
+    strength: 0.50
+    lag_years: 2.0
+    mechanism: >
+      Water-stable aggregates resist raindrop detachment and surface sealing, so
+      more rainfall infiltrates and less becomes detaching overland flow.
+    evidence: [ev-infiltration-alternative-management, ev-swsr-degradation]
+
+  - source: soil_organic_carbon_pct
+    target: soil_nitrogen_pct
+    sign: positive
+    strength: 0.70
+    lag_years: 1.0
+    mechanism: >
+      Soil nitrogen is overwhelmingly held in organic form at a relatively
+      constrained C:N ratio, so organic carbon and total nitrogen move together.
+    evidence: [ev-cover-crop-soc, ev-4-per-mille-saturation]
+
+  # --- water ---------------------------------------------------------------
+  - source: soil_moisture_pct
+    target: species_richness_observed
+    sign: positive
+    strength: 0.50
+    lag_years: 2.0
+    mechanism: >
+      In water-limited systems plant tissue water is a trophic currency and soil
+      moisture governs germination windows, so moisture directly limits both
+      plant recruitment and faunal persistence.
+    evidence: [ev-water-availability-species-interactions, ev-vegetation-drought-timescale]
+
+  - source: soil_moisture_pct
+    target: soil_organic_carbon_pct
+    sign: positive
+    strength: 0.35
+    lag_years: 3.0
+    mechanism: >
+      Moisture sets the length of the biologically active period, so it limits
+      both biomass production (carbon input) and, at the wet extreme, the rate of
+      decomposition. Within the dryland range the input effect dominates.
+    evidence: [ev-rainfed-paradigm-shift, ev-lal-soil-carbon-cobenefits]
+
+  - source: annual_rainfall_mm
+    target: soil_moisture_pct
+    sign: positive
+    strength: 0.60
+    lag_years: 0.0
+    mechanism: >
+      Rainfall is the water input term, but the transfer is heavily mediated by
+      infiltration, so the coefficient is well below unity on crusted or
+      compacted soils.
+    evidence: [ev-rainfed-paradigm-shift, ev-infiltration-alternative-management]
+
+  - source: tree_cover_pct
+    target: water_table_depth_m
+    sign: non_monotonic
+    strength: 0.40
+    lag_years: 5.0
+    optimum: 15.0
+    mechanism: >
+      Recharge peaks at intermediate canopy cover: below the optimum, root- and
+      fauna-mediated infiltration gains dominate; above it, transpiration losses
+      dominate. Modelled here as a non-monotonic edge with an interior optimum
+      around 15% cover for seasonally dry tropics.
+    evidence: [ev-intermediate-tree-cover-recharge, ev-tree-preferential-flow]
+
+  - source: tree_cover_pct
+    target: soil_moisture_pct
+    sign: positive
+    strength: 0.35
+    lag_years: 3.0
+    mechanism: >
+      Canopy shading and litter cover reduce direct soil evaporation, and root
+      channels conduct water below the evaporative zone; both raise subsurface
+      moisture even where total water use rises.
+    evidence: [ev-tree-preferential-flow, ev-intermediate-tree-cover-recharge]
+
+  - source: irrigation
+    target: salinity_ec_ds_m
+    sign: positive
+    strength: 0.40
+    lag_years: 4.0
+    mechanism: >
+      Irrigation without an adequate leaching fraction and drainage accumulates
+      dissolved salts in the root zone and raises the water table, which drives
+      secondary salinisation by capillary rise.
+    evidence: [ev-salinity-restoration, ev-drip-irrigation-tradeoff]
+
+  # --- structure and connectivity ------------------------------------------
+  - source: tree_cover_pct
+    target: species_richness_observed
+    sign: positive
+    strength: 0.55
+    lag_years: 4.0
+    mechanism: >
+      Woody cover adds a vertical stratum, providing nesting substrate,
+      overwintering refuge and a cooler microclimate, which recruits functional
+      groups that cannot occupy open annual cropland at all.
+    evidence: [ev-agroforestry-carbon-on-farmland, ev-agroforestry-ssa-winwin]
+
+  - source: native_vegetation_pct
+    target: species_richness_observed
+    sign: positive
+    strength: 0.70
+    lag_years: 4.0
+    saturating_at: 25.0
+    mechanism: >
+      Semi-natural habitat area is the strongest landscape predictor of richness,
+      with a steeply non-linear response that flattens above roughly 20-25% of
+      landscape area.
+    evidence: [ev-complex-landscapes-meta, ev-fragmentation-area-vs-config]
+
+  - source: native_vegetation_pct
+    target: pollinator_activity
+    sign: positive
+    strength: 0.60
+    lag_years: 2.0
+    mechanism: >
+      Semi-natural habitat supplies the nesting substrate and the continuous
+      floral resource that crop fields lack outside the flowering window.
+    evidence: [ev-pollination-distance-decay, ev-hedgerow-bee-export]
+
+  - source: distance_to_natural_habitat_m
+    target: pollinator_activity
+    sign: negative
+    strength: 0.65
+    lag_years: 0.0
+    mechanism: >
+      Wild bees are central-place foragers; visitation decays approximately
+      exponentially with distance from the nesting habitat, and the decay filters
+      the assemblage toward large-bodied species.
+    evidence: [ev-pollination-distance-decay]
+
+  - source: distance_to_natural_habitat_m
+    target: species_richness_observed
+    sign: negative
+    strength: 0.50
+    lag_years: 2.0
+    mechanism: >
+      Isolation blocks recolonisation after local extinction, so isolated patches
+      lose species faster than they regain them.
+    evidence: [ev-fragmentation-lasting-impact, ev-corridor-effectiveness]
+
+  - source: mean_patch_size_ha
+    target: species_richness_observed
+    sign: negative
+    strength: 0.40
+    lag_years: 2.0
+    mechanism: >
+      Within agricultural landscapes, larger mean field size lowers edge density
+      and so reduces the number of organisms able to reach complementary
+      resources within their daily foraging range. Note this is the opposite sign
+      to habitat-patch size, which is positive.
+    evidence: [ev-crop-heterogeneity-multitrophic]
+
+  - source: hedgerow_density_m_per_ha
+    target: pollinator_activity
+    sign: positive
+    strength: 0.55
+    lag_years: 3.0
+    mechanism: >
+      Mature hedgerows act as population sources rather than resource
+      concentrators, supplying floral resources, nesting substrate and windbreak
+      shelter simultaneously, and exporting bees into adjacent fields.
+    evidence: [ev-hedgerow-bee-export, ev-flower-strips-hedgerows-synthesis]
+
+  - source: hedgerow_density_m_per_ha
+    target: species_richness_observed
+    sign: positive
+    strength: 0.45
+    lag_years: 4.0
+    mechanism: >
+      Linear woody features provide both habitat and movement conduits, reducing
+      functional isolation even where euclidean distances are unchanged.
+    evidence: [ev-corridor-effectiveness, ev-hedgerow-bee-export]
+
+  - source: permanent_water_present
+    target: species_richness_observed
+    sign: positive
+    strength: 0.45
+    lag_years: 2.0
+    mechanism: >
+      Surface water adds an entire habitat type with its own obligate community
+      and provides free water to terrestrial fauna in dry seasons.
+    evidence: [ev-wetland-services-restorability, ev-water-availability-species-interactions]
+
+  # --- biotic interactions -------------------------------------------------
+  - source: pollinator_activity
+    target: species_richness_observed
+    sign: positive
+    strength: 0.35
+    lag_years: 3.0
+    mechanism: >
+      Pollinator loss reduces seed set in animal-pollinated wild plants, which
+      erodes the plant community over successive generations; restoring
+      pollination restores plant recruitment.
+    evidence: [ev-wild-pollinators-fruit-set, ev-biodiversity-mediated-yield]
+
+  - source: species_richness_observed
+    target: pesticide_applications_per_season
+    sign: negative
+    strength: 0.35
+    lag_years: 3.0
+    mechanism: >
+      Established natural enemy assemblages suppress pest populations before they
+      reach economic thresholds, reducing the number of applications actually
+      required. Arrival timing matters more than total enemy abundance.
+    evidence: [ev-natural-pest-control-landscape, ev-flower-strips-hedgerows-synthesis]
+
+  - source: earthworm_count_per_m2
+    target: soil_moisture_pct
+    sign: positive
+    strength: 0.35
+    lag_years: 2.0
+    mechanism: >
+      Anecic earthworm burrows are stable vertical macropores that conduct water
+      rapidly below the evaporative zone, raising effective infiltration
+      several-fold on structured soils.
+    evidence: [ev-infiltration-alternative-management, ev-tree-preferential-flow]
+
+  - source: invasive_species_present
+    target: species_richness_observed
+    sign: negative
+    strength: 0.55
+    lag_years: 2.0
+    mechanism: >
+      Dominant exotic swards intercept light and moisture at the seedling layer
+      and can raise fire frequency, arresting succession in a self-reinforcing
+      alternative stable state.
+    evidence: [ev-invasive-species-impact, ev-natural-regeneration-outperforms-planting]
+
+  # --- chemical constraints ------------------------------------------------
+  - source: soil_ph
+    target: soil_nitrogen_pct
+    sign: non_monotonic
+    strength: 0.45
+    lag_years: 1.0
+    optimum: 6.5
+    mechanism: >
+      Rhizobial nitrogen fixation and nitrification both have pH optima near
+      neutrality; strong acidity suppresses nodulation while strong alkalinity
+      promotes ammonia volatilisation.
+    evidence: [ev-ph-nutrient-availability]
+
+  - source: soil_ph
+    target: species_richness_observed
+    sign: non_monotonic
+    strength: 0.30
+    lag_years: 2.0
+    optimum: 6.5
+    mechanism: >
+      Extreme pH truncates the set of species able to establish, though note that
+      naturally acid or calcareous systems have their own specialist communities
+      which pH correction would displace.
+    evidence: [ev-ph-nutrient-availability]
+
+  - source: salinity_ec_ds_m
+    target: species_richness_observed
+    sign: negative
+    strength: 0.60
+    lag_years: 1.0
+    mechanism: >
+      Osmotic stress excludes all but halotolerant species, and sodicity-driven
+      clay dispersion destroys the soil structure that recruitment depends on.
+    evidence: [ev-salinity-restoration]
+
+  - source: soil_bulk_density_g_cm3
+    target: soil_moisture_pct
+    sign: negative
+    strength: 0.45
+    lag_years: 1.0
+    mechanism: >
+      Compaction collapses the macropores that conduct water, so infiltration
+      falls and more rainfall is lost as runoff despite unchanged rainfall.
+    evidence: [ev-infiltration-alternative-management]
+
+  - source: soil_bulk_density_g_cm3
+    target: species_richness_observed
+    sign: negative
+    strength: 0.35
+    lag_years: 2.0
+    mechanism: >
+      Root-restricting density limits rooting depth and eliminates burrowing
+      fauna, removing both the plant and the animal component of the soil system.
+    evidence: [ev-soil-community-multifunctionality, ev-infiltration-alternative-management]
+
+  # --- pressures -----------------------------------------------------------
+  - source: pesticide_applications_per_season
+    target: pollinator_activity
+    sign: negative
+    strength: 0.65
+    lag_years: 0.5
+    mechanism: >
+      Direct acute mortality plus chronic sublethal exposure through pollen and
+      nectar impairs navigation, learning and brood production, so colony-level
+      effects appear where acute testing shows none.
+    evidence: [ev-neonicotinoid-wild-bees, ev-pesticides-farmland-biological-control]
+
+  - source: pesticide_applications_per_season
+    target: species_richness_observed
+    sign: negative
+    strength: 0.60
+    lag_years: 1.0
+    mechanism: >
+      Insecticides remove natural enemies along with pests, and higher trophic
+      levels recover more slowly, producing a reinforcing dependency in which
+      each application degrades the control that would have prevented the next.
+    evidence: [ev-pesticides-farmland-biological-control, ev-pesticides-regional-biodiversity]
+
+  - source: fertilizer_n_kg_ha_yr
+    target: species_richness_observed
+    sign: negative
+    strength: 0.50
+    lag_years: 4.0
+    threshold: 80.0
+    mechanism: >
+      Above the point where nitrogen ceases to be limiting, enrichment shifts
+      competition from belowground nutrient capture to aboveground light capture,
+      and fast-growing nitrophiles shade out low-stature specialists. Below that
+      point additional nitrogen can raise productivity without richness loss.
+    evidence: [ev-nitrogen-deposition-plant-diversity, ev-nitrogen-low-level-chronic]
+
+  - source: fertilizer_n_kg_ha_yr
+    target: soil_ph
+    sign: negative
+    strength: 0.30
+    lag_years: 5.0
+    mechanism: >
+      Nitrification of ammonium fertilisers releases protons, progressively
+      acidifying the soil and, on already acid soils, mobilising aluminium.
+    evidence: [ev-ph-nutrient-availability]
+
+  - source: tillage
+    target: soil_organic_carbon_pct
+    sign: negative
+    strength: 0.50
+    lag_years: 2.0
+    mechanism: >
+      Inversion tillage breaks aggregates and exposes occluded carbon to
+      microbial attack, and the resulting flush of mineralisation exceeds the
+      carbon returned by the crop in most cropping systems.
+    evidence: [ev-tillage-soc-stratification, ev-swsr-degradation]
+
+  - source: tillage
+    target: earthworm_count_per_m2
+    sign: negative
+    strength: 0.60
+    lag_years: 1.0
+    mechanism: >
+      Anecic earthworms build permanent vertical burrows and are killed or
+      displaced by annual inversion; their populations recover over several years
+      once disturbance ceases.
+    evidence: [ev-soil-community-multifunctionality, ev-cover-crop-soc]
+
+  - source: residue_removal
+    target: soil_organic_carbon_pct
+    sign: negative
+    strength: 0.55
+    lag_years: 2.0
+    mechanism: >
+      Residue is the dominant aboveground carbon input in annual cropping;
+      removing or burning it eliminates that input while leaving decomposition of
+      existing stocks unchanged.
+    evidence: [ev-conservation-agriculture-yield-limits, ev-fao-soc-hidden-potential]
+
+  - source: residue_removal
+    target: soil_moisture_pct
+    sign: negative
+    strength: 0.45
+    lag_years: 0.5
+    mechanism: >
+      Surface residue is the principal barrier to direct soil evaporation and to
+      raindrop-impact crusting; its removal raises evaporative loss and lowers
+      infiltration in the same season.
+    evidence: [ev-rainfed-paradigm-shift, ev-infiltration-alternative-management]
+
+  - source: grazing_intensity_lsu_ha
+    target: soil_bulk_density_g_cm3
+    sign: positive
+    strength: 0.45
+    lag_years: 2.0
+    mechanism: >
+      Hoof pressure compacts the surface horizon, particularly when soils are
+      wet, reducing infiltration and increasing runoff.
+    evidence: [ev-rotational-grazing-soil-hydrology]
+
+  - source: grazing_intensity_lsu_ha
+    target: soil_organic_carbon_pct
+    sign: negative
+    strength: 0.40
+    lag_years: 4.0
+    threshold: 1.2
+    mechanism: >
+      Above the stocking rate at which regrowth cannot keep pace with
+      defoliation, root carbon input falls and carbon stocks decline. Below that
+      rate the relationship is weak or positive.
+    evidence: [ev-grazing-intensity-global, ev-rotational-grazing-soil-hydrology]
+
+  - source: grazing_intensity_lsu_ha
+    target: species_richness_observed
+    sign: non_monotonic
+    strength: 0.40
+    lag_years: 3.0
+    optimum: 0.6
+    mechanism: >
+      Intermediate grazing suppresses competitive dominants and raises richness in
+      systems with a long grazing history, while both overgrazing and complete
+      exclusion reduce it. The optimum shifts downward as aridity increases.
+    evidence: [ev-grazing-intensity-global, ev-grazing-multitrophic]
+
+  - source: deforestation_last_5yr_pct
+    target: native_vegetation_pct
+    sign: negative
+    strength: 0.80
+    lag_years: 0.0
+    mechanism: >
+      Clearing removes semi-natural habitat directly, and the edge created
+      degrades an additional band of remaining habitat beyond the cleared area.
+    evidence: [ev-deforestation-biodiversity-carbon-loss, ev-fragmentation-lasting-impact]
+
+  - source: deforestation_last_5yr_pct
+    target: species_richness_observed
+    sign: negative
+    strength: 0.65
+    lag_years: 1.0
+    mechanism: >
+      Habitat removal reduces population sizes immediately and initiates an
+      extinction debt that continues to be paid for years to decades afterwards.
+    evidence: [ev-deforestation-biodiversity-carbon-loss, ev-fragmentation-lasting-impact]
+
+  - source: erosion_class
+    target: soil_organic_carbon_pct
+    sign: negative
+    strength: 0.50
+    lag_years: 1.0
+    mechanism: >
+      Erosion preferentially removes the carbon-enriched surface layer and the
+      fine mineral fraction that stabilises carbon, so the loss is
+      disproportionate to the mass of soil moved.
+    evidence: [ev-swsr-degradation, ev-agroforestry-ssa-winwin]
+
+  - source: slope_pct
+    target: erosion_class
+    sign: positive
+    strength: 0.55
+    lag_years: 0.0
+    mechanism: >
+      Runoff velocity, and therefore detachment and transport capacity, rises
+      with slope gradient and slope length.
+    evidence: [ev-swsr-degradation, ev-rainwater-harvesting-drylands]
